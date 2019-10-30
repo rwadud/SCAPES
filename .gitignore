@@ -1,0 +1,12 @@
+*.gitconfig
+*.DS_Store
+*.idea
+*.log
+*.vscode
+*.o
+*.class
+*.zip
+*.tar
+*.vagrant
+*.git
+*.log
