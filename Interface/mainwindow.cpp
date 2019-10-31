@@ -1,0 +1,139 @@
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
+#include <QString>
+#include <QTextStream>
+#include <QFile>
+#include <QFileDialog>
+#include <QMessageBox>
+
+MainWindow::MainWindow(QWidget *parent, MainController *ctlrRef) :
+    QMainWindow(parent),
+    ui(new Ui::MainWindow)
+{
+    ui->setupUi(this);
+    this->setCentralWidget(ui->textEdit);
+
+    ctlr = ctlrRef; // cache it
+
+}
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+
+void MainWindow::on_actionExit_triggered()
+{
+    QApplication::quit();
+}
+
+void MainWindow::on_actionCut_triggered()
+{
+    ui->textEdit->cut();
+}
+
+void MainWindow::on_actionCopy_triggered()
+{
+    ui->textEdit->copy();
+}
+
+void MainWindow::on_actionPaste_triggered()
+{
+    ui->textEdit->paste();
+}
+
+void MainWindow::on_actionUndo_triggered()
+{
+    ui->textEdit->undo();
+}
+
+void MainWindow::on_actionRedo_triggered()
+{
+    ui->textEdit->redo();
+}
+
+void MainWindow::on_actionNew_triggered()
+{
+    ctlr->setCurrentFileName("");
+    ui->textEdit->setText("");
+}
+
+void MainWindow::on_actionOpen_triggered()
+{
+    QString fileName = QFileDialog::getOpenFileName(this, "Open file");
+    QString inText;
+
+    // Get the file data
+    if (ctlr->openFile(fileName, &inText) == false) {
+        return;
+    };
+
+    // Put file data in the Editor window
+    ui->textEdit->setText(inText);
+    setWindowTitle(fileName);
+
+    // save the current file name
+    ctlr->setCurrentFileName(fileName);
+}
+
+void MainWindow::on_actionSave_triggered()
+{
+    QString fileName = ctlr->getCurrentFileName();
+    QString srcText =  ui->textEdit->toPlainText();
+
+    // Save the file data
+    if (ctlr->saveFile(fileName, &srcText) == false) {
+        return;
+    };
+
+    setWindowTitle(fileName);
+}
+
+void MainWindow::on_actionSave_As_triggered()
+{
+    QString fileName = QFileDialog::getSaveFileName(this, "Save As");
+    QString srcText =  ui->textEdit->toPlainText();
+
+    // Save the file data
+    if (ctlr->saveFile(fileName, &srcText) == false) {
+        return;
+    };
+    setWindowTitle(fileName);
+
+    // save the current file name
+    ctlr->setCurrentFileName(fileName);
+}
+
+void MainWindow::on_actionCompile_triggered()
+{
+    ctlr->compile();
+}
+
+void MainWindow::on_actionRun_triggered()
+{
+    //ctlr->run();
+}
+
+void MainWindow::on_actionAbout_triggered()
+{
+    QString aboutText = "The SCAPES system is a development environment \n"
+                        "to write, compile and execute programs. \n";
+    aboutText += "Version: 1.0 \n";
+    aboutText += "Authors: Pallab Saha, ....\n";
+    aboutText += "Copyright:, SCAPES (C), 2019";
+    QMessageBox::about(this,tr("About SCAPES"), aboutText);
+}
+
+void MainWindow::on_actionDocumentation_triggered()
+{
+    QString docText = "The SCAPES system is a development environment to write, compile and execute programs \n"
+                       "in SCAPL(School of Computer Science Assembly Programming Language). \n\n";
+
+    docText += "To write a new program use New option from File Menu and write program in the Editor Window.\n";
+    docText += "To save a program written in the Editor window, use Save or Save As option from File Menu.\n";
+    docText += "To load a saved program into the Editor window, use Open  option from File Menu.\n";
+    docText += "To compile a program written in the Editor window, use Compile option from Build Menu.\n";
+    docText += "To execute a program written in the Editor window, use Run option from Build Menu\n";
+
+    QMessageBox::about(this,tr("SCAPES System"), docText);
+}
