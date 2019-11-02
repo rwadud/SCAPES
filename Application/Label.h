@@ -8,8 +8,8 @@ class Label : public Identifier
 private:
     /* data */
 public:
-    Label(/* args */) {}
-    ~Label() {}
+    Label(/* args */);
+    ~Label();
 };
 
 #endif

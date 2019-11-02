@@ -11,11 +11,17 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = SCAPES
 TEMPLATE = app
 
+INCLUDEPATH += $$PWD/Application
+INCLUDEPATH += $$PWD/Interface
+INCLUDEPATH += $$PWD/Logic
+INCLUDEPATH += $$PWD/Storage
+
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
 # depend on your compiler). Please consult the documentation of the
 # deprecated API in order to know how to port your code away from it.
 DEFINES += QT_DEPRECATED_WARNINGS
+
 
 # You can also make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -25,24 +31,20 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
-        flatfileimp.cpp \
         main.cpp \
-        maincontroller.cpp \
-        mainwindow.cpp \
-        program.cpp \
-        repository.cpp \
-        repositoryimplementor.cpp
+        $$files(Storage/*.cpp) \
+        $$files(Logic/*.cpp) \
+        $$files(Interface/*.cpp) \
+        $$files(Application/*.cpp) \
 
 HEADERS += \
-        flatfileimp.h \
-        maincontroller.h \
-        mainwindow.h \
-        program.h \
-        repository.h \
-        repositoryimplementor.h
+        $$files(Storage/*.h) \
+        $$files(Logic/*.h) \
+        $$files(Interface/*.h) \
+        $$files(Application/*.h) \
 
 FORMS += \
-        mainwindow.ui
+        Interface/mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -10,3 +10,4 @@
 *.vagrant
 *.git
 *.log
+*.pro.user
