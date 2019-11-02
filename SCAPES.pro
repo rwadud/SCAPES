@@ -44,7 +44,7 @@ HEADERS += \
         $$files(Application/*.h) \
 
 FORMS += \
-        Interface/mainwindow.ui
+        $$files(Interface/*.ui)
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
