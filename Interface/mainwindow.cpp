@@ -5,6 +5,7 @@
 #include <QFile>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent, MainController *ctlrRef) :
     QMainWindow(parent),
@@ -60,8 +61,11 @@ void MainWindow::on_actionNew_triggered()
 
 void MainWindow::on_actionOpen_triggered()
 {
-    QString fileName = QFileDialog::getOpenFileName(this, "Open file");
+    //QString resourceDir = QCoreApplication::applicationDirPath() + "/Resources";
+    QString resourceDir = QCoreApplication::applicationDirPath().section("/", 0, -2) + "/SCAPES/Resources";
+    QString fileName = QFileDialog::getOpenFileName(this, "Open file", resourceDir);
     QString inText;
+
 
     // Get the file data
     if (ctlr->openFile(fileName, &inText) == false) {
@@ -106,7 +110,16 @@ void MainWindow::on_actionSave_As_triggered()
 
 void MainWindow::on_actionCompile_triggered()
 {
-    ctlr->compile();
+    QString fileName = ctlr->getCurrentFileName();
+    if (fileName.isEmpty()) {
+        QMessageBox msgBox;
+        msgBox.setText("Error! Save the program using SaveAs option first: ");
+        msgBox.exec();
+        return;
+    }
+
+    QString srcText =  ui->textEdit->toPlainText();
+    ctlr->compile(&srcText);
 }
 
 void MainWindow::on_actionRun_triggered()
