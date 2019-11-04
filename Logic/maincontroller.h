@@ -12,9 +12,9 @@ public:
     ~MainController();
     QString getCurrentFileName();
     void setCurrentFileName(QString name);
-    bool openFile(QString filename, QString *inText);
-    bool saveFile(QString filename, QString *outText);
-    void compile();
+    bool openFile(QString filename, QString *outText);
+    bool saveFile(QString filename, QString *inText);
+    void compile(QString *inText);
 
 private:
     QString        currentFileName;

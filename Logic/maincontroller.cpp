@@ -25,10 +25,10 @@ void MainController::setCurrentFileName(QString name)
 {
     currentFileName = name;
 }
-bool MainController::openFile(QString filename, QString *inText)
+bool MainController::openFile(QString filename, QString *outText)
 {
     QString errTxt = "";
-    if (store->getSourceData(filename, inText, &errTxt) == false) {
+    if (store->getSourceData(filename, outText, &errTxt) == false) {
         QMessageBox msgBox;
         msgBox.setText("Error! Cannot Open file: " + errTxt);
         msgBox.exec();
@@ -38,10 +38,10 @@ bool MainController::openFile(QString filename, QString *inText)
 
     return true;
 }
-bool MainController::saveFile(QString filename, QString *outText)
+bool MainController::saveFile(QString filename, QString *inText)
 {
     QString errTxt = "";
-    if (store->setSourceData(filename, outText, &errTxt) == false) {
+    if (store->setSourceData(filename, inText, &errTxt) == false) {
         QMessageBox msgBox;
         msgBox.setText("Error! Cannot Open file: " + errTxt);
         msgBox.exec();
@@ -51,18 +51,17 @@ bool MainController::saveFile(QString filename, QString *outText)
     return true;
 }
 
-void MainController::compile()
+void MainController::compile(QString *inSrcTxt)
 {
 
     QString fileName = currentFileName;
-    QString srcTxt;
     QString compiledTxt; //  JSON or XML format
     QString errTxt = "";
     Program *myPgm = nullptr;
 
-    if (openFile(fileName, &srcTxt) == false) {
-        return;
-    }
+    // save the data
+    saveFile(fileName, inSrcTxt);
+
     if (pgmMap.contains(fileName)) {
         // remove it from the map ???
         myPgm = pgmMap.take(fileName);
@@ -80,7 +79,7 @@ void MainController::compile()
     //qDebug()  << "pgmMap size: " + QString(pgmMap.size());
 
 
-    if (myPgm->compile(&srcTxt, &compiledTxt, &errTxt) == false) {
+    if (myPgm->compile(inSrcTxt, &compiledTxt, &errTxt) == false) {
         QMessageBox msgBox;
         msgBox.setText("Error! Compile failed: " + errTxt);
         msgBox.exec();
