@@ -1,10 +1,10 @@
 #ifndef CONTROL_H
 #define CONTROL_H
 
-#include "Statement.h"
-#include "Variable.h"
-#include "Label.h"
-#include "ArrayVariable.h"
+#include "statement.h"
+#include "variable.h"
+#include "label.h"
+#include "arrayvariable.h"
 
 class Control
 {

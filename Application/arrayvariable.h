@@ -1,7 +1,7 @@
 #ifndef ARRAY_VARIABLE_H
 #define ARRAY_VARIABLE_H
 
-#include "Identifier.h"
+#include "identifier.h"
 
 class ArrayVariable : public Identifier 
 {

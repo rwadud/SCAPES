@@ -1,4 +1,4 @@
-#include "Operand.h"
+#include "operand.h"
 
 Operand::Operand(/* args */)
 {

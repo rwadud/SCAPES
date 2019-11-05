@@ -1,7 +1,7 @@
 #ifndef STATEMENTFACTORY_H
 #define STATEMENTFACTORY_H
 
-#include "Statement.h"
+#include "statement.h"
 #include <QString>
 
 class StatementFactory{

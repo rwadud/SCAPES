@@ -1,4 +1,4 @@
-#include "Label.h"
+#include "label.h"
 
 Label::Label(QString str) : value(str){}
 

@@ -1,7 +1,7 @@
 #ifndef LABEL_H
 #define LABEL_H
 
-#include "Identifier.h"
+#include "identifier.h"
 #include <QString>
 
 class Label : public Identifier

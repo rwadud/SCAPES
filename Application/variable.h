@@ -1,7 +1,7 @@
 #ifndef VARIABLE_H
 #define VARIABLE_H
 
-#include "Identifier.h"
+#include "identifier.h"
 
 class Variable : public Identifier 
 {

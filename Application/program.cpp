@@ -1,4 +1,4 @@
-#include "Program.h"
+#include "program.h"
 #include <QStringList>
 #include <QDebug>
 #include <QSet>

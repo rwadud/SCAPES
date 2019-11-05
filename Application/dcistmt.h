@@ -1,7 +1,7 @@
 #ifndef DCISTMT_H
 #define DCISTMT_H
 
-#include "Statement.h"
+#include "statement.h"
 
 class DciStmt : public Statement
 {

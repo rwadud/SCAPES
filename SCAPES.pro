@@ -31,8 +31,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
-    Application/dcistmt.cpp \
-    Application/statementfactory.cpp \
         main.cpp \
         $$files(Storage/*.cpp) \
         $$files(Logic/*.cpp) \
@@ -43,9 +41,7 @@ HEADERS += \
         $$files(Storage/*.h) \
         $$files(Logic/*.h) \
         $$files(Interface/*.h) \
-        $$files(Application/*.h) \ \
-    Application/dcistmt.h \
-    Application/statementfactory.h
+        $$files(Application/*.h) \ \ \
 
 FORMS += \
         $$files(Interface/*.ui)

@@ -1,4 +1,4 @@
-#include "ArrayVariable.h"
+#include "arrayvariable.h"
 
 ArrayVariable::ArrayVariable(/* args */)
 {
