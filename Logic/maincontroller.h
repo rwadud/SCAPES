@@ -1,7 +1,7 @@
 #ifndef MAINCONTROLLER_H
 #define MAINCONTROLLER_H
 
-#include "Program.h"
+#include "program.h"
 #include "repository.h"
 #include <QString>
 #include <QMap>

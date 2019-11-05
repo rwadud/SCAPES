@@ -1,18 +1,21 @@
 #ifndef STATEMENT_H
 #define STATEMENT_H
 
-#include <string>
-using namespace std;
+#include <QString>
+#include "label.h"
 
 class Statement
 {
 private:
     /* data */
+    Label label;
+
 public:
     Statement(/* args */);
     ~Statement();
-    void compile(string);
+    void compile(QString *instr);
     void run();
+    void setLabel(QString str);
 };
 
 

@@ -1,8 +1,6 @@
 #include "identifier.h"
 
-Identifier::Identifier(/* args */)
-{
-}
+Identifier::Identifier(QString str) : name(str){}
 
 Identifier::~Identifier()
 {

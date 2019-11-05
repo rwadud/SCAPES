@@ -1,4 +1,6 @@
 #include "program.h"
+#include "statement.h"
+#include "statementfactory.h"
 #include <QStringList>
 #include <QDebug>
 #include <QSet>
@@ -39,7 +41,7 @@ bool Program::compile(QString *inSrcTxt, QString *outCmplTxt, QString *errTxt)
         //ignore empty lines
         if (!line.trimmed().isEmpty()) {
 
-            //qDebug("Line %d: %s", (i+1),qUtf8Printable(line)); // to be removed
+            qDebug("Line %d: %s", (i+1),qUtf8Printable(line)); // to be removed
 
             //don't process comments
             if(line.startsWith("#")){
@@ -49,63 +51,18 @@ bool Program::compile(QString *inSrcTxt, QString *outCmplTxt, QString *errTxt)
 
             //split the line into tokens
             QStringList tokens = line.split(" ");
-            int numTokens = tokens.length();
+            QString instructionStr = "";
 
             //validate
-            if(numTokens >= 1 && numTokens <= 4){
-                qDebug("Line %d: %s has %d tokens", (i+1),qUtf8Printable(line), tokens.length()); // to be removed
+            if(instructionValidator(tokens, instructionStr) == true){
 
-                QString instructionStr = tokens[0];
-
-                if(instructionStr == "dci" && numTokens == 2){
-                    // do some work
-
-                } else if(instructionStr == "dca" && numTokens == 3){
-
-
-                } else if(instructionStr == "rdi" && numTokens == 2){
-
-
-                } else if(instructionStr == "prt" && numTokens == 2){
-
-
-                } else if(instructionStr == "mov" && numTokens == 3){
-
-
-                } else if(instructionStr == "add" && numTokens == 3){
-
-
-                } else if(instructionStr == "cmp" && numTokens == 3){
-
-
-                } else if(instructionStr == "jls" && numTokens == 2){
-
-
-                } else if(instructionStr == "jmr" && numTokens == 2){
-
-
-                } else if(instructionStr == "jeq" && numTokens == 2){
-
-
-                } else if(instructionStr == "jmp" && numTokens == 2){
-
-
-                } else if(instructionStr == "end" && numTokens == 1){
-
-
-                } else if(instructionStr.endsWith(":") && instructionStr.length() > 1 && numTokens >= 2){ // label
-
-
-                } else {
-
-                    // some error
-                }
+                // statement factory needs more work done
+                Statement *stmt = StatementFactory::NewStatement(instructionStr, line);
+                statements.push_back(stmt);
 
             } else {
-
-                // generate error
+                // some error
             }
-
         }
 
     }
@@ -118,36 +75,47 @@ bool Program::compile(QString *inSrcTxt, QString *outCmplTxt, QString *errTxt)
     return true;
 }
 
-/*
-bool Program::instructionValidator(QString instructionStr, int numTokens){
-    if(instructionStr == "dci" && numTokens == 2){
-        return true;
-    } else if(instructionStr == "dca" && numTokens == 3){
-        return true;
-    } else if(instructionStr == "rdi" && numTokens == 2){
-        return true;
-    } else if(instructionStr == "prt" && numTokens == 2){
-        return true;
-    } else if(instructionStr == "mov" && numTokens == 3){
-        return true;
-    } else if(instructionStr == "add" && numTokens == 3){
-        return true;
-    } else if(instructionStr == "cmp" && numTokens == 3){
-        return true;
-    } else if(instructionStr == "jls" && numTokens == 2){
-        return true;
-    } else if(instructionStr == "jmr" && numTokens == 2){
-        return true;
-    } else if(instructionStr == "jeq" && numTokens == 2){
-        return true;
-    } else if(instructionStr == "jmp" && numTokens == 2){
-        return true;
-    } else if(instructionStr == "end" && numTokens == 1){
-        return true;
-    } else if(instructionStr.endsWith(":") && instructionStr.length() > 1 && numTokens >= 2){
-        return true;
+//validate instructions
+bool Program::instructionValidator(QStringList &tokens, QString &instructionStr){
+
+    int numTokens = tokens.length();
+
+    if(numTokens >= 1 && numTokens <= 4){
+
+        instructionStr = tokens[0];
+
+        if(instructionStr == "dci" && numTokens == 2){
+            return true;
+        } else if(instructionStr == "dca" && numTokens == 3){
+            return true;
+        } else if(instructionStr == "rdi" && numTokens == 2){
+            return true;
+        } else if(instructionStr == "prt" && numTokens == 2){
+            return true;
+        } else if(instructionStr == "mov" && numTokens == 3){
+            return true;
+        } else if(instructionStr == "add" && numTokens == 3){
+            return true;
+        } else if(instructionStr == "cmp" && numTokens == 3){
+            return true;
+        } else if(instructionStr == "jls" && numTokens == 2){
+            return true;
+        } else if(instructionStr == "jmr" && numTokens == 2){
+            return true;
+        } else if(instructionStr == "jeq" && numTokens == 2){
+            return true;
+        } else if(instructionStr == "jmp" && numTokens == 2){
+            return true;
+        } else if(instructionStr == "end" && numTokens == 1){
+            return true;
+        } else if(instructionStr.endsWith(":") && instructionStr.length() > 1 && numTokens >= 2){
+            instructionStr = "label";
+            return true;
+        }
+
     } else {
-        return false;
+        // generate error
     }
+
+    return false;
 }
-*/

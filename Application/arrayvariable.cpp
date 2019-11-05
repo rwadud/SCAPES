@@ -1,8 +1,6 @@
 #include "arrayvariable.h"
 
-ArrayVariable::ArrayVariable(/* args */)
-{
-}
+ArrayVariable::ArrayVariable(QString str) : Identifier(str){}
 
 ArrayVariable::~ArrayVariable()
 {

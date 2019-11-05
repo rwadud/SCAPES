@@ -1,8 +1,6 @@
 #include "variable.h"
 
-Variable::Variable(/* args */)
-{
-}
+Variable::Variable(QString str) : Identifier(str){}
 
 Variable::~Variable()
 {

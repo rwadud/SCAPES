@@ -10,8 +10,9 @@ private:
     /* data */
     QString value;
 public:
-    Label(QString str);
+    Label(QString str = "");
     ~Label();
+    void setName(QString str);
 };
 
 #endif

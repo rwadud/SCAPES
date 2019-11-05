@@ -1,15 +1,14 @@
 #ifndef IDENTIFIER_H
 #define IDENTIFIER_H
 
-#include <string>
-using namespace std;
+#include <QString>
 
 class Identifier
 {
-private:
-    string name;
+protected:
+    QString name;
 public:
-    Identifier(/* args */);
+    Identifier(QString str = "");
     ~Identifier();
 };
 

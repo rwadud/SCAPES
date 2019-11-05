@@ -31,17 +31,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
-        main.cpp \
-        $$files(Storage/*.cpp) \
-        $$files(Logic/*.cpp) \
-        $$files(Interface/*.cpp) \
-        $$files(Application/*.cpp) \
+    main.cpp \
+    $$files(Storage/*.cpp) \
+    $$files(Logic/*.cpp) \
+    $$files(Interface/*.cpp) \
+    $$files(Application/*.cpp)
 
 HEADERS += \
-        $$files(Storage/*.h) \
-        $$files(Logic/*.h) \
-        $$files(Interface/*.h) \
-        $$files(Application/*.h) \
+    $$files(Storage/*.h) \
+    $$files(Logic/*.h) \
+    $$files(Interface/*.h) \
+    $$files(Application/*.h)
 
 FORMS += \
         $$files(Interface/*.ui)

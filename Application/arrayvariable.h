@@ -10,7 +10,7 @@ private:
     int index;
     int size;
 public:
-    ArrayVariable(/* args */);
+    ArrayVariable(QString str);
     ~ArrayVariable();
 };
 

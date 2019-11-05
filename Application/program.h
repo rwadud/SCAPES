@@ -2,7 +2,7 @@
 #define PROGRAM_H
 #include <QString>
 #include <QList>
-
+#include "statement.h"
 
 class Program
 {
@@ -11,10 +11,11 @@ public:
     ~Program();
     QString getFileName();
     bool compile(QString *inSrcTxt, QString *outCmplTxt, QString *errTxt);
-    bool instructionValidator(QString instructionStr, int numTokens);
+    bool instructionValidator(QStringList &tokens, QString &instructionStr);
 
 private:
     QString filename;
+    QVector<Statement*> statements;
 
 };
 

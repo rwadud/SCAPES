@@ -8,7 +8,7 @@ class Variable : public Identifier
 private:
     int value;
 public:
-    Variable(/* args */);
+    Variable(QString str);
     ~Variable();
 };
 
