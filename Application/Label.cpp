@@ -1,9 +1,5 @@
 #include "Label.h"
 
-Label::Label(/* args */)
-{
-}
+Label::Label(QString str) : value(str){}
 
-Label::~Label()
-{
-}
+Label::~Label(){}
