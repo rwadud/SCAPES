@@ -41,7 +41,7 @@ HEADERS += \
         $$files(Storage/*.h) \
         $$files(Logic/*.h) \
         $$files(Interface/*.h) \
-        $$files(Application/*.h) \ \ \
+        $$files(Application/*.h) \
 
 FORMS += \
         $$files(Interface/*.ui)
