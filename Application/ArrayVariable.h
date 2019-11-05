@@ -7,6 +7,8 @@ class ArrayVariable : public Identifier
 {
 private:
     /* data */
+    int index;
+    int size;
 public:
     ArrayVariable(/* args */);
     ~ArrayVariable();
