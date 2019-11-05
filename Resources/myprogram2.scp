@@ -1,0 +1,13 @@
+dci     	 a
+dci 	 b
+rdi a
+rdi b
+cmp a b
+jmr L1
+prt b
+jmp L2
+L1:    print         a
+# this is a comment
+L2: end
+# this is a comment
+end

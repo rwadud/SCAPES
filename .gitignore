@@ -10,4 +10,5 @@
 *.vagrant
 *.git
 *.log
+*.swp
 *.pro.user
