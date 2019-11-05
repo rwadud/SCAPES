@@ -11,6 +11,7 @@ public:
     ~Program();
     QString getFileName();
     bool compile(QString *inSrcTxt, QString *outCmplTxt, QString *errTxt);
+    bool instructionValidator(QString instructionStr, int numTokens);
 
 private:
     QString filename;
