@@ -1,7 +1,7 @@
 #ifndef MAINCONTROLLER_H
 #define MAINCONTROLLER_H
 
-#include "program.h"
+#include "Program.h"
 #include "repository.h"
 #include <QString>
 #include <QMap>
@@ -15,6 +15,7 @@ public:
     bool openFile(QString filename, QString *outText);
     bool saveFile(QString filename, QString *inText);
     void compile(QString *inText);
+    void autoCompile(QString filename); // for testing purposes
 
 private:
     QString        currentFileName;

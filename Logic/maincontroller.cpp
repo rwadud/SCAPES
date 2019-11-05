@@ -65,7 +65,7 @@ void MainController::compile(QString *inSrcTxt)
     if (pgmMap.contains(fileName)) {
         // remove it from the map ???
         myPgm = pgmMap.take(fileName);
-        if (myPgm != nullptr) {        
+        if (myPgm != nullptr) {
             // delete the existing Program object
             delete myPgm;
         }
@@ -83,7 +83,7 @@ void MainController::compile(QString *inSrcTxt)
         QMessageBox msgBox;
         msgBox.setText("Error! Compile failed: " + errTxt);
         msgBox.exec();
-       
+
        return;
     }
 
@@ -93,4 +93,11 @@ void MainController::compile(QString *inSrcTxt)
    // save the compiled file (in xml format)
    saveFile(compiledFileName, &compiledTxt);
 
+}
+
+void MainController::autoCompile(QString filename){
+    QString source = "";
+    this->currentFileName = filename;
+    this->openFile(currentFileName, &source);
+    this->compile(&source);
 }
