@@ -2,6 +2,7 @@
 #define STATEMENT_H
 
 #include <QString>
+#include "operand.h"
 #include "label.h"
 
 class Statement

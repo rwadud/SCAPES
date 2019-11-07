@@ -5,6 +5,8 @@
 
 class DciStatement : public Statement
 {
+private:
+    Operand op1;
 public:
     DciStatement();
 };

@@ -16,6 +16,7 @@ public:
 private:
     QString filename;
     QVector<Statement*> statements;
+    QMap<QString, Identifier*> programVariables;
 
 };
 

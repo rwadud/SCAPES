@@ -6,9 +6,9 @@
 class Operand
 {
 private:
-    Identifier identifier;
+    Identifier *identifier;
 public:
-    Operand(Identifier id);
+    Operand();
     ~Operand();
 };
 

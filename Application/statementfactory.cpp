@@ -2,34 +2,32 @@
 
 Statement* StatementFactory::NewStatement(QString &instructionStr, QString &data)
 {
-    if(instructionStr == "dci")
+    if(instructionStr == "DciStatement")
         return new DciStatement;
-    if(instructionStr == "dca")
+    if(instructionStr == "DcaStatement")
         return new DcaStatement;
-    if(instructionStr == "rdi")
+    if(instructionStr == "RdiStatement")
         return new RdiStatement;
-    if(instructionStr == "prt")
+    if(instructionStr == "PrtStatement")
         return new PrtStatement;
-    if(instructionStr == "mov")
+    if(instructionStr == "MovStatement")
         return new MovStatement;
-    if(instructionStr == "add")
+    if(instructionStr == "AddStatement")
         return new AddStatement;
-    if(instructionStr == "cmp")
+    if(instructionStr == "CmpStatement")
         return new CmpStatement;
-    if(instructionStr == "jls")
+    if(instructionStr == "JlsStatement")
         return new JlsStatement;
-    if(instructionStr == "jmr")
+    if(instructionStr == "JmrStatement")
         return new JmrStatement;
-    if(instructionStr == "jeq")
+    if(instructionStr == "JeqStatement")
         return new JeqStatement;
-    if(instructionStr == "jmp")
+    if(instructionStr == "JmpStatement")
         return new JmpStatement;
-    if(instructionStr == "end")
+    if(instructionStr == "EndStatement")
         return new EndStatement;
-    if(instructionStr == "label"){
+    if(instructionStr == "Label"){
         //some extra work required here
-
-        return new EndStatement;
     }
 
     return nullptr;
