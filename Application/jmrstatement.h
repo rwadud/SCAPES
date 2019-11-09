@@ -7,7 +7,6 @@ class JmrStatement : public Statement
 {
 private:
     Operand* op1;
-    const QString test = "object splicing is not happening!!!"; //delete
 
 public:
     JmrStatement();

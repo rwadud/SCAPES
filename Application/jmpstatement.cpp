@@ -8,8 +8,6 @@ JmpStatement::~JmpStatement(){
 
 void JmpStatement::compile(QString *instr){
     qDebug() << "Compiling statement: " << *instr; //delete
-    //parse the instr so we can access JUST the label
-    qDebug() << test;
 
     //split/ the instr into tokens/arguments
     QStringList tokens = (*instr).split(" ");   //split the entire line into an array
