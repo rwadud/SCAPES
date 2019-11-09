@@ -12,15 +12,18 @@ public:
     ~MainController();
     QString getCurrentFileName();
     void setCurrentFileName(QString name);
-    bool openFile(QString filename, QString *outText);
-    bool saveFile(QString filename, QString *inText);
-    void compile(QString *inText);
+    bool manageControl(QString actionName, QString filename, QString *inText, QString *outText);
+
     void autoCompile(QString filename); // for testing purposes
 
 private:
     QString        currentFileName;
     Repository     *store;
     QMap<QString, Program *> pgmMap;
+
+    bool openFile(QString filename, QString *outText);
+    bool saveFile(QString filename, QString *inText);
+    bool compile(QString *inText);
 };
 
 #endif // MAINCONTROLLER_H

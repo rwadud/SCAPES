@@ -25,6 +25,18 @@ void MainController::setCurrentFileName(QString name)
 {
     currentFileName = name;
 }
+bool MainController::manageControl(QString actionName, QString filename, QString *inText, QString *outText)
+{
+    bool rc = false;
+    if (actionName == "getData") {
+        rc = openFile(filename, outText);
+    } else if (actionName == "saveData") {
+        rc = saveFile(filename, inText);
+    } else if (actionName == "compile") {
+        rc = compile(inText);
+    }
+    return rc;
+}
 bool MainController::openFile(QString filename, QString *outText)
 {
     QString errTxt = "";
@@ -51,7 +63,7 @@ bool MainController::saveFile(QString filename, QString *inText)
     return true;
 }
 
-void MainController::compile(QString *inSrcTxt)
+bool MainController::compile(QString *inSrcTxt)
 {
 
     QString fileName = currentFileName;
@@ -84,7 +96,7 @@ void MainController::compile(QString *inSrcTxt)
         msgBox.setText("Error! Compile failed: " + errTxt);
         msgBox.exec();
 
-       return;
+        return false;
     }
 
    compiledTxt =  " Will be a JSON or XML document once implemented ......\n"; // To be removed
@@ -93,6 +105,7 @@ void MainController::compile(QString *inSrcTxt)
    // save the compiled file (in xml format)
    saveFile(compiledFileName, &compiledTxt);
 
+   return true;
 }
 
 void MainController::autoCompile(QString filename){
