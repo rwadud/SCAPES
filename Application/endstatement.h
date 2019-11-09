@@ -7,6 +7,9 @@ class EndStatement : public Statement
 {
 public:
     EndStatement();
+    ~EndStatement();
+    void compile(QString *instr);
+    void run();
 };
 
 #endif // ENDSTATEMENT_H

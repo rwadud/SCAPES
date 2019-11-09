@@ -3,6 +3,7 @@
 #include <QString>
 #include <QList>
 #include "statement.h"
+#include "vhash.h"
 
 class Program
 {
@@ -11,12 +12,12 @@ public:
     ~Program();
     QString getFileName();
     bool compile(QString *inSrcTxt, QString *outCmplTxt, QString *errTxt);
-    bool instructionValidator(QStringList &tokens, QString &instructionStr);
+    void parseInstructions(QString &line, QString &instructionStr);
 
 private:
     QString filename;
     QVector<Statement*> statements;
-    QMap<QString, Identifier*> programVariables;
+    VHash* prgmVars;
 
 };
 

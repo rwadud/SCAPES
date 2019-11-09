@@ -7,6 +7,9 @@ class AddStatement : public Statement
 {
 public:
     AddStatement();
+    ~AddStatement();
+    void compile(QString *instr);
+    void run();
 };
 
 #endif // ADDSTATEMENT_H

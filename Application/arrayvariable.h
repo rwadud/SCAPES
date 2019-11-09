@@ -7,11 +7,15 @@ class ArrayVariable : public Identifier
 {
 private:
     /* data */
-    int index;
-    int size;
+    const int MAX_SIZE;
+    int* array;
+
 public:
-    ArrayVariable(QString str);
+    ArrayVariable(QString str, int s);
     ~ArrayVariable();
+    void dummy(){}
+    void set(int index, int value);
+    int size();
 };
 
 #endif

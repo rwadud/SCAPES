@@ -1,20 +1,20 @@
 #include "program.h"
 #include "statement.h"
-#include "statementfactory.h"
 #include "statementcreator.h"
+#include "variable.h"
 #include <QStringList>
 #include <QDebug>
-#include <QSet>
 
 Program::Program(QString fileName)
 {
     filename = fileName;
-
+    prgmVars = new VHash();
 }
 
 Program::~Program()
 {
    // delete the contained objects
+   //delete prgmVars;
 }
 
 
@@ -35,105 +35,95 @@ bool Program::compile(QString *inSrcTxt, QString *outCmplTxt, QString *errTxt)
     //parse;
     QStringList srcList = (*inSrcTxt).split(QRegExp("\n|\r\n|\r")); //split the source text into an array of lines
 
+    StatementCreator stmtCreator;
+
     for(int i = 0; i < srcList.length(); i++){
         QString line = srcList[i];
         line.replace(QRegExp("[^\\S\\r\\n]+"), " "); //replace multiple spaces and tabs with a single space
 
-        //ignore empty lines
-        if (!line.trimmed().isEmpty()) {
+        //ignore empty lines and comments
+        if (!line.trimmed().isEmpty() && !line.startsWith("#")) {
 
             qDebug("Line %d: %s", (i+1),qUtf8Printable(line)); // to be removed
 
-            //don't process comments
-            if(line.startsWith("#")){
-                qDebug("Line %d: Skipping comment",(i+1));
-                continue;
-            }
+            QString instructionType = "";
 
-            //split the line into tokens
-            QStringList tokens = line.split(" ");
-            QString instructionStr = "";
+            //parse line to get instruction type
+            parseInstructions(line, instructionType);
 
-            //validate
-            if(instructionValidator(tokens, instructionStr) == true){
+            if(instructionType != "error"){
 
-                if(instructionStr == "DciStatement" || instructionStr == "DcaStatement"){
-                    //programVariables.insert(tokens[1], new Variable())
-                }
-                
-                // statement factory needs more work done
-                Statement *stmt = StatementFactory::NewStatement(instructionStr, line);
+                // create statements
+                Statement *stmt = stmtCreator.Create(instructionType);
+
+                //inject program variable enviroment
+                stmt->setEnviroment(prgmVars);
+
+                // compile statements
+                stmt->compile(&line);
+
+                //list of statements
                 statements.push_back(stmt);
 
             } else {
+                qDebug() << "error at " << line;
                 // some error
             }
         }
 
     }
 
-    // create identifiers
-    // create statements
-
-    // compile statements
     // generate json(or xml) output
     return true;
 }
 
-//validate instructions
-bool Program::instructionValidator(QStringList &tokens, QString &instructionStr){
+//parse lines for instructions
+void Program::parseInstructions(QString &line, QString &instructionStr){
 
-    int numTokens = tokens.length();
-
-    if(numTokens >= 1 && numTokens <= 4){
-
-        instructionStr = tokens[0];
-
-        if(instructionStr == "dci" && numTokens == 2){
-            instructionStr = "DciStatement";
-            return true;
-        } else if(instructionStr == "dca" && numTokens == 3){
-            instructionStr = "DcaStatement";
-            return true;
-        } else if(instructionStr == "rdi" && numTokens == 2){
-            instructionStr = "RdiStatement";
-            return true;
-        } else if(instructionStr == "prt" && numTokens == 2){
-            instructionStr = "PrtStatement";
-            return true;
-        } else if(instructionStr == "mov" && numTokens == 3){
-            instructionStr = "MovStatement";
-            return true;
-        } else if(instructionStr == "add" && numTokens == 3){
-            instructionStr = "AddStatement";
-            return true;
-        } else if(instructionStr == "cmp" && numTokens == 3){
-            instructionStr = "CmpStatement";
-            return true;
-        } else if(instructionStr == "jls" && numTokens == 2){
-            instructionStr = "JlsStatement";
-            return true;
-        } else if(instructionStr == "jmr" && numTokens == 2){
-            instructionStr = "JmrStatement";
-            return true;
-        } else if(instructionStr == "jeq" && numTokens == 2){
-            instructionStr = "JeqStatement";
-            return true;
-        } else if(instructionStr == "jmp" && numTokens == 2){
-            instructionStr = "JmpStatement";
-            return true;
-        } else if(instructionStr == "end" && numTokens == 1){
-            instructionStr = "EndStatement";
-            return true;
-        } else if(instructionStr.endsWith(":") && instructionStr.length() > 1 && numTokens >= 2){
-            //some extra work required here;
-            instructionStr = "label";
-            return true;
-        }
-
-    } else {
-        // generate error
+    //too many : ?
+    if(line.count(":") > 1){
+        // throw error
     }
 
-    return false;
+    //ignore spaces before :
+    if(line.contains(" :")){
+        line.replace(" :",":");
+    }
+
+    //check for label and extract the instruction
+    if(line.contains(":")) {
+        instructionStr = line.split(":")[1].trimmed().split(" ")[0];
+    }else {
+        instructionStr = line.split(" ")[0];
+    }
+
+    if(instructionStr == "dci"){
+        instructionStr = "DciStatement";
+    } else if(instructionStr == "dca"){
+        instructionStr = "DcaStatement";
+    } else if(instructionStr == "rdi"){
+        instructionStr = "RdiStatement";
+    } else if(instructionStr == "prt"){
+        instructionStr = "PrtStatement";
+    } else if(instructionStr == "mov"){
+        instructionStr = "MovStatement";
+    } else if(instructionStr == "add"){
+        instructionStr = "AddStatement";
+    } else if(instructionStr == "cmp"){
+        instructionStr = "CmpStatement";
+    } else if(instructionStr == "jls"){
+        instructionStr = "JlsStatement";
+    } else if(instructionStr == "jmr"){
+        instructionStr = "JmrStatement";
+    } else if(instructionStr == "jeq"){
+        instructionStr = "JeqStatement";
+    } else if(instructionStr == "jmp"){
+        instructionStr = "JmpStatement";
+    } else if(instructionStr == "end"){
+        instructionStr = "EndStatement";
+    } else {
+        instructionStr = "error";
+        // error
+    }
+
 }

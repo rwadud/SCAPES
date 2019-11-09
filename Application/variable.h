@@ -10,6 +10,8 @@ private:
 public:
     Variable(QString str);
     ~Variable();
+    void dummy(){}
+    void setValue(int);
 };
 
 #endif

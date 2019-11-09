@@ -1,11 +1,20 @@
 #include "creator.h"
+#include "dcistatement.h"
+#include "dcastatement.h"
+#include "rdistatement.h"
+#include "addstatement.h"
+#include "jmpstatement.h"
+#include "jmrstatement.h"
+#include "jlsstatement.h"
+#include "jeqstatement.h"
+#include "endstatement.h"
+#include "cmpstatement.h"
+#include "movstatement.h"
+#include "prtstatement.h"
 
-template <class S>
-class StatementCreator: public Creator {
-    public:
-    virtual Statement* CreateStatement();
+class StatementCreator: public Creator
+{
+public:
+    virtual Statement* Create(QString &instructionType);
 };
-template <class S>
-Statement* StatementCreator<S>::CreateStatement () {
-    return new S;
-}
+

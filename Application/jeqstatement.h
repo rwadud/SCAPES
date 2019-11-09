@@ -7,6 +7,9 @@ class JeqStatement : public Statement
 {
 public:
     JeqStatement();
+    ~JeqStatement();
+    void compile(QString *instr);
+    void run();
 };
 
 #endif // JEQSTATEMENT_H

@@ -7,6 +7,9 @@ class JlsStatement : public Statement
 {
 public:
     JlsStatement();
+    ~JlsStatement();
+    void compile(QString *instr);
+    void run();
 };
 
 #endif // JLSSTATEMENT_H

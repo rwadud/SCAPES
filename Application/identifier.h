@@ -9,7 +9,8 @@ protected:
     QString name;
 public:
     Identifier(QString str = "");
-    ~Identifier();
+    virtual ~Identifier();
+    virtual void dummy() = 0;
 };
 
 #endif

@@ -13,6 +13,7 @@ public:
     Label(QString str = "");
     ~Label();
     void setName(QString str);
+    void dummy(){}
 };
 
 #endif

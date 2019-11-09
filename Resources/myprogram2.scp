@@ -6,7 +6,7 @@ cmp a b
 jmr L1
 prt b
 jmp L2
-L1:    print         a
+L1:    prt         a
 # this is a comment
 L2: end
 # this is a comment

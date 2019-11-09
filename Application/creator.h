@@ -6,8 +6,7 @@
 class Creator
 {
 public:
-    Creator();
-    virtual Statement* CreateStatement() = 0;
+    virtual Statement* Create(QString &instructionType) = 0;
 };
 
 #endif // CREATOR_H

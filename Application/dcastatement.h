@@ -7,6 +7,9 @@ class DcaStatement : public Statement
 {
 public:
     DcaStatement();
+    ~DcaStatement();
+    void compile(QString *instr);
+    void run();
 };
 
 #endif // DCASTATEMENT_H

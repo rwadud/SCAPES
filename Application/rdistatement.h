@@ -7,6 +7,9 @@ class RdiStatement : public Statement
 {
 public:
     RdiStatement();
+    ~RdiStatement();
+    void compile(QString *instr);
+    void run();
 };
 
 #endif // RDISTATEMENT_H

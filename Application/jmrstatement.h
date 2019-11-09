@@ -7,6 +7,9 @@ class JmrStatement : public Statement
 {
 public:
     JmrStatement();
+    ~JmrStatement();
+    void compile(QString *instr);
+    void run();
 };
 
 #endif // JMRSTATEMENT_H

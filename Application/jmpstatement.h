@@ -7,6 +7,9 @@ class JmpStatement : public Statement
 {
 public:
     JmpStatement();
+    ~JmpStatement();
+    void compile(QString *instr);
+    void run();
 };
 
 #endif // JMPSTATEMENT_H
