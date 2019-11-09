@@ -1,9 +1,10 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "compileoption.h"
+#include "saveoption.h"
+#include "loadoption.h"
+#include "filebrowser.h"
 #include <QString>
-#include <QTextStream>
-#include <QFile>
-#include <QFileDialog>
 #include <QMessageBox>
 #include <QDebug>
 
@@ -23,6 +24,39 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::saveFile(QString fileName)
+{
+    QString      srcText =  ui->textEdit->toPlainText();
+    SaveOption   option(this);
+
+    // Save the  program
+    option.save(ctlr, fileName, &srcText);
+
+}
+
+bool MainWindow::loadFile(QString fileName)
+{
+    QString      outText;
+    LoadOption   option(this);
+    bool         rc = false;
+
+    // get the data
+    rc = option.load(ctlr, fileName, &outText);
+    if (rc == true) {
+        // Put file data in the Editor window
+        ui->textEdit->setText(outText);
+    };
+
+    return rc;
+}
+void MainWindow::compile()
+{
+    QString         srcText =  ui->textEdit->toPlainText();
+    CompileOption  option;
+
+    option.compile(ctlr, &srcText);
+
+}
 void MainWindow::on_actionExit_triggered()
 {
     QApplication::quit();
@@ -57,69 +91,42 @@ void MainWindow::on_actionNew_triggered()
 {
     ctlr->setCurrentFileName("");
     ui->textEdit->setText("");
+    setWindowTitle("SCAPES");
 }
 
 void MainWindow::on_actionOpen_triggered()
 {
-    //QString resourceDir = QCoreApplication::applicationDirPath() + "/Resources";
-    QString resourceDir = QCoreApplication::applicationDirPath().section("/", 0, -2) + "/SCAPES/Resources";
-    QString fileName = QFileDialog::getOpenFileName(this, "Open file", resourceDir);
-    QString inText;
+    QString fileName = FileBrowser::getOpenFileName(this);
 
-
-    // Get the file data
-    if (ctlr->openFile(fileName, &inText) == false) {
+    if (loadFile(fileName) == false) {
         return;
-    };
-
-    // Put file data in the Editor window
-    ui->textEdit->setText(inText);
-    setWindowTitle(fileName);
-
-    // save the current file name
+    }
+    // cache the current file name
     ctlr->setCurrentFileName(fileName);
 }
 
 void MainWindow::on_actionSave_triggered()
 {
     QString fileName = ctlr->getCurrentFileName();
-    QString srcText =  ui->textEdit->toPlainText();
 
-    // Save the file data
-    if (ctlr->saveFile(fileName, &srcText) == false) {
-        return;
-    };
-
-    setWindowTitle(fileName);
+    // save program text
+    saveFile(fileName);
 }
 
 void MainWindow::on_actionSave_As_triggered()
 {
-    QString fileName = QFileDialog::getSaveFileName(this, "Save As");
-    QString srcText =  ui->textEdit->toPlainText();
+    QString fileName = FileBrowser::getSaveFileName(this);
 
-    // Save the file data
-    if (ctlr->saveFile(fileName, &srcText) == false) {
-        return;
-    };
-    setWindowTitle(fileName);
+    // save program text
+    saveFile(fileName);
 
-    // save the current file name
+    // cache the current file name
     ctlr->setCurrentFileName(fileName);
 }
 
 void MainWindow::on_actionCompile_triggered()
 {
-    QString fileName = ctlr->getCurrentFileName();
-    if (fileName.isEmpty()) {
-        QMessageBox msgBox;
-        msgBox.setText("Error! Save the program using SaveAs option first: ");
-        msgBox.exec();
-        return;
-    }
-
-    QString srcText =  ui->textEdit->toPlainText();
-    ctlr->compile(&srcText);
+   compile();
 }
 
 void MainWindow::on_actionRun_triggered()
@@ -132,7 +139,7 @@ void MainWindow::on_actionAbout_triggered()
     QString aboutText = "The SCAPES system is a development environment \n"
                         "to write, compile and execute programs. \n";
     aboutText += "Version: 1.0 \n";
-    aboutText += "Authors: Pallab Saha, ....\n";
+    aboutText += "Authors: Pallab Saha, Redwan, Salim, Robby\n";
     aboutText += "Copyright:, SCAPES (C), 2019";
     QMessageBox::about(this,tr("About SCAPES"), aboutText);
 }

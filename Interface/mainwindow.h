@@ -48,6 +48,9 @@ private slots:
 private:
     Ui::MainWindow *ui;
     MainController *ctlr; // reference to the Controller object
+    void saveFile(QString fileName);
+    bool loadFile(QString fileName);
+    void compile();
 };
 
 #endif // MAINWINDOW_H
