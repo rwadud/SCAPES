@@ -8,7 +8,7 @@ class Operand
 private:
     Identifier *identifier;
 public:
-    Operand();
+    Operand(Identifier *id);
     ~Operand();
 };
 
