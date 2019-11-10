@@ -9,7 +9,6 @@ DciStatement::~DciStatement(){
 
 void DciStatement::compile(QString *instr){
     qDebug() << "Compiling statement: " << *instr; //delete
-    qDebug() << test;
 
     //split the instr into tokens/arguments
     QStringList tokens = (*instr).split(" ");
@@ -33,6 +32,14 @@ void DciStatement::compile(QString *instr){
          prgmVars->insert(arg1_name,variable);
          op1 = new Operand(variable);
     }
+
+}
+
+void DciStatement::serialize(QJsonObject &json){
+
+}
+
+void DciStatement::unserialize(const QJsonObject &json) const{
 
 }
 

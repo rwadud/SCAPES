@@ -32,6 +32,14 @@ void RdiStatement::compile(QString *instr){
     }
 }
 
+void RdiStatement::serialize(QJsonObject &json){
+
+}
+
+void RdiStatement::unserialize(const QJsonObject &json) const{
+
+}
+
 void RdiStatement::run(){
 
 }

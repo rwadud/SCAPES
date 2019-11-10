@@ -11,7 +11,7 @@ class Statement
 {
 private:
     /* data */
-    Label label;
+    Label* label;
 
 protected:
     VHash *prgmVars = nullptr;
@@ -21,8 +21,11 @@ public:
     virtual ~Statement();
     virtual void compile(QString *instr) = 0;
     virtual void run() = 0;
+    void serialize(QJsonObject &json);
+    void unserialize(const QJsonObject &json) const;
     void setLabel(QString str);
     void setEnviroment(VHash *env);
+
 };
 
 

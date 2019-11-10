@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
     w.show();
 
     //uncomment for easy testing
-    ctlr.autoCompile("../SCAPES/Resources/myprogram2.scp");
+    ctlr.autoCompile("../SCAPES/Resources/myprogram.scp");
 
     return a.exec();
 }

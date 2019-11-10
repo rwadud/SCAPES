@@ -13,6 +13,8 @@ public:
     ~RdiStatement();
     void compile(QString *instr);
     void run();
+    void serialize(QJsonObject &json);
+    void unserialize(const QJsonObject &json) const;
 };
 
 #endif // RDISTATEMENT_H
