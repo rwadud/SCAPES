@@ -8,12 +8,12 @@ class Label : public Identifier
 {
 private:
     /* data */
-    QString value;
+    int index;
 public:
-    Label(QString str = "");
+    Label(QString str="", int i=0);
     ~Label();
-    void setName(QString str);
     void dummy(){}
+    int getIndex();
 };
 
 #endif

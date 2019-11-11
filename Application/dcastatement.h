@@ -8,8 +8,13 @@ class DcaStatement : public Statement
 public:
     DcaStatement();
     ~DcaStatement();
-    void compile(QString *instr);
-    void run();
+    bool compile(Token *tokens, QString *errMsg);
+    bool run();
+    void serialize(QJsonObject &json);
+    void unserialize(const QJsonObject &json) const;
+
+private:
+    const static int numArgs = 2;
 };
 
 #endif // DCASTATEMENT_H

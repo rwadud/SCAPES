@@ -7,32 +7,29 @@ DciStatement::~DciStatement(){
 
 }
 
-void DciStatement::compile(QString *instr){
-    qDebug() << "Compiling statement: " << *instr; //delete
+bool DciStatement::compile(Token *tokens, QString *errMsg){
+    qDebug() << "Compiling statement: " << tokens->getInstr(); //delete
 
-    //split the instr into tokens/arguments
-    QStringList tokens = (*instr).split(" ");
-    QString arg1_name = tokens[1];
+    // validate argument/label names
+    if(!validate(numArgs, tokens, errMsg))
+        return false;
 
-    //do some additional validation on arguments
-
-    if(tokens.length() > 2){
-        // too many argumets error
-    }
-
-    if(arg1_name.contains(QRegExp("[^a-zA-Z0-9-_]"))){
-        // invalid characters
-    }
-
+    QString arg1 = tokens->getArg1();
     //create variables or check if they exist in prgmVars
-    if(prgmVars->contains(arg1_name)){
-        // variable alreday declared
+    if(prgmVars->contains(arg1)){
+        *errMsg = arg1+ " already defined";
+        return false;
     } else {
-         Identifier *variable = new Variable(arg1_name);
-         prgmVars->insert(arg1_name,variable);
-         op1 = new Operand(variable);
+         Identifier *var = new Variable(arg1);
+         prgmVars->insert(arg1,var);
+         op1 = new Operand(var);
     }
 
+    return true;
+}
+
+bool DciStatement::run(){
+    return true;
 }
 
 void DciStatement::serialize(QJsonObject &json){
@@ -40,9 +37,5 @@ void DciStatement::serialize(QJsonObject &json){
 }
 
 void DciStatement::unserialize(const QJsonObject &json) const{
-
-}
-
-void DciStatement::run(){
 
 }

@@ -6,10 +6,18 @@ CmpStatement::~CmpStatement(){
 
 }
 
-void CmpStatement::compile(QString *instr){
-    qDebug() << "Compiling statement: " << *instr; //delete
+bool CmpStatement::compile(Token *tokens, QString *errMsg){
+    qDebug() << "Compiling statement: " << tokens->getInstr(); //delete
 }
 
-void CmpStatement::run(){
+bool CmpStatement::run(){
+    return true;
+}
+
+void CmpStatement::serialize(QJsonObject &json){
+
+}
+
+void CmpStatement::unserialize(const QJsonObject &json) const{
 
 }

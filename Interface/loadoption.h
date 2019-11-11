@@ -6,7 +6,7 @@ class LoadOption
 {
 public:
     LoadOption(MainWindow *w);
-    bool load(MainController *ctlr, QString fileName, QString *outText);
+    bool load(MainController *ctlr, QString fileName, QString *outText, QString *errText);
 private:
     MainWindow *myWindow;
 };

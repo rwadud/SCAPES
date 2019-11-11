@@ -5,14 +5,16 @@
 
 class JmrStatement : public Statement
 {
-private:
-    Operand* op1;
-
 public:
     JmrStatement();
     ~JmrStatement();
-    void compile(QString *instr);
-    void run();
+    bool compile(Token *tokens, QString *errMsg);
+    bool run();
+    void serialize(QJsonObject &json);
+    void unserialize(const QJsonObject &json) const;
+
+private:
+    const static int numArgs = 1;
 };
 
 #endif // JMRSTATEMENT_H

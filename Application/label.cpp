@@ -1,9 +1,9 @@
 #include "label.h"
 
-Label::Label(QString str) : Identifier(str){}
+Label::Label(QString str, int i) : Identifier(str), index(i){}
 
 Label::~Label(){}
 
-void Label::setName(QString str){
-    this->name = str;
+int Label::getIndex(){
+    return index;
 }

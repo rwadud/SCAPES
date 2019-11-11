@@ -6,7 +6,7 @@ class SaveOption
 {
 public:
     SaveOption(MainWindow *w);
-    void save(MainController *ctlr, QString fileName, QString *srcText);
+    bool save(MainController *ctlr, QString fileName, QString *srcText, QString *errText);
 private:
     MainWindow *myWindow;
 };

@@ -6,30 +6,22 @@ RdiStatement::~RdiStatement(){
 
 }
 
-void RdiStatement::compile(QString *instr){
-    qDebug() << "Compiling statement: " << *instr; //delete
+bool RdiStatement::compile(Token *tokens, QString *errMsg){
+    qDebug() << "Compiling statement: " << tokens->getInstr(); //delete
 
-    //split the instr into tokens/arguments
-    QStringList tokens = (*instr).split(" ");
-    QString arg1_name = tokens[1];
+    // validate argument/label names
+    if(!validate(numArgs, tokens, errMsg))
+        return false;
 
-    //do some additional validation on arguments
+    //update operand references
+    if(!updateOperands(numArgs, tokens, errMsg))
+        return false;
 
-    if(tokens.length() > 2){
-        // too many argumets error
-    }
+    return true;
+}
 
-    if(arg1_name.contains(QRegExp("[^a-zA-Z0-9-_]"))){
-        // invalid characters
-    }
-
-    //create variables or check if they exist in prgmVars
-    if(prgmVars->contains(arg1_name)){
-        Identifier *variable = prgmVars->find(arg1_name);
-        op1 = new Operand(variable);
-    } else {
-        //variable not declared yet
-    }
+bool RdiStatement::run(){
+    return true;
 }
 
 void RdiStatement::serialize(QJsonObject &json){
@@ -40,6 +32,4 @@ void RdiStatement::unserialize(const QJsonObject &json) const{
 
 }
 
-void RdiStatement::run(){
 
-}

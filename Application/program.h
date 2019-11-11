@@ -2,8 +2,8 @@
 #define PROGRAM_H
 #include <QString>
 #include <QList>
-#include "statement.h"
 #include "vhash.h"
+#include "statementlist.h"
 
 class Program
 {
@@ -12,13 +12,12 @@ public:
     ~Program();
     QString getFileName();
     bool compile(QString *inSrcTxt, QString *outCmplTxt, QString *errTxt);
-    void parseInstructions(QString &line, QString &instructionStr);
+    void parseInstructions(QString &line, QString &instructionType, QString &labelName);
 
 private:
     QString filename;
-    QVector<Statement*> statements;
+    StatementList* stmtList;
     VHash* prgmVars;
-
 };
 
 #endif // PROGRAM_H

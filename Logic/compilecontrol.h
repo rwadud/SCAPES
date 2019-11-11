@@ -1,0 +1,19 @@
+#ifndef COMPILECONTROL_H
+#define COMPILECONTROL_H
+
+#include <QString>
+#include "statement.h"
+#include "statementlist.h"
+#include "vhash.h"
+#include "token.h"
+
+class CompileControl
+{
+public:
+    CompileControl();
+    ~CompileControl();
+    bool compile(QString *inSrcTxt, QString *outCmplTxt, QString *errMsg, StatementList *stmtList, VHash *prgmVars);
+    void validateTokens(Token *tokens);
+};
+
+#endif // COMPILECONTROL_H

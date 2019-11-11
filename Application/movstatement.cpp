@@ -6,10 +6,28 @@ MovStatement::~MovStatement(){
 
 }
 
-void MovStatement::compile(QString *instr){
-    qDebug() << "Compiling statement: " << *instr; //delete
+bool MovStatement::compile(Token *tokens, QString *errMsg){
+    qDebug() << "Compiling statement: " << tokens->getInstr(); //delete
+
+    // validate argument/label names
+    if(!validate(numArgs, tokens, errMsg))
+        return false;
+
+    //update operand references
+    if(!updateOperands(numArgs, tokens, errMsg))
+        return false;
+
+    return true;
 }
 
-void MovStatement::run(){
+bool MovStatement::run(){
+    return true;
+}
+
+void MovStatement::serialize(QJsonObject &json){
+
+}
+
+void MovStatement::unserialize(const QJsonObject &json) const{
 
 }

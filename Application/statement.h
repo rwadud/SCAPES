@@ -5,27 +5,29 @@
 #include "operand.h"
 #include "label.h"
 #include "vhash.h"
+#include "token.h"
 #include <QDebug>
 
 class Statement
 {
-private:
-    /* data */
-    Label* label;
-
-protected:
-    VHash *prgmVars = nullptr;
-
 public:
     Statement();
     virtual ~Statement();
-    virtual void compile(QString *instr) = 0;
-    virtual void run() = 0;
+    virtual bool compile(Token *tokens, QString *errMsg) = 0;
+    virtual bool run() = 0;
     void serialize(QJsonObject &json);
     void unserialize(const QJsonObject &json) const;
-    void setLabel(QString str);
+    void setLabel(Identifier *label);
     void setEnviroment(VHash *env);
 
+protected:
+    VHash *prgmVars = nullptr;
+    Identifier* label = nullptr;
+    Operand *op1 = nullptr;
+    Operand *op2 = nullptr;
+    bool maybeSetLabel(Token *tokens, QString *errMsg);
+    bool validate(int numArgs, Token *tokens, QString *errMsg);
+    bool updateOperands(int numArgs, Token *tokens, QString *errMsg);
 };
 
 

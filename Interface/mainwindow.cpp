@@ -4,6 +4,7 @@
 #include "saveoption.h"
 #include "loadoption.h"
 #include "filebrowser.h"
+#include "notifymsg.h"
 #include <QString>
 #include <QMessageBox>
 #include <QDebug>
@@ -27,34 +28,47 @@ MainWindow::~MainWindow()
 void MainWindow::saveFile(QString fileName)
 {
     QString      srcText =  ui->textEdit->toPlainText();
+    QString      errText;
     SaveOption   option(this);
 
     // Save the  program
-    option.save(ctlr, fileName, &srcText);
+    if (option.save(ctlr, fileName, &srcText, &errText) == false) {
+        NotifyMsg::show("File Save Failed: " + errText, ui->statusBar);
+    } else {
+        NotifyMsg::show("File Save Done!", ui->statusBar);
+    }
 
 }
 
 bool MainWindow::loadFile(QString fileName)
 {
     QString      outText;
+    QString      errText;
     LoadOption   option(this);
     bool         rc = false;
 
     // get the data
-    rc = option.load(ctlr, fileName, &outText);
+    rc = option.load(ctlr, fileName, &outText, &errText);
     if (rc == true) {
         // Put file data in the Editor window
         ui->textEdit->setText(outText);
-    };
+    } else {
+        NotifyMsg::show("File Load Failed: " + errText, ui->statusBar);
+    }
 
     return rc;
 }
 void MainWindow::compile()
 {
     QString         srcText =  ui->textEdit->toPlainText();
+    QString         errText;
     CompileOption  option;
 
-    option.compile(ctlr, &srcText);
+    if (option.compile(ctlr, &srcText, &errText) == false) {
+        NotifyMsg::show("Compile Failed: " + errText, ui->statusBar);
+    } else {
+        NotifyMsg::show("Compile OK!", ui->statusBar);
+    }
 
 }
 void MainWindow::on_actionExit_triggered()
@@ -157,3 +171,11 @@ void MainWindow::on_actionDocumentation_triggered()
 
     QMessageBox::about(this,tr("SCAPES System"), docText);
 }
+
+void MainWindow::on_textEdit_cursorPositionChanged()
+{
+    int line = ui->textEdit->textCursor().blockNumber()+1;
+    int pos = ui->textEdit->textCursor().columnNumber()+1;
+    ui->statusBar->showMessage(QString("Ln %1, Col %2").arg(line).arg(pos));
+}
+

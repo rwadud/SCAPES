@@ -40,10 +40,10 @@ HEADERS += \
     $$files(Storage/*.h) \
     $$files(Logic/*.h) \
     $$files(Interface/*.h) \
-    $$files(Application/*.h) \
+    $$files(Application/*.h)
 
 FORMS += \
-        $$files(Interface/*.ui)
+    $$files(Interface/*.ui)
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

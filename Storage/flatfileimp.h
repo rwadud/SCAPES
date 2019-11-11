@@ -4,6 +4,10 @@
 #include "repositoryimplementor.h"
 #include <QObject>
 
+// Concrete Implementor
+// Currently only FlatFile implementation is done.
+// NOTE: In future, other concrete implementors will be added.
+
 class FlatFileImp : public RepositoryImplementor
 {
 public:

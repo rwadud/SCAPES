@@ -1,32 +1,32 @@
 #include "statementcreator.h"
 
-Statement* StatementCreator::Create (QString &instructionType) {
+Statement* StatementCreator::Create (QString &instr) {
 
     Statement *stmt = nullptr;
 
-    if(instructionType == "DciStatement")
+    if(instr == "dci")
         stmt = new DciStatement();
-    if(instructionType == "DcaStatement")
+    if(instr == "dca")
         stmt = new DcaStatement();
-    if(instructionType == "RdiStatement")
+    if(instr == "rdi")
         stmt = new RdiStatement();
-    if(instructionType == "PrtStatement")
+    if(instr == "prt")
         stmt = new PrtStatement();
-    if(instructionType == "MovStatement")
+    if(instr == "mov")
         stmt = new MovStatement();
-    if(instructionType == "AddStatement")
+    if(instr == "add")
         stmt = new AddStatement();
-    if(instructionType == "CmpStatement")
+    if(instr == "cmp")
         stmt = new CmpStatement();
-    if(instructionType == "JlsStatement")
+    if(instr == "jls")
         stmt = new JlsStatement();
-    if(instructionType == "JmrStatement")
+    if(instr == "jmr")
         stmt = new JmrStatement();
-    if(instructionType == "JeqStatement")
+    if(instr == "jeq")
         stmt = new JeqStatement();
-    if(instructionType == "JmpStatement")
+    if(instr == "jmp")
         stmt = new JmpStatement();
-    if(instructionType == "EndStatement")
+    if(instr == "end")
         stmt = new EndStatement();
 
     return stmt;

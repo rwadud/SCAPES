@@ -8,8 +8,13 @@ class JeqStatement : public Statement
 public:
     JeqStatement();
     ~JeqStatement();
-    void compile(QString *instr);
-    void run();
+    bool compile(Token *tokens, QString *errMsg);
+    bool run();
+    void serialize(QJsonObject &json);
+    void unserialize(const QJsonObject &json) const;
+
+private:
+    const static int numArgs = 1;
 };
 
 #endif // JEQSTATEMENT_H

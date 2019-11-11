@@ -3,6 +3,8 @@
 #include "repositoryimplementor.h"
 #include <QString>
 
+// Storage Layer uses Bridge Design Pattern
+// Interface Class
 class Repository
 {
 public:

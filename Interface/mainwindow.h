@@ -45,6 +45,9 @@ private slots:
 
     void on_actionDocumentation_triggered();
 
+    void on_textEdit_cursorPositionChanged();
+
+
 private:
     Ui::MainWindow *ui;
     MainController *ctlr; // reference to the Controller object

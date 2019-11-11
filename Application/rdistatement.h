@@ -5,16 +5,16 @@
 
 class RdiStatement : public Statement
 {
-private:
-    Operand *op1;
-
 public:
     RdiStatement();
     ~RdiStatement();
-    void compile(QString *instr);
-    void run();
+    bool compile(Token *tokens, QString *errMsg);
+    bool run();
     void serialize(QJsonObject &json);
     void unserialize(const QJsonObject &json) const;
+
+private:
+    const static int numArgs = 1;
 };
 
 #endif // RDISTATEMENT_H

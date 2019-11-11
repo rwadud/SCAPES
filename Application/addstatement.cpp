@@ -6,10 +6,28 @@ AddStatement::~AddStatement(){
 
 }
 
-void AddStatement::compile(QString *instr){
-    qDebug() << "Compiling statement: " << *instr; //delete
+bool AddStatement::compile(Token *tokens, QString *errMsg){
+    qDebug() << "Compiling statement: " << tokens->getInstr(); //delete
+
+    // validate argument/label names
+    if(!validate(numArgs, tokens, errMsg))
+        return false;
+
+    //update operand references
+    if(!updateOperands(numArgs, tokens, errMsg))
+        return false;
+
+    return true;
 }
 
-void AddStatement::run(){
+bool AddStatement::run(){
+    return true;
+}
+
+void AddStatement::serialize(QJsonObject &json){
+
+}
+
+void AddStatement::unserialize(const QJsonObject &json) const{
 
 }

@@ -25,54 +25,40 @@ void MainController::setCurrentFileName(QString name)
 {
     currentFileName = name;
 }
-bool MainController::manageControl(QString actionName, QString filename, QString *inText, QString *outText)
+bool MainController::manageControl(QString actionName, QString filename, QString *inText,
+                                   QString *outText, QString *errText)
 {
     bool rc = false;
+
     if (actionName == "getData") {
-        rc = openFile(filename, outText);
+        rc = openFile(filename, outText, errText);
     } else if (actionName == "saveData") {
-        rc = saveFile(filename, inText);
+        rc = saveFile(filename, inText, errText);
     } else if (actionName == "compile") {
-        rc = compile(inText);
+        rc = compile(inText, errText);
     }
     return rc;
 }
-bool MainController::openFile(QString filename, QString *outText)
+bool MainController::openFile(QString filename, QString *outText, QString *errText)
 {
-    QString errTxt = "";
-    if (store->getSourceData(filename, outText, &errTxt) == false) {
-        QMessageBox msgBox;
-        msgBox.setText("Error! Cannot Open file: " + errTxt);
-        msgBox.exec();
 
-        return false;
-    }
-
-    return true;
-}
-bool MainController::saveFile(QString filename, QString *inText)
-{
-    QString errTxt = "";
-    if (store->setSourceData(filename, inText, &errTxt) == false) {
-        QMessageBox msgBox;
-        msgBox.setText("Error! Cannot Open file: " + errTxt);
-        msgBox.exec();
-
-        return false;
-    }
-    return true;
+    return store->getSourceData(filename, outText, errText);
 }
 
-bool MainController::compile(QString *inSrcTxt)
+bool MainController::saveFile(QString filename, QString *inText, QString *errText)
+{
+    return store->setSourceData(filename, inText, errText);
+}
+
+bool MainController::compile(QString *inSrcTxt, QString *errTxt)
 {
 
     QString fileName = currentFileName;
     QString compiledTxt; //  JSON or XML format
-    QString errTxt = "";
     Program *myPgm = nullptr;
 
     // save the data
-    saveFile(fileName, inSrcTxt);
+    saveFile(fileName, inSrcTxt, errTxt);
 
     if (pgmMap.contains(fileName)) {
         // remove it from the map ???
@@ -91,10 +77,7 @@ bool MainController::compile(QString *inSrcTxt)
     //qDebug()  << "pgmMap size: " + QString(pgmMap.size());
 
 
-    if (myPgm->compile(inSrcTxt, &compiledTxt, &errTxt) == false) {
-        QMessageBox msgBox;
-        msgBox.setText("Error! Compile failed: " + errTxt);
-        msgBox.exec();
+    if (myPgm->compile(inSrcTxt, &compiledTxt, errTxt) == false) {
 
         return false;
     }
@@ -103,14 +86,15 @@ bool MainController::compile(QString *inSrcTxt)
    QString compiledFileName = fileName + ".json";
 
    // save the compiled file (in xml format)
-   saveFile(compiledFileName, &compiledTxt);
+   saveFile(compiledFileName, &compiledTxt, errTxt);
 
    return true;
 }
 
 void MainController::autoCompile(QString filename){
     QString source = "";
+    QString errTxt = "";
     this->currentFileName = filename;
-    this->openFile(currentFileName, &source);
-    this->compile(&source);
+    this->openFile(currentFileName, &source, &errTxt);
+    this->compile(&source, &errTxt);
 }

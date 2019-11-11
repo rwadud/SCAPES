@@ -9,12 +9,16 @@ private:
     /* data */
     const int MAX_SIZE;
     int* array;
+    int index = 0;
 
 public:
     ArrayVariable(QString str, int s);
     ~ArrayVariable();
     void dummy(){}
-    void set(int index, int value);
+    void set(int i, int value);
+    int get(int i);
+    int get();
+    void setIndex(int i);
     int size();
 };
 

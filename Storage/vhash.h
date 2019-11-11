@@ -14,6 +14,8 @@ public:
     VHash();
     ~VHash();
     void insert(QString &key, Identifier* id);
+    void add(QString &key, Identifier* id);
+    Identifier* get(QString &key);
     Identifier* find(QString &key);
     bool contains(QString &key);
 };

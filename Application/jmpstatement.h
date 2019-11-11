@@ -5,14 +5,16 @@
 
 class JmpStatement : public Statement
 {
-private:
-    Operand* op1;
-
 public:
     JmpStatement();
     ~JmpStatement();
-    void compile(QString *instr);
-    void run();
+    bool compile(Token *tokens, QString *errMsg);
+    bool run();
+    void serialize(QJsonObject &json);
+    void unserialize(const QJsonObject &json) const;
+
+private:
+    const static int numArgs = 1;
 };
 
 #endif // JMPSTATEMENT_H

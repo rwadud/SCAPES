@@ -6,10 +6,19 @@ EndStatement::~EndStatement(){
 
 }
 
-void EndStatement::compile(QString *instr){
-    qDebug() << "Compiling statement: " << *instr; //delete
+bool EndStatement::compile(Token *tokens, QString *errMsg){
+    qDebug() << "Compiling statement: " << tokens->getInstr(); //delete
+    return validate(numArgs, tokens, errMsg);
 }
 
-void EndStatement::run(){
+bool EndStatement::run(){
+    return true;
+}
+
+void EndStatement::serialize(QJsonObject &json){
+
+}
+
+void EndStatement::unserialize(const QJsonObject &json) const{
 
 }

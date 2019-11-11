@@ -2,6 +2,7 @@
 #define REPOSITORYIMPLEMENTOR_H
 #include <QString>
 
+// Virtual Implementor class
 class RepositoryImplementor
 {
 public:

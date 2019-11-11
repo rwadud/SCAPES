@@ -6,7 +6,7 @@ class CompileOption
 {
 public:
     CompileOption();
-    bool compile(MainController *ctlr, QString *inText);
+    bool compile(MainController *ctlr, QString *inText, QString *errText);
 };
 
 #endif // COMPILEOPTION_H

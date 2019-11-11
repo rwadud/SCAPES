@@ -15,6 +15,6 @@
 class StatementCreator: public Creator
 {
 public:
-    virtual Statement* Create(QString &instructionType);
+    virtual Statement* Create(QString &instr);
 };
 
