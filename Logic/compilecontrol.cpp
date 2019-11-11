@@ -41,7 +41,7 @@ bool CompileControl::compile(QString *inSrcTxt, QString *outCmplTxt, QString *er
 
         if(tokens->length() > 3){
             //too many tokens
-            *errMsg = "too many tokens";
+            *errMsg = "too many arguments";
             return false;
         }
 
@@ -56,7 +56,8 @@ bool CompileControl::compile(QString *inSrcTxt, QString *outCmplTxt, QString *er
             //create labels if a statement has one
             if(Token::isValidIdentifierName(labelName)){
                 if(prgmVars->contains(labelName)){
-                    *errMsg = "Label "+labelName+" already defined";
+                    stmt->setLabel(prgmVars->get(labelName));
+                    //*errMsg = "Label "+labelName+" already defined";
                 } else {
                     Identifier *label = new Label(labelName,stmtIndex);
                     prgmVars->insert(labelName, label);

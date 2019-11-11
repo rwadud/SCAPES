@@ -22,28 +22,25 @@ bool Statement::maybeSetLabel(Token *tokens, QString *errMsg){
 bool Statement::validate(int numArgs, Token *tokens, QString *errMsg){
 
     if(tokens->length() > numArgs+1){
+        qDebug() << "failed here length: " << tokens->length() << " , args: " << numArgs;
         *errMsg = "too many arguments";
         return false;
     }
 
-    QString arg1 = tokens->getArg1();
-    QString arg2 = tokens->getArg1();
     // Check the label for invalid characters
-    if(numArgs >= 1 && !Token::isValidIdentifierName(arg1)){ // Check the label for invalid characters
-        *errMsg = "invalid characters detected";
-        return false;
-    }
-
-    if(numArgs == 2 && !Token::isValidIdentifierName(arg2)){
-        *errMsg = "invalid characters detected";
-        return false;
+    for(int i = 1; i <= numArgs; i++){
+        QString arg = tokens->getArg(i);
+        if(!Token::isValidIdentifierName(arg)){ // Check the label for invalid characters
+            *errMsg = "invalid characters detected";
+            return false;
+        }
     }
 
     //set label, if statement has an associated label
     if(tokens->hasLabel()){
         QString labelName = tokens->getLabel();
         if( !(label = prgmVars->get(labelName)) ){
-            *errMsg = "undefined reference to identifier: " +labelName;
+            *errMsg = "undefined reference to identifier/label: " +labelName;
             return false;
         }
     }
@@ -69,24 +66,26 @@ bool Statement::updateOperands(int numArgs, Token *tokens, QString *errMsg){
             Identifier *var = prgmVars->get(arg);
             if(i==1)
                 op1 = new Operand(var);
-            if(i=2)
+            if(i==2)
                 op2 = new Operand(var);
             if(arrayDetected){
                 ArrayVariable *arr = dynamic_cast<ArrayVariable*>(var);
                 arr->setIndex(arrayIndex);
             }
-        }
-        else{
+        } else{
             QString literalType;
             if(Token::isLiteral(arg, literalType)){
                 Identifier *literal = Identifier::createLiteral(literalType, arg);
                 prgmVars->insert(arg, literal);
                 if(i==1)
                     op1 = new Operand(literal);
-                if(i=2)
+                if(i==2)
                     op2 = new Operand(literal);
                 literalsDetected++;
-            } else{
+            } else if(tokens->getInstr() == "jmp" || tokens->getInstr() == "jmr" || tokens->getInstr() == "jls" || tokens->getInstr() == "jeq") {
+                Identifier *id = new Label(arg);
+                prgmVars->add(arg,id);
+            } else {
                 *errMsg = "undefined reference to identifier: " + arg;
                 return false;
             }

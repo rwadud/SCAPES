@@ -1,5 +1,6 @@
 #include "token.h"
 #include <stdexcept>
+#include <QDebug>
 
 Token::Token(QStringList tkn)
 {
@@ -25,8 +26,11 @@ const QString Token::getArg2(){
 }
 
 const QString Token::getLabel(){
-    if(hasLabel())
-        return data[0].remove(":");
+    QString label = "undefined";
+    if(hasLabel()){
+        label = data[0];
+        return label.remove(":");
+    }
     return "undefined";
 }
 
@@ -41,7 +45,7 @@ bool Token::hasLabel(){
 }
 
 int Token::length(){
-    return (hasLabel() ? data.length()-1 :data.length());
+    return hasLabel() ? (data.length()-1): data.length();
 }
 
 bool Token::isStringLiteral(QString &str){
