@@ -71,6 +71,24 @@ void MainWindow::compile()
     }
 
 }
+void MainWindow::highLightCurrentLine()
+{
+    QList<QTextEdit::ExtraSelection> extraSelections;
+
+    {
+        QTextEdit::ExtraSelection selection;
+
+        QColor lineColor = QColor(Qt::blue).lighter(160);
+
+        selection.format.setBackground(lineColor);
+        selection.format.setProperty(QTextFormat::FullWidthSelection, true);
+        selection.cursor = ui->textEdit->textCursor();
+        selection.cursor.clearSelection();
+        extraSelections.append(selection);
+    }
+
+    ui->textEdit->setExtraSelections(extraSelections);
+}
 void MainWindow::on_actionExit_triggered()
 {
     QApplication::quit();
@@ -177,5 +195,8 @@ void MainWindow::on_textEdit_cursorPositionChanged()
     int line = ui->textEdit->textCursor().blockNumber()+1;
     int pos = ui->textEdit->textCursor().columnNumber()+1;
     ui->statusBar->showMessage(QString("Ln %1, Col %2").arg(line).arg(pos));
+
+    // highlight the selected line
+    highLightCurrentLine();
 }
 
