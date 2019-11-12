@@ -1,45 +1,39 @@
 [{
     "op1": {
         "IdentifierType": "Variable",
-        "id": "x",
-        "value": 48
+        "id": "x"
     },
     "statementType": "DciStatement"
 }
 ,{
     "op1": {
         "IdentifierType": "Variable",
-        "id": "y",
-        "value": 120
+        "id": "y"
     },
     "statementType": "DciStatement"
 }
 ,{
     "op1": {
         "IdentifierType": "Variable",
-        "id": "x",
-        "value": 48
+        "id": "x"
     },
     "statementType": "RdiStatement"
 }
 ,{
     "op1": {
         "IdentifierType": "Variable",
-        "id": "y",
-        "value": 120
+        "id": "y"
     },
     "statementType": "RdiStatement"
 }
 ,{
     "op1": {
         "IdentifierType": "Variable",
-        "id": "x",
-        "value": 48
+        "id": "x"
     },
     "op2": {
         "IdentifierType": "Variable",
-        "id": "y",
-        "value": 120
+        "id": "y"
     },
     "statementType": "CmpStatement"
 }
@@ -63,21 +57,18 @@
     "labelName": "L1",
     "op1": {
         "IdentifierType": "Variable",
-        "id": "z",
-        "value": 48
+        "id": "z"
     },
     "statementType": "DciStatement"
 }
 ,{
     "op1": {
         "IdentifierType": "Variable",
-        "id": "x",
-        "value": 48
+        "id": "x"
     },
     "op2": {
         "IdentifierType": "Variable",
-        "id": "z",
-        "value": 48
+        "id": "z"
     },
     "statementType": "CmpStatement"
 }
@@ -101,8 +92,7 @@
     "labelName": "L2",
     "op1": {
         "IdentifierType": "Variable",
-        "id": "x",
-        "value": 48
+        "id": "x"
     },
     "statementType": "PrtStatement"
 }
