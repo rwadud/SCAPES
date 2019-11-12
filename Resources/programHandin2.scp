@@ -1,0 +1,12 @@
+dci x
+dci i
+rdi x
+#initiate as 0
+rdi i
+L1: add i
+cmp i x
+#jump L2 is i > x
+jmr L2
+jmp L1
+prt "program ends when i is greater then x"
+L2: end
