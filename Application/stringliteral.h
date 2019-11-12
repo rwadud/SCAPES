@@ -11,6 +11,7 @@ public:
     ~StringLiteral();
     QString getValue();
     void dummy(){}
+
 };
 
 #endif // STRINGLITERAL_H

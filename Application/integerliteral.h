@@ -10,6 +10,7 @@ public:
     ~IntegerLiteral();
     int getValue();
     void dummy(){}
+
 private:
     const int value;
 };
