@@ -14,7 +14,7 @@
 ####         make
 ####         ./SCAPES
 ###         OR
-###         Turnkey (single command) 
+###         Turnkey (single command)
 ####        ./run
 #     
 ###      CLEAN UP
@@ -35,3 +35,7 @@
 ####    Close SCAPES:             File  > Exit
 ####     
 ####    Compile current program:  Build > Compile
+#
+#
+#
+### NOTE: The Compilation output is in the Resources Folder
