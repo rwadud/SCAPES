@@ -25,7 +25,6 @@ protected:
     Identifier* label = nullptr;
     Operand *op1 = nullptr;
     Operand *op2 = nullptr;
-    bool maybeSetLabel(Token *tokens, QString *errMsg);
     bool validate(int numArgs, Token *tokens, QString *errMsg);
     bool updateOperands(int numArgs, Token *tokens, QString *errMsg);
 };

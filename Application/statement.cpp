@@ -16,24 +16,14 @@ void Statement::setLabel(Identifier *label)
     this->label = label;
 }
 
-bool Statement::maybeSetLabel(Token *tokens, QString *errMsg){
-    return true;
-}
-
 bool Statement::hasLabel(){
-    if(label == nullptr){
-        return false;
-    }
-    else{
-        return true;
-    }
+    return (label == nullptr) ? false : true;
 }
 
 //do some additional validation on arguments & label names
 bool Statement::validate(int numArgs, Token *tokens, QString *errMsg){
 
     if(tokens->length() > numArgs+1){
-        qDebug() << "failed here length: " << tokens->length() << " , args: " << numArgs;
         *errMsg = "too many arguments";
         return false;
     }
@@ -44,9 +34,6 @@ bool Statement::validate(int numArgs, Token *tokens, QString *errMsg){
         if(!Token::isValidIdentifierName(arg)){ // Check the label for invalid characters
             *errMsg = "invalid characters detected";
             return false;
-        }
-        if(tokens->getInstr()=="jmr"){
-            qDebug() << arg;
         }
     }
 
@@ -97,7 +84,6 @@ bool Statement::updateOperands(int numArgs, Token *tokens, QString *errMsg){
                     op2 = new Operand(literal);
                 literalsDetected++;
             } else if(tokens->getInstr() == "jmp" || tokens->getInstr() == "jmr" || tokens->getInstr() == "jls" || tokens->getInstr() == "jeq") {
-                qDebug() << "hello world " + arg;
                 Identifier *id = new Label(arg);
                 op1 = new Operand(id);
                 prgmVars->add(arg,id);

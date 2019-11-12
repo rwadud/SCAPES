@@ -41,7 +41,7 @@
     "op1": {
         "IdentifierType": "Label",
         "id": "L1",
-        "index": 7
+        "index": 0
     },
     "statementType": "JmrStatement"
 }
@@ -49,7 +49,7 @@
     "op1": {
         "IdentifierType": "Label",
         "id": "L3",
-        "index": 12
+        "index": 0
     },
     "statementType": "JmpStatement"
 }
@@ -76,7 +76,7 @@
     "op1": {
         "IdentifierType": "Label",
         "id": "L2",
-        "index": 11
+        "index": 0
     },
     "statementType": "JmrStatement"
 }
@@ -84,7 +84,7 @@
     "op1": {
         "IdentifierType": "Label",
         "id": "L3",
-        "index": 12
+        "index": 0
     },
     "statementType": "JmpStatement"
 }
@@ -100,4 +100,4 @@
     "labelName": "L3",
     "statementType": "EndStatement"
 }
-,]
+]
