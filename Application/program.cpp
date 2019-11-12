@@ -30,9 +30,6 @@ bool Program::compile(QString *inSrcTxt, QString *outCmplTxt, QString *errTxt)
     *outCmplTxt = "";
     *errTxt = "";
 
-    qDebug()  << "file: " + filename; // To Be Removed
-    qDebug()  << "inSrcTxt: " + *inSrcTxt; // To Be Removed
-
     CompileControl compiler;
 
     if(!compiler.compile(inSrcTxt, outCmplTxt, errTxt, stmtList, prgmVars))
