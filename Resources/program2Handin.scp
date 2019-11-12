@@ -3,9 +3,9 @@ dci i
 rdi x
 #initiate as 0
 rdi i
-L1: add i x
+L1: add 1 i
 cmp i x
-#jump L2 is i > x
+#jump L2 if i > x
 jmr L2
 jmp L1
 prt "program ends when i is greater then x"

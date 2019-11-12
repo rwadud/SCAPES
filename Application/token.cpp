@@ -4,7 +4,7 @@
 
 Token::Token(QString &line)
 {
-    if(line.contains('"')){
+    if(line.contains('"') && line.contains("prt")){
         data = line.split(" \"");
         data[1] = "\"" + data[1];
     }
