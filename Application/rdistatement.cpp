@@ -7,7 +7,6 @@ RdiStatement::~RdiStatement(){
 }
 
 bool RdiStatement::compile(Token *tokens, QString *errMsg){
-    qDebug() << "Compiling statement: " << tokens->getInstr(); //delete
 
     // validate argument/label names
     if(!validate(numArgs, tokens, errMsg))
@@ -25,6 +24,13 @@ bool RdiStatement::run(){
 }
 
 void RdiStatement::serialize(QJsonObject &json){
+    json["statementType"] = "RdiStatement";
+
+    if(hasLabel()){
+        json["labelName"] = label->getName();
+    }
+
+    json["op1"] = op1->serialize();
 
 }
 

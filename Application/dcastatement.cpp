@@ -1,12 +1,15 @@
 #include "dcastatement.h"
 #include "arrayvariable.h"
 
+//constructor
 DcaStatement::DcaStatement(){}
 
+//destructor
 DcaStatement::~DcaStatement(){
 
 }
 
+//compile function for dca statement
 bool DcaStatement::compile(Token *tokens, QString *errMsg){
     qDebug() << "Compiling statement: " << tokens->getInstr(); //delete
 
@@ -29,14 +32,26 @@ bool DcaStatement::compile(Token *tokens, QString *errMsg){
     return true;
 }
 
+//runs the instruction
 bool DcaStatement::run(){
     return true;
 }
 
+//serializes instruction for compilation as a json
 void DcaStatement::serialize(QJsonObject &json){
+    //store statement type in json
+    json["statementType"] = "DcaStatement";
 
+    //if statement has a label, store in json
+    if(hasLabel()){
+        json["labelName"] = label->getName();
+    }
+
+    //store operands in json
+    json["op1"] = op1->serialize();
 }
 
+//unserialization to run instructions
 void DcaStatement::unserialize(const QJsonObject &json) const{
 
 }

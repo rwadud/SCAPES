@@ -25,6 +25,13 @@ bool JmpStatement::run(){
 }
 
 void JmpStatement::serialize(QJsonObject &json){
+    json["statementType"] = "JmpStatement";
+
+    if(hasLabel()){
+        json["labelName"] = label->getName();
+    }
+
+    json["op1"] = op1->serialize();
 
 }
 

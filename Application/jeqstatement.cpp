@@ -24,7 +24,13 @@ bool JeqStatement::run(){
 }
 
 void JeqStatement::serialize(QJsonObject &json){
+    json["statementType"] = "JeqStatement";
 
+    if(hasLabel()){
+        json["labelName"] = label->getName();
+    }
+
+    json["op1"] = op1->serialize();
 }
 
 void JeqStatement::unserialize(const QJsonObject &json) const{

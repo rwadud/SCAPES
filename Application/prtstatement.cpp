@@ -7,7 +7,6 @@ PrtStatement::~PrtStatement(){
 }
 
 bool PrtStatement::compile(Token *tokens, QString *errMsg){
-    qDebug() << "Compiling statement: " << tokens->getInstr(); //delete
     // validate argument/label names
     if(!validate(numArgs, tokens, errMsg))
         return false;
@@ -25,13 +24,13 @@ bool PrtStatement::run(){
 
 void PrtStatement::serialize(QJsonObject &json){
 
-//    json["statementType"] = "prtstatement";
+    json["statementType"] = "PrtStatement";
 
-//    if(hasLabel()){
-//        json["labelName"] = label->getName();
-//    }
+    if(hasLabel()){
+        json["labelName"] = label->getName();
+    }
 
-//    json["op1"] = op1->serialize();
+    json["op1"] = op1->serialize();
 }
 
 void PrtStatement::unserialize(const QJsonObject &json) const{

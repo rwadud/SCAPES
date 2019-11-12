@@ -25,7 +25,14 @@ bool MovStatement::run(){
 }
 
 void MovStatement::serialize(QJsonObject &json){
+    json["statementType"] = "MovStatement";
 
+    if(hasLabel()){
+        json["labelName"] = label->getName();
+    }
+
+    json["op1"] = op1->serialize();
+    json["op2"] = op2->serialize();
 }
 
 void MovStatement::unserialize(const QJsonObject &json) const{

@@ -26,6 +26,14 @@ bool JmrStatement::run(){
 
 void JmrStatement::serialize(QJsonObject &json){
 
+    json["statementType"] = "JmrStatement";
+
+    if(hasLabel()){
+        json["labelName"] = label->getName();
+    }
+
+    json["op1"] = op1->serialize();
+
 }
 
 void JmrStatement::unserialize(const QJsonObject &json) const{

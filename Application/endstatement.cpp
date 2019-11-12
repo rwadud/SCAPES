@@ -16,7 +16,7 @@ bool EndStatement::run(){
 }
 
 void EndStatement::serialize(QJsonObject &json){
-
+    json["statementType"] = "EndStatement";
 }
 
 void EndStatement::unserialize(const QJsonObject &json) const{
