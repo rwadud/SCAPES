@@ -46,7 +46,7 @@ bool CompileControl::compile(QString *inSrcTxt, QString *outCmplTxt, QString *er
         if(tokens->length() > 3){
             //too many tokens
             qDebug() << "token length " << tokens->length();
-            *errMsg = "too many arguments here";
+            *errMsg = "too many arguments";
             return false;
         }
 
