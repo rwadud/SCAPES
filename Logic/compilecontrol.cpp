@@ -39,11 +39,11 @@ bool CompileControl::compile(QString *inSrcTxt, QString *outCmplTxt, QString *er
         if(line.trimmed().isEmpty() || line.startsWith("#"))
             continue;
 
-        Token *tokens = new Token(line.split(" "));
+        Token *tokens = new Token(line);
         QString instr = tokens->getInstr();
         QString labelName = tokens->getLabel();
 
-        if(tokens->length() > 4){
+        if(tokens->length() > 3){
             //too many tokens
             qDebug() << "token length " << tokens->length();
             *errMsg = "too many arguments here";
