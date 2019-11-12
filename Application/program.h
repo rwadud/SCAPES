@@ -12,7 +12,6 @@ public:
     ~Program();
     QString getFileName();
     bool compile(QString *inSrcTxt, QString *outCmplTxt, QString *errTxt);
-    void parseInstructions(QString &line, QString &instructionType, QString &labelName);
 
 private:
     QString filename;

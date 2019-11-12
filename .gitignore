@@ -14,3 +14,7 @@
 *.pro.user
 *.autosave
 *.json
+*.stash
+*.user*
+SCAPES
+Makefile
