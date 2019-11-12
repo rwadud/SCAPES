@@ -75,6 +75,7 @@ bool CompileControl::compile(QString *inSrcTxt, QString *outCmplTxt, QString *er
             stmtList->add(stmt);
             stmtIndex++;
         } else {
+            *errMsg = "invalid statement detected";
             qDebug() << "error at " << line;
             // some error
             return false;
