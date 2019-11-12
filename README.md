@@ -5,17 +5,17 @@
 ##      Robby Zbib
 ##      Pallab Saha
 #     
-##      UNZIP SCAPES:
+###      UNZIP SCAPES:
 ####        unzip SCAPES.zip
 ####        cd SCAPES/
 #     
-##      BUILD/RUN
+###      BUILD/RUN
 ####        ./run
 #     
-##      CLEAN UP
+###      CLEAN UP
 ####        make clean
 #
-##               HOW TO
+###               HOW TO
 ## -----------------------------------------
 ####    Create New program:       File  > New
 ####     
