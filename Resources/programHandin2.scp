@@ -3,7 +3,7 @@ dci i
 rdi x
 #initiate as 0
 rdi i
-L1: add i
+L1: add i x
 cmp i x
 #jump L2 is i > x
 jmr L2

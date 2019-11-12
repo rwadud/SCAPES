@@ -43,9 +43,10 @@ bool CompileControl::compile(QString *inSrcTxt, QString *outCmplTxt, QString *er
         QString instr = tokens->getInstr();
         QString labelName = tokens->getLabel();
 
-        if(tokens->length() > 3){
+        if(tokens->length() > 4){
             //too many tokens
-            *errMsg = "too many arguments";
+            qDebug() << "token length " << tokens->length();
+            *errMsg = "too many arguments here";
             return false;
         }
 

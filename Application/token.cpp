@@ -2,9 +2,9 @@
 #include <stdexcept>
 #include <QDebug>
 
-Token::Token(QStringList tkn)
+Token::Token(QString line)
 {
-    data = tkn;
+    data = line.split(" ");
 }
 
 Token::~Token(){
