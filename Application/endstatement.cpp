@@ -8,7 +8,7 @@ EndStatement::~EndStatement(){
 
 }
 
-//compile function for add statement
+//compile function for end statement
 bool EndStatement::compile(Token *tokens, QString *errMsg){
     //store statement type in json
     return validate(numArgs, tokens, errMsg);
@@ -19,6 +19,7 @@ bool EndStatement::run(){
     return true;
 }
 
+//serializes instruction for compilation as a json
 void EndStatement::serialize(QJsonObject &json){
     //store statement type in json
     json["statementType"] = "EndStatement";

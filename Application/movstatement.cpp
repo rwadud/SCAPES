@@ -1,13 +1,15 @@
 #include "movstatement.h"
 
+//constructor
 MovStatement::MovStatement(){}
 
+//destructor
 MovStatement::~MovStatement(){
 
 }
 
+//compile function for mov statement
 bool MovStatement::compile(Token *tokens, QString *errMsg){
-    qDebug() << "Compiling statement: " << tokens->getInstr(); //delete
 
     // validate argument/label names
     if(!validate(numArgs, tokens, errMsg))
@@ -20,16 +22,20 @@ bool MovStatement::compile(Token *tokens, QString *errMsg){
     return true;
 }
 
+//runs the instruction
 bool MovStatement::run(){
     return true;
 }
 
+//serializes instruction for compilation as a json
 void MovStatement::serialize(QJsonObject &json){
     QJsonObject jsonIdentifier1;
     QJsonObject jsonIdentifier2;
 
+    //store statement type in json
     json["statementType"] = "MovStatement";
 
+    //if statement has a label, store in json
     if(hasLabel()){
         json["labelName"] = label->getName();
     }
@@ -41,6 +47,7 @@ void MovStatement::serialize(QJsonObject &json){
     json["op2"] = jsonIdentifier2;
 }
 
+//unserialization to run instructions
 void MovStatement::unserialize(const QJsonObject &json) const{
 
 }

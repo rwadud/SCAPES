@@ -1,31 +1,59 @@
 [{
+    "op1": {
+        "IdentifierType": "Variable",
+        "id": "x",
+        "value": 192
+    },
+    "statementType": "DciStatement"
 }
 ,{
+    "labelName": "undefined",
+    "op1": {
+        "IdentifierType": "Variable",
+        "id": "y",
+        "value": 1
+    },
+    "statementType": "DciStatement"
 }
 ,{
+    "labelName": "undefined",
+    "op1": {
+        "IdentifierType": "Variable",
+        "id": "x",
+        "value": 192
+    },
+    "statementType": "RdiStatement"
 }
 ,{
+    "labelName": "undefined",
+    "op1": {
+        "IdentifierType": "Variable",
+        "id": "y",
+        "value": 1
+    },
+    "statementType": "RdiStatement"
 }
 ,{
+    "labelName": "undefined",
+    "op1": {
+        "IdentifierType": "Variable",
+        "id": "x",
+        "value": 192
+    },
+    "statementType": "PrtStatement"
 }
 ,{
-}
-,{
-}
-,{
-}
-,{
-}
-,{
-}
-,{
-}
-,{
-}
-,{
-}
-,{
-}
-,{
+    "labelName": "undefined",
+    "op1": {
+        "IdentifierType": "Variable",
+        "id": "x",
+        "value": 192
+    },
+    "op2": {
+        "IdentifierType": "Variable",
+        "id": "y",
+        "value": 1
+    },
+    "statementType": "CmpStatement"
 }
 ,]

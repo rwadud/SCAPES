@@ -1,13 +1,15 @@
 #include "jmrstatement.h"
 
+//constructor
 JmrStatement::JmrStatement(){}
 
+//destructor
 JmrStatement::~JmrStatement(){
 
 }
 
+//compile function for jmr statement
 bool JmrStatement::compile(Token *tokens, QString *errMsg){
-    qDebug() << "Compiling statement: " << tokens->getInstr(); //delete
 
     // validate argument/label names
     if(!validate(numArgs, tokens, errMsg))
@@ -20,15 +22,19 @@ bool JmrStatement::compile(Token *tokens, QString *errMsg){
     return true;
 }
 
+//runs the instruction
 bool JmrStatement::run(){
     return true;
 }
 
+//serializes instruction for compilation as a json
 void JmrStatement::serialize(QJsonObject &json){
     QJsonObject jsonIdentifier1;
 
+    //store statement type in json
     json["statementType"] = "JmrStatement";
 
+    //if statement has a label, store in json
     if(hasLabel()){
         json["labelName"] = label->getName();
     }
@@ -36,9 +42,9 @@ void JmrStatement::serialize(QJsonObject &json){
     op1->getIdentifier()->serialize(jsonIdentifier1);
     //store operands in json
     json["op1"] = jsonIdentifier1;
-
 }
 
+//unserialization to run instructions
 void JmrStatement::unserialize(const QJsonObject &json) const{
 
 }

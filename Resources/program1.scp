@@ -2,15 +2,5 @@ dci x
 dci y
 rdi x
 rdi y
-cmp x y
-jmr L1
-jmp L3
-L1: dci z
 prt x
-rdi z
-cmp x z
-jmr L2
-jmp L3
-L2: prt x
-#end of program
-L3: end
+cmp x y

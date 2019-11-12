@@ -1,14 +1,16 @@
 #include "dcistatement.h"
 #include "variable.h"
 
+//constructor
 DciStatement::DciStatement(){}
 
+//destructor
 DciStatement::~DciStatement(){
 
 }
 
+//compile function for dci statement
 bool DciStatement::compile(Token *tokens, QString *errMsg){
-    qDebug() << "Compiling statement: " << tokens->getInstr(); //delete
 
     // validate argument/label names
     if(!validate(numArgs, tokens, errMsg))
@@ -29,16 +31,20 @@ bool DciStatement::compile(Token *tokens, QString *errMsg){
     return true;
 }
 
+//runs the instruction
 bool DciStatement::run(){
     return true;
 }
 
+//serializes instruction for compilation as a json
 void DciStatement::serialize(QJsonObject &json){
     QJsonObject jsonIdentifier1;
 
+    //store statement type in json
     json["statementType"] = "DciStatement";
 
-    if(hasLabel()){
+    //if statement has a label, store in json
+    if(hasLabel() == true){
         json["labelName"] = label->getName();
     }
 
@@ -47,6 +53,7 @@ void DciStatement::serialize(QJsonObject &json){
     json["op1"] = jsonIdentifier1;
 }
 
+//unserialization to run instructionss
 void DciStatement::unserialize(const QJsonObject &json) const{
 
 }

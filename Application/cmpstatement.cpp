@@ -10,8 +10,6 @@ CmpStatement::~CmpStatement(){
 
 //compile function for cmp statement
 bool CmpStatement::compile(Token *tokens, QString *errMsg){
-    qDebug() << "Compiling statement: " << tokens->getInstr(); //delete
-
     // validate argument/label names
     if(!validate(numArgs, tokens, errMsg))
         return false;

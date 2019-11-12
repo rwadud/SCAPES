@@ -1,11 +1,14 @@
 #include "prtstatement.h"
 
+//constructor
 PrtStatement::PrtStatement(){}
 
+//destructor
 PrtStatement::~PrtStatement(){
 
 }
 
+//compile function for prt statement
 bool PrtStatement::compile(Token *tokens, QString *errMsg){
     // validate argument/label names
     if(!validate(numArgs, tokens, errMsg))
@@ -18,15 +21,19 @@ bool PrtStatement::compile(Token *tokens, QString *errMsg){
     return true;
 }
 
+//runs the instruction
 bool PrtStatement::run(){
     return true;
 }
 
+//serializes instruction for compilation as a json
 void PrtStatement::serialize(QJsonObject &json){
     QJsonObject jsonIdentifier1;
 
+    //store statement type in json
     json["statementType"] = "PrtStatement";
 
+    //if statement has a label, store in json
     if(hasLabel()){
         json["labelName"] = label->getName();
     }
@@ -36,6 +43,7 @@ void PrtStatement::serialize(QJsonObject &json){
     json["op1"] = jsonIdentifier1;
 }
 
+//unserialization to run instructions
 void PrtStatement::unserialize(const QJsonObject &json) const{
 
 }

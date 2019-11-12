@@ -8,9 +8,8 @@ JeqStatement::~JeqStatement(){
 
 }
 
-//compile function for add statement
+//compile function for jeq statement
 bool JeqStatement::compile(Token *tokens, QString *errMsg){
-    qDebug() << "Compiling statement: " << tokens->getInstr(); //delete
     // validate argument/label names
     if(!validate(numArgs, tokens, errMsg))
         return false;
@@ -34,6 +33,7 @@ void JeqStatement::serialize(QJsonObject &json){
     //store statement type in json
     json["statementType"] = "JeqStatement";
 
+    //if statement has a label, store in json
     if(hasLabel()){
         json["labelName"] = label->getName();
     }
@@ -42,6 +42,7 @@ void JeqStatement::serialize(QJsonObject &json){
     //store operands in json
     json["op1"] = jsonIdentifier1;
 }
+
 //unserialization to run instructions
 void JeqStatement::unserialize(const QJsonObject &json) const{
 
