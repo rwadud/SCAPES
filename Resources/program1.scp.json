@@ -1,8 +1,0 @@
-[
-    "{\n    \"op1\": {\n        \"IdentifierType\": \"Variable\",\n        \"id\": \"x\",\n        \"value\": 898375600\n    },\n    \"statementType\": \"DciStatement\"\n}\n",
-    "{\n    \"labelName\": \"undefinedvdvdv\",\n    \"op1\": {\n        \"IdentifierType\": \"Variable\",\n        \"id\": \"y\",\n        \"value\": 898375600\n    },\n    \"statementType\": \"DciStatement\"\n}\n",
-    "{\n    \"labelName\": \"undefinedvdvdv\",\n    \"op1\": {\n        \"IdentifierType\": \"Variable\",\n        \"id\": \"x\",\n        \"value\": 898375600\n    },\n    \"statementType\": \"RdiStatement\"\n}\n",
-    "{\n    \"labelName\": \"undefinedvdvdv\",\n    \"op1\": {\n        \"IdentifierType\": \"Variable\",\n        \"id\": \"y\",\n        \"value\": 898375600\n    },\n    \"statementType\": \"RdiStatement\"\n}\n",
-    "{\n    \"labelName\": \"undefinedvdvdv\",\n    \"op1\": {\n        \"IdentifierType\": \"Variable\",\n        \"id\": \"x\",\n        \"value\": 898375600\n    },\n    \"statementType\": \"PrtStatement\"\n}\n",
-    "{\n    \"labelName\": \"undefinedvdvdv\",\n    \"op1\": {\n        \"IdentifierType\": \"Variable\",\n        \"id\": \"x\",\n        \"value\": 898375600\n    },\n    \"op2\": {\n        \"IdentifierType\": \"Variable\",\n        \"id\": \"y\",\n        \"value\": 898375600\n    },\n    \"statementType\": \"CmpStatement\"\n}\n"
-]
