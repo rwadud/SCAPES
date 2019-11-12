@@ -10,5 +10,5 @@ cmp x z
 jmr L2
 jmp L3
 #if x is printed then x is greater then y and z
-L2: prt "erfaea"
+L2: prt x
 L3: end
