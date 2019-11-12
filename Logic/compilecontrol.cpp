@@ -26,6 +26,7 @@ bool CompileControl::compile(QString *inSrcTxt, QString *outCmplTxt, QString *er
     //parse;
     QStringList srcList = (*inSrcTxt).split(QRegExp("\n|\r\n|\r")); //split the source text into an array of lines
 
+    *outCmplTxt = "[";
     for(int i = 0; i < srcList.length(); i++){
         QString line = srcList[i];
         if(line.count(":") > 1){
@@ -73,9 +74,10 @@ bool CompileControl::compile(QString *inSrcTxt, QString *outCmplTxt, QString *er
             }
 
             // compile statements
-            if(!stmt->compile(tokens, errMsg)){
+            if(stmt->compile(tokens, errMsg) == false)
                 return false;
-            }
+
+            generateJson(stmt,outCmplTxt);
 
             //list of statements
             stmtList->add(stmt);
@@ -89,24 +91,16 @@ bool CompileControl::compile(QString *inSrcTxt, QString *outCmplTxt, QString *er
         delete tokens;
     }
 
-
-    //json serialization
-
-    //QJsonDocument doc(jsonObj);
-    //QString jsonString = doc.toJson(QJsonDocument::Indented);
-
-    QString jArray = "[";
-    for(int i=0; i < stmtList->size(); i++){
-        QJsonObject jsonStmtObj;
-        Statement* stmt = stmtList->get(i);
-        stmt->serialize(jsonStmtObj);
-        QJsonDocument doc(jsonStmtObj);
-        QString jsonString = doc.toJson(QJsonDocument::Indented);
-        jArray += jsonString + ",";
-    }
-    jArray += "]";
-
-    *outCmplTxt = jArray;
+    *outCmplTxt = outCmplTxt->left((*outCmplTxt).lastIndexOf(QChar(','))); //remove trailing comma
+    *outCmplTxt += "]";
     return true;
 }
 
+//json serialization
+void CompileControl::generateJson(Statement* stmt, QString* jsonOut){
+    QJsonObject jsonStmtObj;
+    stmt->serialize(jsonStmtObj);
+    QJsonDocument doc(jsonStmtObj);
+    QString jsonString = doc.toJson(QJsonDocument::Indented);
+    *jsonOut += jsonString + ",";
+}

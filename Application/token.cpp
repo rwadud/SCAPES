@@ -29,12 +29,8 @@ const QString Token::getArg2(){
 }
 
 const QString Token::getLabel(){
-    QString label = "undefined";
-    if(hasLabel()){
-        label = data[0];
-        return label.remove(":");
-    }
-    return "undefined";
+    QString label = data[0];
+    return label.remove(":");
 }
 
 QString Token::getInstr(){
@@ -86,4 +82,3 @@ bool Token::isArrayElement(QString &str){
     QRegExp rgx("^(\\$)[a-zA-Z0-9_]+(\\+)(\\d*)");
     return rgx.exactMatch(str);
 }
-
