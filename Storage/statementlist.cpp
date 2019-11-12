@@ -6,7 +6,9 @@ StatementList::StatementList()
 }
 
 StatementList::~StatementList(){
-
+    for(int i=0; i<statements.size(); ++i){
+        delete statements[i];
+    }
 }
 
 Statement* StatementList::get(int i){

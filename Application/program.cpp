@@ -14,7 +14,8 @@ Program::Program(QString fileName)
 Program::~Program()
 {
    // delete the contained objects
-   //delete prgmVars;
+   delete stmtList;
+   delete prgmVars;
 }
 
 

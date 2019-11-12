@@ -80,7 +80,7 @@ bool CompileControl::compile(QString *inSrcTxt, QString *outCmplTxt, QString *er
             // some error
             return false;
         }
-
+        delete tokens;
     }
 
     return true;

@@ -2,7 +2,11 @@
 
 VHash::VHash(){}
 VHash::~VHash(){
-
+    QHashIterator<QString, Identifier*> i(hash);
+    while (i.hasNext()) {
+        i.next();
+        delete i.value();
+    }
 }
 void VHash::insert(QString &key, Identifier *id){
     hash.insert(key, id);
