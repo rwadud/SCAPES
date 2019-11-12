@@ -7,6 +7,7 @@
 #include "vhash.h"
 #include "token.h"
 
+//Compiles program
 class CompileControl
 {
 public:

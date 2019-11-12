@@ -35,6 +35,5 @@ bool Program::compile(QString *inSrcTxt, QString *outCmplTxt, QString *errTxt)
     if(!compiler.compile(inSrcTxt, outCmplTxt, errTxt, stmtList, prgmVars))
         return false;
 
-    // generate json(or xml) output
     return true;
 }

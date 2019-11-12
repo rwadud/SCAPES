@@ -3,6 +3,7 @@
 
 #include "identifier.h"
 
+//This class is the operand of a statement
 class Operand
 {
 private:

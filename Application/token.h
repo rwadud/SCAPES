@@ -2,7 +2,8 @@
 #define TOKEN_H
 
 #include <QStringList>
-
+//Helper class to make parsing easier. Splits a line into tokens
+//and provides useful methods.
 class Token
 {
 public:
@@ -14,7 +15,7 @@ public:
     const QString getLabel();
     QString getInstr();
     bool hasLabel();
-    int length();
+    int length(); // number of tokens
     static bool isStringLiteral(QString &str);
     static bool isValidIdentifierName(QString &str);
     static bool isIntegerLiteral(QString &str);

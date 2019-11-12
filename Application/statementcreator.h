@@ -12,9 +12,10 @@
 #include "movstatement.h"
 #include "prtstatement.h"
 
+//Concrete factory method implementor
 class StatementCreator: public Creator
 {
 public:
-    virtual Statement* Create(QString &instr);
+    virtual Statement* Create(QString &instr); //create appropriate statements based on instruction
 };
 

@@ -9,6 +9,7 @@
 #include <QDebug>
 #include "serializable.h"
 
+//Abstract statement class
 class Statement : public Serializable
 {
 public:
@@ -21,12 +22,12 @@ public:
     bool hasLabel();
 
 protected:
-    VHash *prgmVars = nullptr;
+    VHash *prgmVars = nullptr; //program variable enviroment
     Identifier* label = nullptr;
-    Operand *op1 = nullptr;
-    Operand *op2 = nullptr;
-    bool validate(int numArgs, Token *tokens, QString *errMsg);
-    bool updateOperands(int numArgs, Token *tokens, QString *errMsg);
+    Operand *op1 = nullptr; //Operand 1
+    Operand *op2 = nullptr; //Operand 2
+    bool validate(int numArgs, Token *tokens, QString *errMsg); //Validate argument/labels
+    bool updateOperands(int numArgs, Token *tokens, QString *errMsg); //update operands and label references
 };
 
 

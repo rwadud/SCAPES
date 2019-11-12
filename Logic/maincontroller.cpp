@@ -90,11 +90,3 @@ bool MainController::compile(QString *inSrcTxt, QString *errTxt)
 
    return true;
 }
-
-void MainController::autoCompile(QString filename){
-    QString source = "";
-    QString errTxt = "";
-    this->currentFileName = filename;
-    this->openFile(currentFileName, &source, &errTxt);
-    this->compile(&source, &errTxt);
-}

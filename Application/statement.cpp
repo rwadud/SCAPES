@@ -54,15 +54,18 @@ bool Statement::updateOperands(int numArgs, Token *tokens, QString *errMsg){
     int literalsDetected = 0;
     for(int i = 1; i <= numArgs; i++){
         QString arg = tokens->getArg(i);
+
+        //extra processing for $array accessors
         int arrayIndex = 0;
         bool arrayDetected = false;
         if(Token::isArrayElement(arg)){
             arrayDetected = true;
-            QString str = arg.split("+")[0].remove("$");
-            QString tmp = arg.split("+")[1];
+            QString str = arg.split("+")[0].remove("$"); //strip $ to get array name
+            QString tmp = arg.split("+")[1]; //split + and get array index
             arrayIndex = tmp.toInt();
             arg = str;
         }
+
         if(prgmVars->contains(arg)){  // Check if the label is real or not
             Identifier *var = prgmVars->get(arg);
             if(i==1)
@@ -70,7 +73,7 @@ bool Statement::updateOperands(int numArgs, Token *tokens, QString *errMsg){
             if(i==2)
                 op2 = new Operand(var);
             if(arrayDetected){
-                ArrayVariable *arr = dynamic_cast<ArrayVariable*>(var);
+                ArrayVariable *arr = dynamic_cast<ArrayVariable*>(var); //casting needed to call array member function to set index
                 arr->setIndex(arrayIndex);
             }
         } else{
@@ -84,6 +87,7 @@ bool Statement::updateOperands(int numArgs, Token *tokens, QString *errMsg){
                     op2 = new Operand(literal);
                 literalsDetected++;
             } else if(tokens->getInstr() == "jmp" || tokens->getInstr() == "jmr" || tokens->getInstr() == "jls" || tokens->getInstr() == "jeq") {
+                //set create labels for jumps if they dont exist
                 Identifier *id = new Label(arg);
                 op1 = new Operand(id);
                 prgmVars->add(arg,id);
@@ -93,13 +97,16 @@ bool Statement::updateOperands(int numArgs, Token *tokens, QString *errMsg){
             }
         }
     }
-    if(literalsDetected > 1){
+
+    if(literalsDetected > 1){ // only 1 literal allowed
         *errMsg = "too many literals detected";
         return false;
     }
+
     return true;
 }
 
+//sets program variable enviroment
 void Statement::setEnviroment(VHash *env){
     prgmVars = env;
 }
