@@ -2,7 +2,7 @@
 #include <stdexcept>
 #include <QDebug>
 
-Token::Token(QString line)
+Token::Token(QString &line)
 {
     data = line.split(" ");
 }
