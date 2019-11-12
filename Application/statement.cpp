@@ -45,6 +45,9 @@ bool Statement::validate(int numArgs, Token *tokens, QString *errMsg){
             *errMsg = "invalid characters detected";
             return false;
         }
+        if(tokens->getInstr()=="jmr"){
+            qDebug() << arg;
+        }
     }
 
     //set label, if statement has an associated label
@@ -94,7 +97,9 @@ bool Statement::updateOperands(int numArgs, Token *tokens, QString *errMsg){
                     op2 = new Operand(literal);
                 literalsDetected++;
             } else if(tokens->getInstr() == "jmp" || tokens->getInstr() == "jmr" || tokens->getInstr() == "jls" || tokens->getInstr() == "jeq") {
+                qDebug() << "hello world " + arg;
                 Identifier *id = new Label(arg);
+                op1 = new Operand(id);
                 prgmVars->add(arg,id);
             } else {
                 *errMsg = "undefined reference to identifier: " + arg;

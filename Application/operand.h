@@ -6,7 +6,7 @@
 class Operand
 {
 private:
-    Identifier *identifier;
+    Identifier *identifier = nullptr;
 public:
     Operand(Identifier *id);
     ~Operand();

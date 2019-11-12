@@ -16,8 +16,10 @@ bool JmrStatement::compile(Token *tokens, QString *errMsg){
         return false;
 
     //update operand references
-    if(!updateOperands(numArgs, tokens, errMsg))
+    if(!updateOperands(numArgs, tokens, errMsg)){
         return false;
+    }
+
 
     return true;
 }
