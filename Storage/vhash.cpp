@@ -1,7 +1,9 @@
 #include "vhash.h"
 
 VHash::VHash(){}
-VHash::~VHash(){}
+VHash::~VHash(){
+
+}
 void VHash::insert(QString &key, Identifier *id){
     hash.insert(key, id);
 }

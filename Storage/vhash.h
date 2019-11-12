@@ -1,14 +1,14 @@
 #ifndef VHASH_H
 #define VHASH_H
 
-#include <QMap>
+#include <QHash>
 #include "identifier.h"
 
 class VHash
 {
 
 private:
-    QMap<QString, Identifier*> hash;
+    QHash<QString, Identifier*> hash;
 
 public:
     VHash();

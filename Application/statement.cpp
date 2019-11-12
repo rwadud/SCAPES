@@ -7,6 +7,8 @@ Statement::Statement(){}
 
 Statement::~Statement()
 {
+    delete op1;
+    delete op2;
 }
 
 void Statement::setLabel(Identifier *label)
