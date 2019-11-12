@@ -24,12 +24,14 @@ bool PrtStatement::run(){
 }
 
 void PrtStatement::serialize(QJsonObject &json){
-//    Identifier* value = op1->getIdentifier();
 
-//    json["statement type"] = value;
-//    json["op1"] =
-//        {"statement type", "prtstatement"},
-//        {"op1", {{"optype", op1->value->getTypeName()},{"value", op1->value}}}
+//    json["statementType"] = "prtstatement";
+
+//    if(hasLabel()){
+//        json["labelName"] = label->getName();
+//    }
+
+//    json["op1"] = op1->serialize();
 }
 
 void PrtStatement::unserialize(const QJsonObject &json) const{

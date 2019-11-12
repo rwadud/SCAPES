@@ -21,7 +21,12 @@ bool Statement::maybeSetLabel(Token *tokens, QString *errMsg){
 }
 
 bool Statement::hasLabel(){
-    return (!label == nullptr);
+    if(label == nullptr){
+        return false;
+    }
+    else{
+        return true;
+    }
 }
 
 //do some additional validation on arguments & label names
