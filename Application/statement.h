@@ -19,6 +19,7 @@ public:
     virtual void unserialize(const QJsonObject &json) const =0;
     void setLabel(Identifier *label);
     void setEnviroment(VHash *env);
+    bool hasLabel();
 
 protected:
     VHash *prgmVars = nullptr;

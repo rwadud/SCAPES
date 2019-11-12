@@ -20,6 +20,10 @@ bool Statement::maybeSetLabel(Token *tokens, QString *errMsg){
     return true;
 }
 
+bool Statement::hasLabel(){
+    return (!label == nullptr);
+}
+
 //do some additional validation on arguments & label names
 bool Statement::validate(int numArgs, Token *tokens, QString *errMsg){
 
