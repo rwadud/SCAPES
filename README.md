@@ -10,10 +10,17 @@
 ####        cd SCAPES/
 #     
 ###      BUILD/RUN
+####         qmake
+####         make
+####         ./SCAPES
+###         OR
+###         Turnkey (single command) 
 ####        ./run
 #     
 ###      CLEAN UP
 ####        make clean
+#
+#        
 #
 ###               HOW TO
 ## -----------------------------------------
