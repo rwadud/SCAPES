@@ -7,7 +7,7 @@
 class Token
 {
 public:
-    Token(QStringList tkn);
+    Token(QString line);
     ~Token();
     const QString getArg(int i);
     const QString getArg1();

@@ -23,8 +23,15 @@ bool Statement::hasLabel(){
 //do some additional validation on arguments & label names
 bool Statement::validate(int numArgs, Token *tokens, QString *errMsg){
 
+
     if(tokens->length() > numArgs+1){
+        qDebug() << "token length " << tokens->length() << " args " << numArgs;
         *errMsg = "too many arguments";
+        return false;
+    }
+
+    if(tokens->length() <= numArgs){
+        *errMsg = "missing arguments";
         return false;
     }
 
