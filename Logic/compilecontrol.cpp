@@ -5,6 +5,8 @@
 #include "token.h"
 #include <QString>
 #include <QJsonObject>
+#include <QJsonArray>
+#include <QJsonDocument>
 
 CompileControl::CompileControl()
 {
@@ -86,12 +88,25 @@ bool CompileControl::compile(QString *inSrcTxt, QString *outCmplTxt, QString *er
         }
         delete tokens;
     }
+
+
     //json serialization
+
+    //QJsonDocument doc(jsonObj);
+    //QString jsonString = doc.toJson(QJsonDocument::Indented);
+
+    QString jArray = "[";
     for(int i=0; i < stmtList->size(); i++){
-        QJsonObject json;
-        Statement* var = stmtList->get(i);
-        var->serialize(json);
+        QJsonObject jsonStmtObj;
+        Statement* stmt = stmtList->get(i);
+        stmt->serialize(jsonStmtObj);
+        QJsonDocument doc(jsonStmtObj);
+        QString jsonString = doc.toJson(QJsonDocument::Indented);
+        jArray += jsonString + ",";
     }
+    jArray += "]";
+
+    *outCmplTxt = jArray;
     return true;
 }
 
