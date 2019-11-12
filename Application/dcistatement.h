@@ -12,7 +12,6 @@ public:
     bool run();
     void serialize(QJsonObject &json);
     void unserialize(const QJsonObject &json) const;
-    QString test = "hello workd";
 
 private:
     const static int numArgs = 1;

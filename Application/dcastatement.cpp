@@ -24,7 +24,6 @@ bool DcaStatement::compile(Token *tokens, QString *errMsg){
         return false;
     } else {
          Identifier *arr = new ArrayVariable(arg1, arg2.toInt());
-         arr->setTypeName("array");
          prgmVars->insert(arg1,arr);
          op1 = new Operand(arr);
     }

@@ -60,10 +60,10 @@ bool CompileControl::compile(QString *inSrcTxt, QString *outCmplTxt, QString *er
             //create labels if a statement has one
             if(Token::isValidIdentifierName(labelName)){
                 if(prgmVars->contains(labelName)){
-                    Identifier *label = prgmVars->get(labelName);
-                    stmt->setLabel(label);
-                    Label *l = dynamic_cast<Label*>(label);
-                    l->setIndex(stmtIndex);
+                    Identifier *id = prgmVars->get(labelName);
+                    stmt->setLabel(id);
+                    Label *label = dynamic_cast<Label*>(id);
+                    label->setStatementIndex(stmtIndex);
                     //*errMsg = "Label "+labelName+" already defined";
                 } else {
                     if(tokens->hasLabel()){
