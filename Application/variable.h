@@ -12,6 +12,8 @@ public:
     ~Variable();
     void dummy(){}
     void setValue(int);
+    void serialize(QJsonObject &json);
+    void unserialize(const QJsonObject &json) const;
 };
 
 #endif

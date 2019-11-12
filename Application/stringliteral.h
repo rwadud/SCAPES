@@ -11,6 +11,8 @@ public:
     ~StringLiteral();
     QString getValue();
     void dummy(){}
+    void serialize(QJsonObject &json);
+    void unserialize(const QJsonObject &json) const;
 };
 
 #endif // STRINGLITERAL_H

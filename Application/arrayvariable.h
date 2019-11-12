@@ -20,6 +20,8 @@ public:
     int get();
     void setIndex(int i);
     int size();
+    void serialize(QJsonObject &json);
+    void unserialize(const QJsonObject &json) const;
 };
 
 #endif
