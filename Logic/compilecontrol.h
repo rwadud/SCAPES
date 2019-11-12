@@ -13,7 +13,8 @@ public:
     CompileControl();
     ~CompileControl();
     bool compile(QString *inSrcTxt, QString *outCmplTxt, QString *errMsg, StatementList *stmtList, VHash *prgmVars);
-    void validateTokens(Token *tokens);
+    void generateJson(Statement*,QString*);
+
 };
 
 #endif // COMPILECONTROL_H

@@ -16,24 +16,14 @@ void Statement::setLabel(Identifier *label)
     this->label = label;
 }
 
-bool Statement::maybeSetLabel(Token *tokens, QString *errMsg){
-    return true;
-}
-
 bool Statement::hasLabel(){
-    if(label == nullptr){
-        return false;
-    }
-    else{
-        return true;
-    }
+    return (label == nullptr) ? false : true;
 }
 
 //do some additional validation on arguments & label names
 bool Statement::validate(int numArgs, Token *tokens, QString *errMsg){
 
     if(tokens->length() > numArgs+1){
-        qDebug() << "failed here length: " << tokens->length() << " , args: " << numArgs;
         *errMsg = "too many arguments";
         return false;
     }

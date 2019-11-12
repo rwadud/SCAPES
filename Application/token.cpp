@@ -82,4 +82,3 @@ bool Token::isArrayElement(QString &str){
     QRegExp rgx("^(\\$)[a-zA-Z0-9_]+(\\+)(\\d*)");
     return rgx.exactMatch(str);
 }
-
