@@ -4,6 +4,7 @@
 #include "variable.h"
 #include "token.h"
 #include <QString>
+#include <QJsonObject>
 
 CompileControl::CompileControl()
 {
@@ -82,7 +83,12 @@ bool CompileControl::compile(QString *inSrcTxt, QString *outCmplTxt, QString *er
         }
 
     }
-
+    //json serialization
+    for(int i; i < stmtList->size(); i++){
+        QJsonObject json;
+        Statement* var = stmtList->get(i);
+        var->serialize(json);
+    }
     return true;
 }
 

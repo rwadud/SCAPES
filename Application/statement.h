@@ -15,8 +15,8 @@ public:
     virtual ~Statement();
     virtual bool compile(Token *tokens, QString *errMsg) = 0;
     virtual bool run() = 0;
-    void serialize(QJsonObject &json);
-    void unserialize(const QJsonObject &json) const;
+    virtual void serialize(QJsonObject &json) = 0;
+    virtual void unserialize(const QJsonObject &json) const =0;
     void setLabel(Identifier *label);
     void setEnviroment(VHash *env);
 

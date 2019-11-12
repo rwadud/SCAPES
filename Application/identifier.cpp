@@ -16,6 +16,14 @@ bool Identifier::isLiteral(){
     return _isLiteral;
 }
 
+void Identifier::setTypeName(QString type){
+    _typename = type;
+}
+
+QString Identifier::getTypeName(){
+    return _typename;
+}
+
 Identifier* Identifier::createLiteral(QString &literalType, QString data){
     Identifier *id = nullptr;
     if(literalType=="IntegerLiteral"){

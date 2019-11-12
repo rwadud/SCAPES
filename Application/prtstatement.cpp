@@ -24,7 +24,7 @@ bool PrtStatement::run(){
 }
 
 void PrtStatement::serialize(QJsonObject &json){
-
+    qDebug() << "test";
 }
 
 void PrtStatement::unserialize(const QJsonObject &json) const{

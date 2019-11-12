@@ -10,6 +10,7 @@ private:
 public:
     Operand(Identifier *id);
     ~Operand();
+    Identifier* getIdentifier();
 };
 
 #endif

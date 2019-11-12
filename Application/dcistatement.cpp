@@ -21,6 +21,7 @@ bool DciStatement::compile(Token *tokens, QString *errMsg){
         return false;
     } else {
          Identifier *var = new Variable(arg1);
+         var->setTypeName("variable");
          prgmVars->insert(arg1,var);
          op1 = new Operand(var);
     }

@@ -12,9 +12,14 @@ public:
     QString getName();
     bool isLiteral();
     static Identifier* createLiteral(QString &literalType, QString data);
+    QString getTypeName();
+    void setTypeName(QString type);
+
 private:
     const QString name;
     const bool _isLiteral;
+protected:
+    QString _typename;
 };
 
 #endif
