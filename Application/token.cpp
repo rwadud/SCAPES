@@ -4,7 +4,13 @@
 
 Token::Token(QString &line)
 {
-    data = line.split(" ");
+    if(line.contains('"')){
+        data = line.split(" \"");
+        data[1] = "\"" + data[1];
+    }
+    else{
+        data = line.split(" ");
+    }
 }
 
 Token::~Token(){
