@@ -81,7 +81,7 @@ bool CompileControl::compile(QString *inSrcTxt, QString *outCmplTxt, QString *er
             // some error
             return false;
         }
-
+        delete tokens;
     }
     //json serialization
     for(int i; i < stmtList->size(); i++){

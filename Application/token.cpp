@@ -7,6 +7,9 @@ Token::Token(QStringList tkn)
     data = tkn;
 }
 
+Token::~Token(){
+
+}
 const QString Token::getArg(int i){
     if(i == 2)
         return getArg2();
