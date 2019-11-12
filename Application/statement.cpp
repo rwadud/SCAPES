@@ -38,7 +38,7 @@ bool Statement::validate(int numArgs, Token *tokens, QString *errMsg){
     // Check the label for invalid characters
     for(int i = 1; i <= numArgs; i++){
         QString arg = tokens->getArg(i);
-        if(!Token::isValidIdentifierName(arg)){ // Check the label for invalid characters
+        if(!Token::isStringLiteral(arg) && !Token::isValidIdentifierName(arg)){ // Check the label for invalid characters
             *errMsg = "invalid characters detected";
             return false;
         }

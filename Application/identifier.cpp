@@ -20,8 +20,8 @@ Identifier* Identifier::createLiteral(QString &literalType, QString data){
     Identifier *id = nullptr;
     if(literalType=="IntegerLiteral"){
         id = new IntegerLiteral(data);
-    } else if(literalType=="IntegerLiteral"){
-        id = new StringLiteral(data);
+    } else if(literalType=="StringLiteral"){
+        id = new StringLiteral(data.remove("\""));
     }
     return id;
 }

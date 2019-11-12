@@ -10,7 +10,6 @@ QString StringLiteral::getValue(){
 void StringLiteral::serialize(QJsonObject &json){
     json["IdentifierType"] = "StringLiteral";
     json["id"] = getName();
-    json["value"] = getValue();
 }
 
 void StringLiteral::unserialize(const QJsonObject &json) const{
