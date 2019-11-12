@@ -28,6 +28,7 @@ bool AddStatement::run(){
 //serializes instruction for compilation as a json
 void AddStatement::serialize(QJsonObject &json){
     QJsonObject jsonIdentifier1;
+    QJsonObject jsonIdentifier2;
 
     //store statement type in json
     json["statementType"] = "AddStatement";
@@ -38,8 +39,10 @@ void AddStatement::serialize(QJsonObject &json){
     }
 
     op1->getIdentifier()->serialize(jsonIdentifier1);
+    op2->getIdentifier()->serialize(jsonIdentifier2);
     //store operands in json
     json["op1"] = jsonIdentifier1;
+    json["op2"] = jsonIdentifier2;
 }
 //unserialization to run instructions
 void AddStatement::unserialize(const QJsonObject &json) const{
