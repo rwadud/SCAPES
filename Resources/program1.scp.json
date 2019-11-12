@@ -1,31 +1,139 @@
 [{
+    "op1": {
+        "IdentifierType": "Variable",
+        "id": "x",
+        "value": 444453568
+    },
+    "statementType": "DciStatement"
 }
 ,{
+    "labelName": "undefined",
+    "op1": {
+        "IdentifierType": "Variable",
+        "id": "y",
+        "value": 444453568
+    },
+    "statementType": "DciStatement"
 }
 ,{
+    "labelName": "undefined",
+    "op1": {
+        "IdentifierType": "Variable",
+        "id": "x",
+        "value": 444453568
+    },
+    "statementType": "RdiStatement"
 }
 ,{
+    "labelName": "undefined",
+    "op1": {
+        "IdentifierType": "Variable",
+        "id": "y",
+        "value": 444453568
+    },
+    "statementType": "RdiStatement"
 }
 ,{
+    "labelName": "undefined",
+    "op1": {
+        "IdentifierType": "Variable",
+        "id": "x",
+        "value": 444453568
+    },
+    "op2": {
+        "IdentifierType": "Variable",
+        "id": "y",
+        "value": 444453568
+    },
+    "statementType": "CmpStatement"
 }
 ,{
+    "labelName": "undefined",
+    "op1": {
+        "IdentifierType": "Label",
+        "id": "L1",
+        "index": 7
+    },
+    "statementType": "JmrStatement"
 }
 ,{
+    "labelName": "undefined",
+    "op1": {
+        "IdentifierType": "Label",
+        "id": "L3",
+        "index": 14
+    },
+    "statementType": "JmpStatement"
 }
 ,{
+    "labelName": "L1",
+    "op1": {
+        "IdentifierType": "Variable",
+        "id": "z",
+        "value": 444453568
+    },
+    "statementType": "DciStatement"
 }
 ,{
+    "labelName": "undefined",
+    "op1": {
+        "IdentifierType": "Variable",
+        "id": "x",
+        "value": 444453568
+    },
+    "statementType": "PrtStatement"
 }
 ,{
+    "labelName": "undefined",
+    "op1": {
+        "IdentifierType": "Variable",
+        "id": "z",
+        "value": 444453568
+    },
+    "statementType": "RdiStatement"
 }
 ,{
+    "labelName": "undefined",
+    "op1": {
+        "IdentifierType": "Variable",
+        "id": "x",
+        "value": 444453568
+    },
+    "op2": {
+        "IdentifierType": "Variable",
+        "id": "z",
+        "value": 444453568
+    },
+    "statementType": "CmpStatement"
 }
 ,{
+    "labelName": "undefined",
+    "op1": {
+        "IdentifierType": "Label",
+        "id": "L2",
+        "index": 13
+    },
+    "statementType": "JmrStatement"
 }
 ,{
+    "labelName": "undefined",
+    "op1": {
+        "IdentifierType": "Label",
+        "id": "L3",
+        "index": 14
+    },
+    "statementType": "JmpStatement"
 }
 ,{
+    "labelName": "L2",
+    "op1": {
+        "IdentifierType": "Variable",
+        "id": "x",
+        "value": 444453568
+    },
+    "statementType": "PrtStatement"
 }
 ,{
+    "statementType": "EndStatement"
 }
 ,]

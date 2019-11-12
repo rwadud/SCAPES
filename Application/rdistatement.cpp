@@ -7,7 +7,7 @@ RdiStatement::~RdiStatement(){
 }
 
 bool RdiStatement::compile(Token *tokens, QString *errMsg){
-
+    qDebug() << "Compiling statement: " << tokens->getInstr(); //delete
     // validate argument/label names
     if(!validate(numArgs, tokens, errMsg))
         return false;

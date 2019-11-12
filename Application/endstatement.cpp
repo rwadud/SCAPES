@@ -10,6 +10,7 @@ EndStatement::~EndStatement(){
 
 //compile function for add statement
 bool EndStatement::compile(Token *tokens, QString *errMsg){
+    qDebug() << "Compiling statement: " << tokens->getInstr(); //delete
     //store statement type in json
     return validate(numArgs, tokens, errMsg);
 }

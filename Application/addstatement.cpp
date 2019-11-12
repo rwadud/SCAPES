@@ -9,6 +9,7 @@ AddStatement::~AddStatement(){
 
 //compile function for add statement
 bool AddStatement::compile(Token *tokens, QString *errMsg){
+    qDebug() << "Compiling statement: " << tokens->getInstr(); //delete
     // validate argument/label names
     if(!validate(numArgs, tokens, errMsg))
         return false;
