@@ -23,6 +23,7 @@ bool PrtStatement::run(){
 }
 
 void PrtStatement::serialize(QJsonObject &json){
+    QJsonObject jsonIdentifier1;
 
     json["statementType"] = "PrtStatement";
 
@@ -30,7 +31,9 @@ void PrtStatement::serialize(QJsonObject &json){
         json["labelName"] = label->getName();
     }
 
-    json["op1"] = op1->serialize();
+    op1->getIdentifier()->serialize(jsonIdentifier1);
+    //store operands in json
+    json["op1"] = jsonIdentifier1;
 }
 
 void PrtStatement::unserialize(const QJsonObject &json) const{

@@ -25,13 +25,17 @@ bool JlsStatement::run(){
 }
 
 void JlsStatement::serialize(QJsonObject &json){
+    QJsonObject jsonIdentifier1;
+
     json["statementType"] = "JlsStatement";
 
     if(hasLabel()){
         json["labelName"] = label->getName();
     }
 
-    json["op1"] = op1->serialize();
+    op1->getIdentifier()->serialize(jsonIdentifier1);
+
+    json["op1"] = jsonIdentifier1;
 }
 
 void JlsStatement::unserialize(const QJsonObject &json) const{

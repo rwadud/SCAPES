@@ -39,6 +39,7 @@ bool DcaStatement::run(){
 
 //serializes instruction for compilation as a json
 void DcaStatement::serialize(QJsonObject &json){
+    QJsonObject jsonIdentifier1;
     //store statement type in json
     json["statementType"] = "DcaStatement";
 
@@ -47,8 +48,9 @@ void DcaStatement::serialize(QJsonObject &json){
         json["labelName"] = label->getName();
     }
 
+    op1->getIdentifier()->serialize(jsonIdentifier1);
     //store operands in json
-    json["op1"] = op1->serialize();
+    json["op1"] = jsonIdentifier1;
 }
 
 //unserialization to run instructions

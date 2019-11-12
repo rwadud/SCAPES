@@ -34,7 +34,17 @@ bool DciStatement::run(){
 }
 
 void DciStatement::serialize(QJsonObject &json){
+    QJsonObject jsonIdentifier1;
 
+    json["statementType"] = "DciStatement";
+
+    if(hasLabel()){
+        json["labelName"] = label->getName();
+    }
+
+    op1->getIdentifier()->serialize(jsonIdentifier1);
+    //store operands in json
+    json["op1"] = jsonIdentifier1;
 }
 
 void DciStatement::unserialize(const QJsonObject &json) const{

@@ -30,6 +30,9 @@ bool CmpStatement::run(){
 
 //serializes instruction for compilation as a json
 void CmpStatement::serialize(QJsonObject &json){
+    QJsonObject jsonIdentifier1;
+    QJsonObject jsonIdentifier2;
+
     //store statement type in json
     json["statementType"] = "CmpStatement";
 
@@ -38,9 +41,11 @@ void CmpStatement::serialize(QJsonObject &json){
         json["labelName"] = label->getName();
     }
 
+    op1->getIdentifier()->serialize(jsonIdentifier1);
+    op2->getIdentifier()->serialize(jsonIdentifier2);
     //store operands in json
-    json["op1"] = op1->serialize();
-    json["op2"] = op2->serialize();
+    json["op1"] = jsonIdentifier1;
+    json["op2"] = jsonIdentifier2;
 
 }
 
