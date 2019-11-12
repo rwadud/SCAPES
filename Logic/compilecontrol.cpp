@@ -84,7 +84,7 @@ bool CompileControl::compile(QString *inSrcTxt, QString *outCmplTxt, QString *er
         delete tokens;
     }
     //json serialization
-    for(int i =0; i < stmtList->size(); i++){
+    for(int i=0; i < stmtList->size(); i++){
         QJsonObject json;
         Statement* var = stmtList->get(i);
         var->serialize(json);
