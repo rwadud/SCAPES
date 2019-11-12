@@ -16,3 +16,5 @@
 *.json
 *.stash
 *.user*
+SCAPES
+Makefile
