@@ -1,0 +1,14 @@
+dci x
+dci y
+rdi x
+rdi y
+cmp x y
+jmr L1
+jmp L3
+L1: dci z
+cmp x z
+jmr L2
+jmp L3
+#if x is printed then x is greater then y and z
+L2: prt x
+L3: end

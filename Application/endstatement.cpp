@@ -10,7 +10,6 @@ EndStatement::~EndStatement(){
 
 //compile function for end statement
 bool EndStatement::compile(Token *tokens, QString *errMsg){
-    qDebug() << "Compiling statement: " << tokens->getInstr(); //delete
     //store statement type in json
     return validate(numArgs, tokens, errMsg);
 }
@@ -24,6 +23,9 @@ bool EndStatement::run(){
 void EndStatement::serialize(QJsonObject &json){
     //store statement type in json
     json["statementType"] = "EndStatement";
+    if(hasLabel()){
+        json["labelName"] = label->getName();
+    }
 }
 
 //unserialization to run instructions

@@ -1,0 +1,113 @@
+[{
+    "op1": {
+        "IdentifierType": "Variable",
+        "id": "x",
+        "value": 48
+    },
+    "statementType": "DciStatement"
+}
+,{
+    "op1": {
+        "IdentifierType": "Variable",
+        "id": "y",
+        "value": 120
+    },
+    "statementType": "DciStatement"
+}
+,{
+    "op1": {
+        "IdentifierType": "Variable",
+        "id": "x",
+        "value": 48
+    },
+    "statementType": "RdiStatement"
+}
+,{
+    "op1": {
+        "IdentifierType": "Variable",
+        "id": "y",
+        "value": 120
+    },
+    "statementType": "RdiStatement"
+}
+,{
+    "op1": {
+        "IdentifierType": "Variable",
+        "id": "x",
+        "value": 48
+    },
+    "op2": {
+        "IdentifierType": "Variable",
+        "id": "y",
+        "value": 120
+    },
+    "statementType": "CmpStatement"
+}
+,{
+    "op1": {
+        "IdentifierType": "Label",
+        "id": "L1",
+        "index": 7
+    },
+    "statementType": "JmrStatement"
+}
+,{
+    "op1": {
+        "IdentifierType": "Label",
+        "id": "L3",
+        "index": 12
+    },
+    "statementType": "JmpStatement"
+}
+,{
+    "labelName": "L1",
+    "op1": {
+        "IdentifierType": "Variable",
+        "id": "z",
+        "value": 48
+    },
+    "statementType": "DciStatement"
+}
+,{
+    "op1": {
+        "IdentifierType": "Variable",
+        "id": "x",
+        "value": 48
+    },
+    "op2": {
+        "IdentifierType": "Variable",
+        "id": "z",
+        "value": 48
+    },
+    "statementType": "CmpStatement"
+}
+,{
+    "op1": {
+        "IdentifierType": "Label",
+        "id": "L2",
+        "index": 11
+    },
+    "statementType": "JmrStatement"
+}
+,{
+    "op1": {
+        "IdentifierType": "Label",
+        "id": "L3",
+        "index": 12
+    },
+    "statementType": "JmpStatement"
+}
+,{
+    "labelName": "L2",
+    "op1": {
+        "IdentifierType": "Variable",
+        "id": "x",
+        "value": 48
+    },
+    "statementType": "PrtStatement"
+}
+,{
+    "labelName": "L3",
+    "statementType": "EndStatement"
+}
+,]

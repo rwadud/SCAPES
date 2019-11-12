@@ -65,8 +65,10 @@ bool CompileControl::compile(QString *inSrcTxt, QString *outCmplTxt, QString *er
                     l->setIndex(stmtIndex);
                     //*errMsg = "Label "+labelName+" already defined";
                 } else {
-                    Identifier *label = new Label(labelName,stmtIndex);
-                    prgmVars->insert(labelName, label);
+                    if(tokens->hasLabel()){
+                        Identifier *label = new Label(labelName,stmtIndex);
+                        prgmVars->insert(labelName, label);
+                    }
                 }
             } else {
                 *errMsg = "invalid characters detected";
@@ -88,13 +90,7 @@ bool CompileControl::compile(QString *inSrcTxt, QString *outCmplTxt, QString *er
         }
         delete tokens;
     }
-
-
     //json serialization
-
-    //QJsonDocument doc(jsonObj);
-    //QString jsonString = doc.toJson(QJsonDocument::Indented);
-
     QString jArray = "[";
     for(int i=0; i < stmtList->size(); i++){
         QJsonObject jsonStmtObj;

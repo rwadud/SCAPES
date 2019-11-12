@@ -29,12 +29,8 @@ const QString Token::getArg2(){
 }
 
 const QString Token::getLabel(){
-    QString label = "undefined";
-    if(hasLabel()){
-        label = data[0];
-        return label.remove(":");
-    }
-    return "undefined";
+    QString label = data[0];
+    return label.remove(":");
 }
 
 QString Token::getInstr(){

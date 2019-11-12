@@ -1,6 +1,0 @@
-dci x
-dci y
-rdi x
-rdi y
-prt x
-cmp x y
