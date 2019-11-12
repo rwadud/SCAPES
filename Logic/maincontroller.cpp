@@ -82,7 +82,7 @@ bool MainController::compile(QString *inSrcTxt, QString *errTxt)
         return false;
     }
 
-   compiledTxt =  " Will be a JSON or XML document once implemented ......\n"; // To be removed
+   //compiledTxt =  " Will be a JSON or XML document once implemented ......\n"; // To be removed
    QString compiledFileName = fileName + ".json";
 
    // save the compiled file (in xml format)
