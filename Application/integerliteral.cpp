@@ -6,3 +6,11 @@ IntegerLiteral::~IntegerLiteral(){}
 int IntegerLiteral::getValue(){
     return value;
 }
+
+void IntegerLiteral::serialize(QJsonObject &json){
+
+}
+
+void IntegerLiteral::unserialize(const QJsonObject &json) const{
+
+}

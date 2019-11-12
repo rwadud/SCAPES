@@ -2,8 +2,9 @@
 #define IDENTIFIER_H
 
 #include <QString>
+#include "serializable.h"
 
-class Identifier
+class Identifier : public Serializable
 {
 public:
     Identifier(QString str = "", bool b = false);

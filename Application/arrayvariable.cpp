@@ -34,3 +34,13 @@ void  ArrayVariable::setIndex(int i){
 int ArrayVariable::size(){
     return (sizeof(*array)/sizeof(*array));
 }
+
+void ArrayVariable::serialize(QJsonObject &json){
+
+}
+
+void ArrayVariable::unserialize(const QJsonObject &json) const{
+
+}
+
+

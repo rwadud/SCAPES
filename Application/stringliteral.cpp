@@ -6,3 +6,11 @@ StringLiteral::~StringLiteral(){}
 QString StringLiteral::getValue(){
     return getName();
 }
+
+void StringLiteral::serialize(QJsonObject &json){
+
+}
+
+void StringLiteral::unserialize(const QJsonObject &json) const{
+
+}

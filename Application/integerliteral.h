@@ -12,6 +12,8 @@ public:
     void dummy(){}
 private:
     const int value;
+    void serialize(QJsonObject &json);
+    void unserialize(const QJsonObject &json) const;
 };
 
 #endif // INTEGERLITERAL_H
