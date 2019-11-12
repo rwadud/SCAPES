@@ -14,6 +14,7 @@ public:
     ~Label();
     void dummy(){}
     int getIndex();
+    void setIndex(int i);
     void serialize(QJsonObject &json);
     void unserialize(const QJsonObject &json) const;
 };

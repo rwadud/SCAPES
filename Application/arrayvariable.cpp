@@ -36,7 +36,8 @@ int ArrayVariable::size(){
 }
 
 void ArrayVariable::serialize(QJsonObject &json){
-
+    json["IdentifierType"] = "ArrayVariable";
+    json["id"] = getName();
 }
 
 void ArrayVariable::unserialize(const QJsonObject &json) const{
