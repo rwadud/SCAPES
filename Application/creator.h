@@ -3,6 +3,7 @@
 
 #include "statement.h"
 
+//Abstract factory method implementor
 class Creator
 {
 public:

@@ -14,8 +14,6 @@ public:
     void setCurrentFileName(QString name);
     bool manageControl(QString actionName, QString filename, QString *inText, QString *outText, QString *errText);
 
-    void autoCompile(QString filename); // for testing purposes
-
 private:
     QString        currentFileName;
     Repository     *store;

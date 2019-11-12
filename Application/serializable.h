@@ -3,6 +3,7 @@
 
 #include <QJsonObject>
 
+//Abstract Serialization interface
 class Serializable
 {
 public:

@@ -4,6 +4,7 @@
 #include <QHash>
 #include "identifier.h"
 
+//Encapsulated QHash map used to store program variables
 class VHash
 {
 

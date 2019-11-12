@@ -4,6 +4,7 @@
 #include <QVector>
 #include "statement.h"
 
+//Encapsulated QVector used to store a list of statements
 class StatementList
 {
 public:

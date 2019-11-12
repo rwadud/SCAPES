@@ -13,8 +13,5 @@ int main(int argc, char *argv[])
 
     w.show();
 
-    //uncomment for easy testing
-    //ctlr.autoCompile("../SCAPES/Resources/program1Handin.scp");
-
     return a.exec();
 }

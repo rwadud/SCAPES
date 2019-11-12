@@ -8,7 +8,7 @@ class Label : public Identifier
 {
 private:
     /* data */
-    int sIndex;
+    int sIndex; //index of statement
 public:
     Label(QString str="", int i=0);
     ~Label();
