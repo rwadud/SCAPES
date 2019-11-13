@@ -12,7 +12,7 @@
 ###      BUILD/RUN
 ####         qmake
 ####         make
-####         ./SCAPES
+####         ./bin/SCAPES
 ###         OR
 ###         Turnkey (single command)
 ####        ./run
