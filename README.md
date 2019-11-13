@@ -18,7 +18,7 @@
 ####        ./run
 #     
 ###      CLEAN UP
-####        make clean
+####        make distclean
 #
 #        
 #

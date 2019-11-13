@@ -16,5 +16,6 @@
 *.json
 *.stash
 *.user*
-SCAPES
 Makefile
+build_files
+bin
