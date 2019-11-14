@@ -26,7 +26,7 @@ bool CompileControl::compile(QString *inSrcTxt, QString *outCmplTxt, QString *er
     //parse;
     QStringList srcList = (*inSrcTxt).split(QRegExp("\n|\r\n|\r")); //split the source text into an array of lines
 
-    *outCmplTxt = "[";
+
     for(int i = 0; i < srcList.length(); i++){
         QString line = srcList[i];
         if(line.count(":") > 1){
@@ -41,14 +41,6 @@ bool CompileControl::compile(QString *inSrcTxt, QString *outCmplTxt, QString *er
 
         Token *tokens = new Token(line);
         QString instr = tokens->getInstr();
-        QString labelName = tokens->getLabel();
-
-        if(tokens->length() > 3){
-            //too many tokens
-            qDebug() << "token length " << tokens->length();
-            *errMsg = "too many arguments";
-            return false;
-        }
 
         // create statements
         Statement *stmt = stmtCreator.Create(instr);
@@ -58,29 +50,12 @@ bool CompileControl::compile(QString *inSrcTxt, QString *outCmplTxt, QString *er
             //inject program variable enviroment
             stmt->setEnviroment(prgmVars);
 
-            //create labels if a statement has one
-            if(Token::isValidIdentifierName(labelName)){
-                if(prgmVars->contains(labelName)){
-                    Identifier *id = prgmVars->get(labelName);
-                    stmt->setLabel(id);
-                    Label *label = dynamic_cast<Label*>(id);
-                    label->setStatementIndex(stmtIndex);
-                    //*errMsg = "Label "+labelName+" already defined";
-                } else {
-                    if(tokens->hasLabel()){
-                        Identifier *label = new Label(labelName,stmtIndex);
-                        prgmVars->insert(labelName, label);
-                    }
-                }
-            } else {
-                *errMsg = "invalid characters detected";
-            }
+            // check if label exist and updates references
+            stmt->updateLabel(stmtIndex, tokens);
 
             // compile statements
             if(stmt->compile(tokens, errMsg) == false)
                 return false;
-
-            generateJson(stmt,outCmplTxt);
 
             //list of statements
             stmtList->add(stmt);
@@ -94,16 +69,21 @@ bool CompileControl::compile(QString *inSrcTxt, QString *outCmplTxt, QString *er
         delete tokens;
     }
 
-    *outCmplTxt = outCmplTxt->left((*outCmplTxt).lastIndexOf(QChar(','))); //remove trailing comma
-    *outCmplTxt += "]";
+    generateJson(stmtList, outCmplTxt);
+
     return true;
 }
 
 //json serialization
-void CompileControl::generateJson(Statement* stmt, QString* jsonOut){
-    QJsonObject jsonStmtObj;
-    stmt->serialize(jsonStmtObj);
-    QJsonDocument doc(jsonStmtObj);
-    QString jsonString = doc.toJson(QJsonDocument::Indented);
-    *jsonOut += jsonString + ",";
+void CompileControl::generateJson(StatementList* stmtList, QString* jsonOut){
+    *jsonOut = "[";
+    for (int i = 0;i<stmtList->size();i++) {
+        QJsonObject jsonStmtObj;
+        stmtList->get(i)->serialize(jsonStmtObj);
+        QJsonDocument doc(jsonStmtObj);
+        QString jsonString = doc.toJson(QJsonDocument::Indented);
+        *jsonOut += jsonString + ",";
+    }
+    *jsonOut = jsonOut->left((*jsonOut).lastIndexOf(QChar(','))); //remove trailing comma
+    *jsonOut += "]";
 }

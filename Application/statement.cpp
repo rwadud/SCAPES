@@ -23,9 +23,7 @@ bool Statement::hasLabel(){
 //do some additional validation on arguments & label names
 bool Statement::validate(int numArgs, Token *tokens, QString *errMsg){
 
-
     if(tokens->length() > numArgs+1){
-        qDebug() << "token length " << tokens->length() << " args " << numArgs;
         *errMsg = "too many arguments";
         return false;
     }
@@ -52,13 +50,43 @@ bool Statement::validate(int numArgs, Token *tokens, QString *errMsg){
     //set label, if statement has an associated label
     if(tokens->hasLabel()){
         QString labelName = tokens->getLabel();
+
+        if(!Token::isValidIdentifierName(labelName)){
+            *errMsg = "invalid characters detected";
+            return false;
+        }
+
+        if(numArgs >= 1 && labelName == tokens->getArg1()){
+            *errMsg = "label already defined: " +labelName;
+            return false;
+        }
+
+        if(numArgs == 2 && labelName == tokens->getArg2()){
+            *errMsg = "label already defined: " +labelName;
+            return false;
+        }
+
         if( !(label = prgmVars->get(labelName)) ){
             *errMsg = "undefined reference to identifier/label: " +labelName;
             return false;
         }
+
     }
 
     return true;
+}
+
+//create label if a statement has one or update the reference if label was already created
+void Statement::updateLabel(int stmtIndex,Token *tokens){
+    QString labelName = tokens->getLabel();
+    if(tokens->hasLabel() && Token::isValidIdentifierName(labelName)){
+        if(prgmVars->contains(labelName)){
+            Label *label = dynamic_cast<Label*>(prgmVars->get(labelName));
+            label->setStatementIndex(stmtIndex);
+        } else {
+            prgmVars->insert(labelName, new Label(labelName,stmtIndex));
+        }
+    }
 }
 
 //update operand references

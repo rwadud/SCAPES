@@ -19,6 +19,7 @@ public:
     virtual bool run() = 0;
     void setLabel(Identifier *label);
     void setEnviroment(VHash *env);
+    void updateLabel(int stmtIndex, Token *tokens);
     bool hasLabel();
 
 protected:

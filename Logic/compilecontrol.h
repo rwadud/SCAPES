@@ -14,7 +14,7 @@ public:
     CompileControl();
     ~CompileControl();
     bool compile(QString *inSrcTxt, QString *outCmplTxt, QString *errMsg, StatementList *stmtList, VHash *prgmVars);
-    void generateJson(Statement*,QString*);
+    void generateJson(StatementList* stmtList,QString*);
 
 };
 
