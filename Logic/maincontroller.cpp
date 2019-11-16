@@ -36,6 +36,8 @@ bool MainController::manageControl(QString actionName, QString filename, QString
         rc = saveFile(filename, inText, errText);
     } else if (actionName == "compile") {
         rc = compile(inText, errText);
+    } else if (actionName == "run") {
+        rc = run(inText, outText, errText);
     }
     return rc;
 }
@@ -49,6 +51,7 @@ bool MainController::saveFile(QString filename, QString *inText, QString *errTex
 {
     return store->setSourceData(filename, inText, errText);
 }
+
 
 bool MainController::compile(QString *inSrcTxt, QString *errTxt)
 {
@@ -89,4 +92,14 @@ bool MainController::compile(QString *inSrcTxt, QString *errTxt)
    saveFile(compiledFileName, &compiledTxt, errTxt);
 
    return true;
+}
+
+bool MainController::run(QString *inSrcTxt, QString *outResultTxt, QString *errTxt)
+{
+    *errTxt = ""; // To Be Removed
+    *outResultTxt = "Result: Coming Soon ....."; // To Be Removed
+
+    qDebug()  << "Run Program: " + *inSrcTxt;
+
+    return true;
 }
