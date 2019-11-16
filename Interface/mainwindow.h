@@ -54,6 +54,7 @@ private:
     void saveFile(QString fileName);
     bool loadFile(QString fileName);
     void compile();
+    void run();
     void highLightCurrentLine();
 };
 

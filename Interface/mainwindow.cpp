@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "compileoption.h"
+#include "runoption.h"
 #include "saveoption.h"
 #include "loadoption.h"
 #include "filebrowser.h"
@@ -71,6 +72,26 @@ void MainWindow::compile()
     }
 
 }
+
+void MainWindow::run()
+{
+    QString         srcText =  ui->textEdit->toPlainText();
+    QString         errText;
+    QString         resultText;
+    RunOption       option;
+
+    if (option.run(ctlr, &srcText, &resultText, &errText) == false) {
+        NotifyMsg::show("Run Failed: " + errText, ui->statusBar);
+    } else {
+        NotifyMsg::show("Run OK!", ui->statusBar);
+        // For now sending the resultText to MessageBox.
+        // It will be sent to the textBrowser Console (once added)
+        // NotifyMsg::show("Run OK!: ", ui->textBrowser);
+        NotifyMsg::show(resultText);
+    }
+
+}
+
 void MainWindow::highLightCurrentLine()
 {
     QList<QTextEdit::ExtraSelection> extraSelections;
@@ -163,7 +184,7 @@ void MainWindow::on_actionCompile_triggered()
 
 void MainWindow::on_actionRun_triggered()
 {
-    //ctlr->run();
+    run();
 }
 
 void MainWindow::on_actionAbout_triggered()
