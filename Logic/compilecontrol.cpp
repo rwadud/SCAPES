@@ -54,15 +54,17 @@ bool CompileControl::compile(QString *inSrcTxt, QString *outCmplTxt, QString *er
             stmt->updateLabel(stmtIndex, tokens);
 
             // compile statements
-            if(stmt->compile(tokens, errMsg) == false)
-                return false;
+            if(stmt->compile(tokens, errMsg) == false) {
+                  *errMsg = QString("Line %1 - ").arg(i+1) + *errMsg;
+                  return false;
+             }
 
             //list of statements
             stmtList->add(stmt);
             stmtIndex++;
         } else {
-            *errMsg = "invalid statement detected";
-            qDebug() << "error at " << line;
+            *errMsg = QString("Line %1 - ").arg(i+1) + "invalid statement detected";
+            //qDebug() << "error at " << line;
             // some error
             return false;
         }

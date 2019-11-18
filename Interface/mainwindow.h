@@ -55,7 +55,6 @@ private:
     bool loadFile(QString fileName);
     void compile();
     void run();
-    void highLightCurrentLine();
 };
 
 #endif // MAINWINDOW_H

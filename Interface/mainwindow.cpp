@@ -1,11 +1,12 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "compileoption.h"
+#include "editorhelper.h"
+#include "filebrowser.h"
+#include "loadoption.h"
+#include "notifymsg.h"
 #include "runoption.h"
 #include "saveoption.h"
-#include "loadoption.h"
-#include "filebrowser.h"
-#include "notifymsg.h"
 #include <QString>
 #include <QMessageBox>
 #include <QDebug>
@@ -15,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent, MainController *ctlrRef) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    this->setCentralWidget(ui->textEdit);
+    //this->setCentralWidget(ui->textEdit);
 
     ctlr = ctlrRef; // cache it
 
@@ -32,6 +33,9 @@ void MainWindow::saveFile(QString fileName)
     QString      errText;
     SaveOption   option(this);
 
+    // clear status window
+    NotifyMsg::show( "", ui->textBrowser);
+
     // Save the  program
     if (option.save(ctlr, fileName, &srcText, &errText) == false) {
         NotifyMsg::show("File Save Failed: " + errText, ui->statusBar);
@@ -47,6 +51,9 @@ bool MainWindow::loadFile(QString fileName)
     QString      errText;
     LoadOption   option(this);
     bool         rc = false;
+
+    // clear status window
+    NotifyMsg::show( "", ui->textBrowser);
 
     // get the data
     rc = option.load(ctlr, fileName, &outText, &errText);
@@ -65,8 +72,15 @@ void MainWindow::compile()
     QString         errText;
     CompileOption  option;
 
+    // clear status window
+    NotifyMsg::show( "", ui->textBrowser);
+
     if (option.compile(ctlr, &srcText, &errText) == false) {
-        NotifyMsg::show("Compile Failed: " + errText, ui->statusBar);
+        //NotifyMsg::show("Compile Failed: " + errText, ui->statusBar);
+        NotifyMsg::show("Compile Failed" , ui->statusBar);
+        NotifyMsg::show( "Compile Failed: " + errText, ui->textBrowser);
+        EditorHelper::moveCursorToLine(ui->textEdit, errText.section(" ", 1, 1).toInt());
+        EditorHelper::highLightCurrentLine(ui->textEdit, QColor(Qt::red).lighter(160));
     } else {
         NotifyMsg::show("Compile OK!", ui->statusBar);
     }
@@ -80,6 +94,9 @@ void MainWindow::run()
     QString         resultText;
     RunOption       option;
 
+    // clear status window
+    NotifyMsg::show( "", ui->textBrowser);
+
     if (option.run(ctlr, &srcText, &resultText, &errText) == false) {
         NotifyMsg::show("Run Failed: " + errText, ui->statusBar);
     } else {
@@ -92,24 +109,6 @@ void MainWindow::run()
 
 }
 
-void MainWindow::highLightCurrentLine()
-{
-    QList<QTextEdit::ExtraSelection> extraSelections;
-
-    {
-        QTextEdit::ExtraSelection selection;
-
-        QColor lineColor = QColor(Qt::blue).lighter(160);
-
-        selection.format.setBackground(lineColor);
-        selection.format.setProperty(QTextFormat::FullWidthSelection, true);
-        selection.cursor = ui->textEdit->textCursor();
-        selection.cursor.clearSelection();
-        extraSelections.append(selection);
-    }
-
-    ui->textEdit->setExtraSelections(extraSelections);
-}
 void MainWindow::on_actionExit_triggered()
 {
     QApplication::quit();
@@ -218,6 +217,6 @@ void MainWindow::on_textEdit_cursorPositionChanged()
     ui->statusBar->showMessage(QString("Ln %1, Col %2").arg(line).arg(pos));
 
     // highlight the selected line
-    highLightCurrentLine();
+    EditorHelper::highLightCurrentLine(ui->textEdit, QColor(Qt::blue).lighter(160));
 }
 
