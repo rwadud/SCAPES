@@ -10,7 +10,7 @@ private:
     /* data */
     int sIndex; //index of statement
 public:
-    Label(QString str="", int i=0);
+    Label(QString str="", int i=-1);
     ~Label();
     void dummy(){}
     int getStatementIndex();

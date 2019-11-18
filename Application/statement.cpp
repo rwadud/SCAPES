@@ -77,16 +77,25 @@ bool Statement::validate(int numArgs, Token *tokens, QString *errMsg){
 }
 
 //create label if a statement has one or update the reference if label was already created
-void Statement::updateLabel(int stmtIndex,Token *tokens){
+bool Statement::updateLabel(int stmtIndex, Token *tokens, QString *errMsg){
     QString labelName = tokens->getLabel();
     if(tokens->hasLabel() && Token::isValidIdentifierName(labelName)){
         if(prgmVars->contains(labelName)){
             Label *label = dynamic_cast<Label*>(prgmVars->get(labelName));
-            label->setStatementIndex(stmtIndex);
+
+            if(label->getStatementIndex()<0){
+                label->setStatementIndex(stmtIndex);
+            } else {
+                *errMsg = "label already declared at index " + QString::number(label->getStatementIndex());
+                return false;
+            }
+
         } else {
             prgmVars->insert(labelName, new Label(labelName,stmtIndex));
         }
     }
+
+    return true;
 }
 
 //update operand references
