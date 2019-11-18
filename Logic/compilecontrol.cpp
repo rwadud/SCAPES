@@ -51,7 +51,8 @@ bool CompileControl::compile(QString *inSrcTxt, QString *outCmplTxt, QString *er
             stmt->setEnviroment(prgmVars);
 
             // check if label exist and updates references
-            stmt->updateLabel(stmtIndex, tokens);
+            if(!stmt->updateLabel(stmtIndex, tokens, errMsg))
+                return false;
 
             // compile statements
             if(stmt->compile(tokens, errMsg) == false)
