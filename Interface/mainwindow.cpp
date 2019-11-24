@@ -78,6 +78,8 @@ void MainWindow::compile()
     if (option.compile(ctlr, &srcText, &errText) == false) {
         //NotifyMsg::show("Compile Failed: " + errText, ui->statusBar);
         NotifyMsg::show("Compile Failed" , ui->statusBar);
+
+        // Send the error text to the textBrowser Console
         NotifyMsg::show( "Compile Failed: " + errText, ui->textBrowser);
         EditorHelper::moveCursorToLine(ui->textEdit, errText.section(" ", 1, 1).toInt());
         EditorHelper::highLightCurrentLine(ui->textEdit, QColor(Qt::red).lighter(160));
@@ -98,13 +100,18 @@ void MainWindow::run()
     NotifyMsg::show( "", ui->textBrowser);
 
     if (option.run(ctlr, &srcText, &resultText, &errText) == false) {
-        NotifyMsg::show("Run Failed: " + errText, ui->statusBar);
+        NotifyMsg::show("Run Failed", ui->statusBar);
+
+        // Send the error text to the textBrowser Console
+        NotifyMsg::show( "Run Failed: " + errText, ui->textBrowser);
+        EditorHelper::moveCursorToLine(ui->textEdit, errText.section(" ", 1, 1).toInt());
+        EditorHelper::highLightCurrentLine(ui->textEdit, QColor(Qt::red).lighter(160));
     } else {
         NotifyMsg::show("Run OK!", ui->statusBar);
-        // For now sending the resultText to MessageBox.
-        // It will be sent to the textBrowser Console (once added)
-        // NotifyMsg::show("Run OK!: ", ui->textBrowser);
-        NotifyMsg::show(resultText);
+        // NotifyMsg::show(resultText);
+
+        // Send the result to the textBrowser Console
+        NotifyMsg::show(resultText, ui->textBrowser);
     }
 
 }

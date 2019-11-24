@@ -3,6 +3,7 @@
 #include "statementcreator.h"
 #include "variable.h"
 #include "token.h"
+#include "maincontroller.h"
 #include <QString>
 #include <QJsonObject>
 #include <QJsonArray>
@@ -51,12 +52,13 @@ bool CompileControl::compile(QString *inSrcTxt, QString *outCmplTxt, QString *er
             stmt->setEnviroment(prgmVars);
 
             // check if label exist and updates references
-            if(!stmt->updateLabel(stmtIndex, tokens, errMsg))
+            if(!stmt->updateLabel(stmtIndex, tokens, errMsg)) {
+                MainController::addLineNumToErrText(i+1, errMsg);
                 return false;
-
+             }
             // compile statements
             if(stmt->compile(tokens, errMsg) == false) {
-                  *errMsg = QString("Line %1 - ").arg(i+1) + *errMsg;
+                  MainController::addLineNumToErrText(i+1, errMsg);
                   return false;
              }
 
@@ -64,7 +66,8 @@ bool CompileControl::compile(QString *inSrcTxt, QString *outCmplTxt, QString *er
             stmtList->add(stmt);
             stmtIndex++;
         } else {
-            *errMsg = QString("Line %1 - ").arg(i+1) + "invalid statement detected";
+            *errMsg = "invalid statement detected";
+            MainController::addLineNumToErrText(i+1, errMsg);
             //qDebug() << "error at " << line;
             // some error
             return false;
@@ -76,6 +79,7 @@ bool CompileControl::compile(QString *inSrcTxt, QString *outCmplTxt, QString *er
 
     return true;
 }
+
 
 //json serialization
 void CompileControl::generateJson(StatementList* stmtList, QString* jsonOut){

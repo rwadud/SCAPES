@@ -13,7 +13,7 @@ public:
     QString getCurrentFileName();
     void setCurrentFileName(QString name);
     bool manageControl(QString actionName, QString filename, QString *inText, QString *outText, QString *errText);
-
+    static void addLineNumToErrText(int lineNum, QString *errText);
 private:
     QString        currentFileName;
     Repository     *store;

@@ -25,6 +25,10 @@ void MainController::setCurrentFileName(QString name)
 {
     currentFileName = name;
 }
+void MainController::addLineNumToErrText(int lineNum, QString *errText)
+{
+    *errText = QString("Line %1 - ").arg(lineNum) + *errText;
+}
 bool MainController::manageControl(QString actionName, QString filename, QString *inText,
                                    QString *outText, QString *errText)
 {
