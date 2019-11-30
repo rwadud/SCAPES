@@ -33,7 +33,7 @@ bool Statement::validate(int numArgs, Token *tokens, QString *errMsg){
         return false;
     }
 
-    // Check the label for invalid characters
+    // Check the identifier for invalid characters
     for(int i = 1; i <= numArgs; i++){
         QString arg = tokens->getArg(i);
         if(Token::isStringLiteral(arg)){
@@ -47,7 +47,7 @@ bool Statement::validate(int numArgs, Token *tokens, QString *errMsg){
         }
     }
 
-    //set label, if statement has an associated label
+    //validate label
     if(tokens->hasLabel()){
         QString labelName = tokens->getLabel();
 
