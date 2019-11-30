@@ -1,5 +1,6 @@
 #include "dcastatement.h"
 #include "arrayvariable.h"
+#include "integerliteral.h"
 
 //constructor
 DcaStatement::DcaStatement(){}
@@ -19,13 +20,14 @@ bool DcaStatement::compile(Token *tokens, QString *errMsg){
     QString arg1 = tokens->getArg1();
     QString arg2 = tokens->getArg2();
     //create variables or check if they exist in prgmVars
-    if(prgmVars->contains(arg1)){
+    if(env->contains(arg1)){
         *errMsg = arg1+ " already defined";
         return false;
     } else {
          Identifier *arr = new ArrayVariable(arg1, arg2.toInt());
-         prgmVars->insert(arg1,arr);
+         env->insert(arg1,arr);
          op1 = new Operand(arr);
+         op2 = new Operand(new IntegerLiteral(arg2));
     }
     return true;
 }
@@ -37,18 +39,21 @@ bool DcaStatement::run(){
 
 //serializes instruction for compilation as a json
 void DcaStatement::serialize(QJsonObject &json){
-    QJsonObject jsonIdentifier1;
+    QJsonObject jid1;
+    QJsonObject jid2;
     //store statement type in json
-    json["statementType"] = "DcaStatement";
+    json["statement"] = "dca";
 
     //if statement has a label, store in json
     if(hasLabel()){
-        json["labelName"] = label->getName();
+        json["label"] = label->getName();
     }
 
-    op1->getIdentifier()->serialize(jsonIdentifier1);
+    op1->getIdentifier()->serialize(jid1);
+    op2->getIdentifier()->serialize(jid2);
     //store operands in json
-    json["op1"] = jsonIdentifier1;
+    json["op1"] = jid1;
+    json["op2"] = jid2;
 }
 
 //unserialization to run instructions

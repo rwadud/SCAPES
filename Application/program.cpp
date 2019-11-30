@@ -7,7 +7,7 @@
 Program::Program(QString fileName)
 {
     filename = fileName;
-    prgmVars = new VHash;
+    env = new ProgramEnviroment;
     stmtList = new StatementList;
 }
 
@@ -15,7 +15,7 @@ Program::~Program()
 {
    // delete the contained objects
    delete stmtList;
-   delete prgmVars;
+   delete env;
 }
 
 
@@ -32,7 +32,7 @@ bool Program::compile(QString *inSrcTxt, QString *outCmplTxt, QString *errTxt)
 
     CompileControl compiler;
 
-    if(!compiler.compile(inSrcTxt, outCmplTxt, errTxt, stmtList, prgmVars))
+    if(!compiler.compile(inSrcTxt, outCmplTxt, errTxt, stmtList, env))
         return false;
 
     return true;

@@ -8,8 +8,8 @@ QString StringLiteral::getValue(){
 }
 
 void StringLiteral::serialize(QJsonObject &json){
-    json["IdentifierType"] = getIdentifierType();
-    json["id"] = getName();
+    json["identifierType"] = getIdentifierType();
+    json["name"] = getName();
 }
 
 void StringLiteral::unserialize(const QJsonObject &json) const{

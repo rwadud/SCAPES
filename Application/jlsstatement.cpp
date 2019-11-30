@@ -30,10 +30,10 @@ void JlsStatement::serialize(QJsonObject &json){
     QJsonObject jsonIdentifier1;
 
     //store statement type in json
-    json["statementType"] = "JlsStatement";
+    json["statement"] = "jls";
 
     if(hasLabel()){
-        json["labelName"] = label->getName();
+        json["label"] = label->getName();
     }
 
     op1->getIdentifier()->serialize(jsonIdentifier1);

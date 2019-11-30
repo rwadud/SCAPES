@@ -33,11 +33,11 @@ void MovStatement::serialize(QJsonObject &json){
     QJsonObject jsonIdentifier2;
 
     //store statement type in json
-    json["statementType"] = "MovStatement";
+    json["statement"] = "mov";
 
     //if statement has a label, store in json
     if(hasLabel()){
-        json["labelName"] = label->getName();
+        json["label"] = label->getName();
     }
 
     op1->getIdentifier()->serialize(jsonIdentifier1);

@@ -4,7 +4,7 @@
 #include <QString>
 #include "operand.h"
 #include "label.h"
-#include "vhash.h"
+#include "programenviroment.h"
 #include "token.h"
 #include <QDebug>
 #include "serializable.h"
@@ -18,12 +18,12 @@ public:
     virtual bool compile(Token *tokens, QString *errMsg) = 0;
     virtual bool run() = 0;
     void setLabel(Identifier *label);
-    void setEnviroment(VHash *env);
-    bool updateLabel(int stmtIndex, Token *tokens, QString *errMsg);
+    void setEnviroment(ProgramEnviroment *env);
+    bool updateLabel(Token *tokens, QString *errMsg);
     bool hasLabel();
 
 protected:
-    VHash *prgmVars = nullptr; //program variable enviroment
+    ProgramEnviroment *env = nullptr; //program variable enviroment
     Identifier* label = nullptr;
     Operand *op1 = nullptr; //Operand 1
     Operand *op2 = nullptr; //Operand 2

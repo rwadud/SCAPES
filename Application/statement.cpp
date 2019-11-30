@@ -66,7 +66,7 @@ bool Statement::validate(int numArgs, Token *tokens, QString *errMsg){
             return false;
         }
 
-        if( !(label = prgmVars->get(labelName)) ){
+        if( !(label = env->get(labelName)) ){
             *errMsg = "undefined reference to identifier/label: " +labelName;
             return false;
         }
@@ -77,24 +77,24 @@ bool Statement::validate(int numArgs, Token *tokens, QString *errMsg){
 }
 
 //create label if a statement has one or update the reference if label was already created
-bool Statement::updateLabel(int stmtIndex, Token *tokens, QString *errMsg){
+bool Statement::updateLabel(Token *tokens, QString *errMsg){
     QString labelName = tokens->getLabel();
     Identifier *id = nullptr;
     if(tokens->hasLabel() && Token::isValidIdentifierName(labelName)){
-        if( (id = prgmVars->get(labelName)) ){
+        if( (id = env->get(labelName)) ){
             if(!id->isLabel()){
                 *errMsg = "not a label";
                 return false;
             }
             Label *label = dynamic_cast<Label*>(id);
             if(!label->isInitialized()){
-                label->setIndex(stmtIndex);
+                label->setIndex(env->getCurrStmtIndex());
             } else {
                 *errMsg = "label already declared at index " + QString::number(label->getIndex());
                 return false;
             }
         } else {
-            prgmVars->insert(labelName, new Label(labelName,stmtIndex));
+            env->insert(labelName, new Label(labelName,env->getCurrStmtIndex()));
         }
     }
 
@@ -118,8 +118,8 @@ bool Statement::updateOperands(int numArgs, Token *tokens, QString *errMsg){
             arg = str;
         }
 
-        if(prgmVars->contains(arg)){  // Check if the label is real or not
-            Identifier *var = prgmVars->get(arg);
+        if(env->contains(arg)){  // Check if the identifier is real or not
+            Identifier *var = env->get(arg);
             if(i==1)
                 op1 = new Operand(var);
             if(i==2)
@@ -132,7 +132,7 @@ bool Statement::updateOperands(int numArgs, Token *tokens, QString *errMsg){
             QString literalType;
             if(Token::isLiteral(arg, literalType)){
                 Identifier *literal = Identifier::createLiteral(literalType, arg);
-                prgmVars->insert(arg, literal);
+                env->insert(arg, literal);
                 if(i==1)
                     op1 = new Operand(literal);
                 if(i==2)
@@ -142,7 +142,7 @@ bool Statement::updateOperands(int numArgs, Token *tokens, QString *errMsg){
                 //set create labels for jumps if they dont exist
                 Identifier *id = new Label(arg);
                 op1 = new Operand(id);
-                prgmVars->add(arg,id);
+                env->insert(arg,id);
             } else {
                 *errMsg = "undefined reference to identifier: " + arg;
                 return false;
@@ -158,8 +158,7 @@ bool Statement::updateOperands(int numArgs, Token *tokens, QString *errMsg){
     return true;
 }
 
-//sets program variable enviroment
-void Statement::setEnviroment(VHash *env){
-    prgmVars = env;
+//injects program enviroment
+void Statement::setEnviroment(ProgramEnviroment *env){
+    this->env = env;
 }
-

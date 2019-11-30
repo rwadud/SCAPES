@@ -8,9 +8,8 @@ int IntegerLiteral::getValue(){
 }
 
 void IntegerLiteral::serialize(QJsonObject &json){
-    json["IdentifierType"] = getIdentifierType();
-    json["id"] = getName();
-    json["value"] = getValue();
+    json["identifierType"] = getIdentifierType();
+    json["name"] = getName();
 }
 
 void IntegerLiteral::unserialize(const QJsonObject &json) const{

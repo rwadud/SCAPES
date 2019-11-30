@@ -16,14 +16,14 @@ bool DciStatement::compile(Token *tokens, QString *errMsg){
     if(!validate(numArgs, tokens, errMsg))
         return false;
 
-    QString arg1 = tokens->getArg1();
+    QString arg = tokens->getArg1();
     //create variables or check if they exist in prgmVars
-    if(prgmVars->contains(arg1)){
-        *errMsg = arg1+ " already defined";
+    if(env->contains(arg)){
+        *errMsg = arg+ " already defined";
         return false;
     } else {
-         Identifier *var = new Variable(arg1);
-         prgmVars->insert(arg1,var);
+         Identifier *var = new Variable(arg);
+         env->insert(arg,var);
          op1 = new Operand(var);
     }
 
@@ -40,11 +40,11 @@ void DciStatement::serialize(QJsonObject &json){
     QJsonObject jsonIdentifier1;
 
     //store statement type in json
-    json["statementType"] = "DciStatement";
+    json["statement"] = "dci";
 
     //if statement has a label, store in json
     if(hasLabel() == true){
-        json["labelName"] = label->getName();
+        json["label"] = label->getName();
     }
 
     op1->getIdentifier()->serialize(jsonIdentifier1);

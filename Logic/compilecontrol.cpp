@@ -19,7 +19,7 @@ CompileControl::~CompileControl()
 
 }
 
-bool CompileControl::compile(QString *inSrcTxt, QString *outCmplTxt, QString *errMsg, StatementList *stmtList, VHash *prgmVars){
+bool CompileControl::compile(QString *inSrcTxt, QString *outCmplTxt, QString *errMsg, StatementList *stmtList, ProgramEnviroment *env){
 
     StatementCreator stmtCreator;
     int stmtIndex = 0; //statement index
@@ -31,7 +31,9 @@ bool CompileControl::compile(QString *inSrcTxt, QString *outCmplTxt, QString *er
     for(int i = 0; i < srcList.length(); i++){
         QString line = srcList[i];
         if(line.count(":") > 1){
-            // throw error
+            *errMsg = "too many Labels";
+            MainController::addLineNumToErrText(i+1, errMsg);
+            return false;
         }
         line.replace(QRegExp("[^\\S\\r\\n]+"), " "); //replace multiple spaces and tabs with a single space
         line.replace(" :",":");
@@ -49,10 +51,11 @@ bool CompileControl::compile(QString *inSrcTxt, QString *outCmplTxt, QString *er
         if(stmt != nullptr){
 
             //inject program variable enviroment
-            stmt->setEnviroment(prgmVars);
+            stmt->setEnviroment(env);
+            env->setCurrStmtIndex(stmtIndex);
 
             // check if label exist and updates references
-            if(!stmt->updateLabel(stmtIndex, tokens, errMsg)) {
+            if(!stmt->updateLabel(tokens, errMsg)) {
                 MainController::addLineNumToErrText(i+1, errMsg);
                 return false;
              }
@@ -66,7 +69,7 @@ bool CompileControl::compile(QString *inSrcTxt, QString *outCmplTxt, QString *er
             stmtList->add(stmt);
             stmtIndex++;
         } else {
-            *errMsg = "invalid statement detected";
+            *errMsg = "invalid statement detected "+ tokens->getInstr();
             MainController::addLineNumToErrText(i+1, errMsg);
             //qDebug() << "error at " << line;
             // some error

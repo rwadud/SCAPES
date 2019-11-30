@@ -31,11 +31,11 @@ void PrtStatement::serialize(QJsonObject &json){
     QJsonObject jsonIdentifier1;
 
     //store statement type in json
-    json["statementType"] = "PrtStatement";
+    json["statement"] = "prt";
 
     //if statement has a label, store in json
     if(hasLabel()){
-        json["labelName"] = label->getName();
+        json["label"] = label->getName();
     }
 
     op1->getIdentifier()->serialize(jsonIdentifier1);

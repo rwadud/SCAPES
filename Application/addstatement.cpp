@@ -17,6 +17,14 @@ bool AddStatement::compile(Token *tokens, QString *errMsg){
     if(!updateOperands(numArgs, tokens, errMsg))
         return false;
 
+    if( !(op1->getIdentifier()->isArray() || op1->getIdentifier()->isVariable() || op1->getIdentifier()->isLiteral()) ){
+        *errMsg = "invalid operand type";
+        return false;
+    }
+    if( !(op2->getIdentifier()->isArray() || op1->getIdentifier()->isVariable()) ){
+        *errMsg = "invalid operand type";
+        return false;
+    }
     return true;
 }
 
@@ -31,11 +39,11 @@ void AddStatement::serialize(QJsonObject &json){
     QJsonObject jsonIdentifier2;
 
     //store statement type in json
-    json["statementType"] = "AddStatement";
+    json["statement"] = "add";
 
     //if statement has a label, store in json
     if(hasLabel()){
-        json["labelName"] = label->getName();
+        json["label"] = label->getName();
     }
 
     op1->getIdentifier()->serialize(jsonIdentifier1);

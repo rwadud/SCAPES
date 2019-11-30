@@ -22,9 +22,9 @@ bool EndStatement::run(){
 //serializes instruction for compilation as a json
 void EndStatement::serialize(QJsonObject &json){
     //store statement type in json
-    json["statementType"] = "EndStatement";
+    json["statement"] = "end";
     if(hasLabel()){
-        json["labelName"] = label->getName();
+        json["label"] = label->getName();
     }
 }
 

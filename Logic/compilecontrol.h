@@ -4,7 +4,7 @@
 #include <QString>
 #include "statement.h"
 #include "statementlist.h"
-#include "vhash.h"
+#include "programenviroment.h"
 #include "token.h"
 
 //Compiles program
@@ -13,7 +13,7 @@ class CompileControl
 public:
     CompileControl();
     ~CompileControl();
-    bool compile(QString *inSrcTxt, QString *outCmplTxt, QString *errMsg, StatementList *stmtList, VHash *prgmVars);
+    bool compile(QString *inSrcTxt, QString *outCmplTxt, QString *errMsg, StatementList *stmtList, ProgramEnviroment *env);
     void generateJson(StatementList* stmtList,QString*);
 
 };

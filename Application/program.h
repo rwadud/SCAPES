@@ -2,7 +2,7 @@
 #define PROGRAM_H
 #include <QString>
 #include <QList>
-#include "vhash.h"
+#include "programenviroment.h"
 #include "statementlist.h"
 
 class Program
@@ -16,7 +16,7 @@ public:
 private:
     QString filename;
     StatementList* stmtList;
-    VHash* prgmVars;
+    ProgramEnviroment* env;
 };
 
 #endif // PROGRAM_H

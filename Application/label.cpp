@@ -18,9 +18,8 @@ void Label::setIndex(int i){
 }
 
 void Label::serialize(QJsonObject &json){
-    json["IdentifierType"] = getIdentifierType();
-    json["id"] = getName();
-    json["statementIndex"] = index;
+    json["identifierType"] = getIdentifierType();
+    json["name"] = getName();
 }
 
 void Label::unserialize(const QJsonObject &json) const{

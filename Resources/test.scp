@@ -1,1 +1,6 @@
-L5: jmp L5
+dci t
+#dca arr 10
+prt "eeeeeeeee"
+jmp arr
+prt 1
+prt 1

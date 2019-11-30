@@ -11,8 +11,8 @@ void Variable::setValue(int v){
 }
 
 void Variable::serialize(QJsonObject &json){
-    json["IdentifierType"] = getIdentifierType();
-    json["id"] = getName();
+    json["identifierType"] = getIdentifierType();
+    json["name"] = getName();
 }
 
 void Variable::unserialize(const QJsonObject &json) const{

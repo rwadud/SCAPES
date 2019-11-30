@@ -19,6 +19,11 @@ bool JmpStatement::compile(Token *tokens, QString *errMsg){
     if(!updateOperands(numArgs, tokens, errMsg))
         return false;
 
+    if(!op1->getIdentifier()->isLabel()){
+        *errMsg = "not a label";
+        return false;
+    }
+
     return true;
 }
 
@@ -32,11 +37,11 @@ void JmpStatement::serialize(QJsonObject &json){
     QJsonObject jsonIdentifier1;
 
     //store statement type in json
-    json["statementType"] = "JmpStatement";
+    json["statement"] = "jmp";
 
     //if statement has a label, store in json
     if(hasLabel()){
-        json["labelName"] = label->getName();
+        json["label"] = label->getName();
     }
 
     op1->getIdentifier()->serialize(jsonIdentifier1);

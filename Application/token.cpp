@@ -6,9 +6,16 @@ Token::Token(QString &line)
 {
     if(line.contains('"') && line.contains("prt")){
         data = line.split(" \"");
-        data[1] = "\"" + data[1];
-    }
-    else{
+        if(hasLabel()){
+            QStringList tmp = data[0].split(" ");
+            QString str = "\"" + data[1];
+            tmp.push_back(str);
+            data = tmp;
+        } else {
+            data[1] = "\"" + data[1];
+        }
+
+    } else{
         data = line.split(" ");
     }
 }
