@@ -15,6 +15,12 @@ QString Identifier::getName(){
 QString Identifier::getIdentifierType(){
     return identifierType;
 }
+void Identifier::initialize(){
+    initialized = true;
+}
+bool Identifier::isInitialized(){
+    return initialized;
+}
 bool Identifier::isLiteral(){
     if(identifierType.contains("Literal"))
        return true;

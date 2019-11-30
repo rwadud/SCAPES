@@ -87,10 +87,10 @@ bool Statement::updateLabel(int stmtIndex, Token *tokens, QString *errMsg){
                 return false;
             }
             Label *label = dynamic_cast<Label*>(id);
-            if(label->getStatementIndex()<0){
-                label->setStatementIndex(stmtIndex);
+            if(!label->isInitialized()){
+                label->setIndex(stmtIndex);
             } else {
-                *errMsg = "label already declared at index " + QString::number(label->getStatementIndex());
+                *errMsg = "label already declared at index " + QString::number(label->getIndex());
                 return false;
             }
         } else {

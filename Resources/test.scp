@@ -1,2 +1,1 @@
-dci L5
-L5: prt x
+L5: jmp L5

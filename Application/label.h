@@ -8,13 +8,13 @@ class Label : public Identifier
 {
 private:
     /* data */
-    int sIndex; //index of statement
+    int index; //index of statement
 public:
     Label(QString str="", int i=-1);
     ~Label();
-    int getStatementIndex();
+    int getIndex();
     void dummy(){}
-    void setStatementIndex(int i);
+    void setIndex(int i);
     void serialize(QJsonObject &json);
     void unserialize(const QJsonObject &json) const;
 };

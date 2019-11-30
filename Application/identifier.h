@@ -17,11 +17,14 @@ public:
     bool isVariable();
     bool isArray();
     bool isLabel();
+    void initialize();
+    bool isInitialized();
     static Identifier* createLiteral(QString &literalType, QString data);
 
 private:
     const QString name;
     const QString identifierType;
+    bool initialized = false;
 };
 
 #endif
