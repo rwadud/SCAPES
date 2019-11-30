@@ -1,6 +1,6 @@
 #include "variable.h"
 
-Variable::Variable(QString str) : Identifier(str){}
+Variable::Variable(QString str) : Identifier(str,"Variable"){}
 
 Variable::~Variable()
 {
@@ -11,7 +11,7 @@ void Variable::setValue(int v){
 }
 
 void Variable::serialize(QJsonObject &json){
-    json["IdentifierType"] = "Variable";
+    json["IdentifierType"] = getIdentifierType();
     json["id"] = getName();
 }
 

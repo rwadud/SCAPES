@@ -1,6 +1,6 @@
 #include "label.h"
 
-Label::Label(QString str, int i) : Identifier(str), sIndex(i){}
+Label::Label(QString str, int i) : Identifier(str,"Label"), sIndex(i){}
 
 Label::~Label(){}
 
@@ -13,7 +13,7 @@ void Label::setStatementIndex(int i){
 }
 
 void Label::serialize(QJsonObject &json){
-    json["IdentifierType"] = "Label";
+    json["IdentifierType"] = getIdentifierType();
     json["id"] = getName();
     json["statementIndex"] = sIndex;
 }

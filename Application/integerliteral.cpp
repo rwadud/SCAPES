@@ -1,6 +1,6 @@
 #include "integerliteral.h"
 
-IntegerLiteral::IntegerLiteral(QString str) : Identifier(str), value(str.toInt()) {}
+IntegerLiteral::IntegerLiteral(QString str) : Identifier(str,"IntegerLiteral"), value(str.toInt()) {}
 IntegerLiteral::~IntegerLiteral(){}
 
 int IntegerLiteral::getValue(){
@@ -8,7 +8,7 @@ int IntegerLiteral::getValue(){
 }
 
 void IntegerLiteral::serialize(QJsonObject &json){
-    json["IdentifierType"] = "IntegerLiteral";
+    json["IdentifierType"] = getIdentifierType();
     json["id"] = getName();
     json["value"] = getValue();
 }

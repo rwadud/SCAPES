@@ -8,17 +8,20 @@
 class Identifier : public Serializable
 {
 public:
-    Identifier(QString str = "", bool b = false);
+    Identifier(QString str = "", QString type = "");
     virtual ~Identifier();
     virtual void dummy() = 0; //necessary for abstraction
     QString getName();
+    QString getIdentifierType();
     bool isLiteral();
+    bool isVariable();
+    bool isArray();
+    bool isLabel();
     static Identifier* createLiteral(QString &literalType, QString data);
 
 private:
     const QString name;
-    const bool _isLiteral;
-
+    const QString identifierType;
 };
 
 #endif

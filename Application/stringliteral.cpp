@@ -1,6 +1,6 @@
 #include "stringliteral.h"
 
-StringLiteral::StringLiteral(QString str) : Identifier(str){}
+StringLiteral::StringLiteral(QString str) : Identifier(str,"StringLiteral"){}
 StringLiteral::~StringLiteral(){}
 
 QString StringLiteral::getValue(){
@@ -8,7 +8,7 @@ QString StringLiteral::getValue(){
 }
 
 void StringLiteral::serialize(QJsonObject &json){
-    json["IdentifierType"] = "StringLiteral";
+    json["IdentifierType"] = getIdentifierType();
     json["id"] = getName();
 }
 

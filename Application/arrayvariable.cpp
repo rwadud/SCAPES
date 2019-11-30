@@ -1,7 +1,7 @@
 #include "arrayvariable.h"
 #include <stdexcept>
 
-ArrayVariable::ArrayVariable(QString str, int s) : Identifier(str), MAX_SIZE(s) {
+ArrayVariable::ArrayVariable(QString str, int s) : Identifier(str, "ArrayVariable"), MAX_SIZE(s) {
     array = new int[MAX_SIZE];
 }
 
@@ -36,7 +36,7 @@ int ArrayVariable::size(){
 }
 
 void ArrayVariable::serialize(QJsonObject &json){
-    json["IdentifierType"] = "ArrayVariable";
+    json["IdentifierType"] = getIdentifierType();
     json["id"] = getName();
 }
 

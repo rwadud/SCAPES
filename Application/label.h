@@ -12,8 +12,8 @@ private:
 public:
     Label(QString str="", int i=-1);
     ~Label();
-    void dummy(){}
     int getStatementIndex();
+    void dummy(){}
     void setStatementIndex(int i);
     void serialize(QJsonObject &json);
     void unserialize(const QJsonObject &json) const;
