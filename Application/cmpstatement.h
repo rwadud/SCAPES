@@ -2,6 +2,7 @@
 #define CMPSTATEMENT_H
 
 #include "statement.h"
+#include "cmpflag.h"
 
 class CmpStatement : public Statement
 {

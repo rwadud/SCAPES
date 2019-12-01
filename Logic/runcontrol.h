@@ -11,8 +11,12 @@ class RunControl
 public:
     RunControl();
     ~RunControl();
-    bool run();
-    void regnerate();
+    bool run(QString *inJsonTxt, QString *errMsg);
+    void regenerate(QString *inJsonTxt);
+
+private:
+    ProgramEnviroment *env;
+    StatementList *slist;
 };
 
 #endif // RUNCONTROL_H

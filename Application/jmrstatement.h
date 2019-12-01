@@ -2,6 +2,7 @@
 #define JMRSTATEMENT_H
 
 #include "statement.h"
+#include "cmpflag.h"
 
 class JmrStatement : public Statement
 {

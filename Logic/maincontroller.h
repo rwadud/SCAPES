@@ -18,7 +18,7 @@ private:
     QString        currentFileName;
     Repository     *store;
     QMap<QString, Program *> pgmMap;
-
+    Program *myPgm = nullptr;
     bool openFile(QString filename, QString *outText, QString *errText);
     bool saveFile(QString filename, QString *inText, QString *errText);
     bool compile(QString *inText, QString *errText);

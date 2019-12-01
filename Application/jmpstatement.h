@@ -2,6 +2,7 @@
 #define JMPSTATEMENT_H
 
 #include "statement.h"
+#include "cmpflag.h"
 
 class JmpStatement : public Statement
 {

@@ -3,6 +3,7 @@
 
 #include <QHash>
 #include "identifier.h"
+#include "cmpflag.h"
 
 //Provides an encapsulated QHashmap used to store program identifiers. Provides flags for jumps.
 class ProgramEnviroment
@@ -10,7 +11,7 @@ class ProgramEnviroment
 
 private:
     QHash<QString, Identifier*> hash;
-    int jmpFlag;
+    CmpFlag flag = NONE;
     int currStmtIndex;
 
 public:
@@ -21,9 +22,10 @@ public:
     Identifier* get(QString &key);
     Identifier* find(QString &key);
     bool contains(QString &key);
-    void setJmpFlag(int f);
+    CmpFlag getCmpFlag();
+    void setCmpFlag(CmpFlag state);
+    void clearCmpFlag();
     void setCurrStmtIndex(int i);
-    int getJmpFlag();
     int getCurrStmtIndex();
 
 };

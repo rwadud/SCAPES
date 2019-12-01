@@ -62,7 +62,6 @@ bool MainController::compile(QString *inSrcTxt, QString *errTxt)
 
     QString fileName = currentFileName;
     QString compiledTxt; //  JSON or XML format
-    Program *myPgm = nullptr;
 
     // save the data
     saveFile(fileName, inSrcTxt, errTxt);
@@ -98,12 +97,19 @@ bool MainController::compile(QString *inSrcTxt, QString *errTxt)
    return true;
 }
 
-bool MainController::run(QString *inSrcTxt, QString *outResultTxt, QString *errTxt)
+bool MainController::run(QString *inJsonTxt, QString *outResultTxt, QString *errTxt)
 {
     *errTxt = ""; // To Be Removed
     *outResultTxt = "Result: Coming Soon ....."; // To Be Removed
 
-    qDebug()  << "Run Program: " + *inSrcTxt;
+    //Temporary, replace with correct implementation
+    if(myPgm != nullptr){
+        myPgm->run(inJsonTxt, errTxt);
+    } else {
+
+    }
+
+    //qDebug()  << "Run Program: " + *inJsonTxt;
 
     return true;
 }

@@ -11,6 +11,10 @@ StatementList::~StatementList(){
     }
 }
 
+Statement* StatementList::operator[](int i){
+    return statements[i];
+}
+
 Statement* StatementList::get(int i){
     return statements[i];
 }

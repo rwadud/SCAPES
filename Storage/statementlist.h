@@ -13,7 +13,7 @@ public:
     Statement* get(int i);
     void add(Statement* stmt);
     int size();
-
+    Statement* operator[](int i);
 private:
     QVector<Statement*> statements;
 };

@@ -9,16 +9,20 @@ ProgramEnviroment::~ProgramEnviroment(){
     }
 }
 
-void  ProgramEnviroment::setJmpFlag(int f){
-    jmpFlag = f;
+void  ProgramEnviroment::setCmpFlag(CmpFlag flag){
+    this->flag = flag;
 }
 
 void ProgramEnviroment::setCurrStmtIndex(int i){
     currStmtIndex = i;
 }
 
-int ProgramEnviroment::getJmpFlag(){
-    return jmpFlag;
+void ProgramEnviroment::clearCmpFlag(){
+    flag = NONE;
+}
+
+CmpFlag ProgramEnviroment::getCmpFlag(){
+    return flag;
 }
 
 int ProgramEnviroment::getCurrStmtIndex(){

@@ -3,4 +3,3 @@ dci t
 prt "eeeeeeeee"
 jmp arr
 prt 1
-prt 1

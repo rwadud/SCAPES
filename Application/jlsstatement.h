@@ -2,6 +2,7 @@
 #define JLSSTATEMENT_H
 
 #include "statement.h"
+#include "cmpflag.h"
 
 class JlsStatement : public Statement
 {

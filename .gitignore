@@ -16,7 +16,7 @@
 *.json
 *.stash
 *.user*
-Resources/test.scp
+*test.scp
 Makefile
 build_files
 bin
