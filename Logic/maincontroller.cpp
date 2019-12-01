@@ -73,6 +73,7 @@ bool MainController::compile(QString *inSrcTxt, QString *errTxt)
     QString fileName = currentFileName;
     QString compiledTxt; //  JSON or XML format
 
+    currentFileCompiled = false;
     // save the data
     saveFile(fileName, inSrcTxt, errTxt);
 
@@ -104,6 +105,7 @@ bool MainController::compile(QString *inSrcTxt, QString *errTxt)
    // save the compiled file (in xml format)
    saveFile(compiledFileName, &compiledTxt, errTxt);
 
+   currentFileCompiled = true;
    return true;
 }
 
