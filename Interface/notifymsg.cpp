@@ -23,3 +23,7 @@ void NotifyMsg::show(QString msg, QTextBrowser *console)
 {
     console->setText(msg);
 }
+void NotifyMsg::showAppend(QString msg, QTextBrowser *console)
+{
+    console->append(msg);
+}

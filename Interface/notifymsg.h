@@ -11,6 +11,7 @@ public:
     static void show(QString msg);
     static void show(QString msg, QStatusBar *statusBar);
     static void show(QString msg, QTextBrowser *console);
+    static void showAppend(QString msg, QTextBrowser *console);
 };
 
 #endif // NOTIFYMSG_H
