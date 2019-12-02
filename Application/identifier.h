@@ -10,10 +10,12 @@ class Identifier : public Serializable
 public:
     Identifier(QString str = "", QString type = "");
     virtual ~Identifier();
-    virtual void dummy() = 0; //necessary for abstraction
+    virtual int getValue() = 0;
+    virtual void setValue(int x) = 0;
     QString getName();
     QString getIdentifierType();
-    bool isLiteral();
+    bool isIntegerLiteral();
+    bool isStringLiteral();
     bool isVariable();
     bool isArray();
     bool isLabel();

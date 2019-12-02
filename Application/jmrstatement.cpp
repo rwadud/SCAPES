@@ -20,12 +20,21 @@ bool JmrStatement::compile(Token *tokens, QString *errMsg){
         return false;
     }
 
-
+    //check if operand type is correct
+    if( !op1->getIdentifier()->isLabel() ){
+        *errMsg = "invalid operand type: " + op2->getIdentifier()->getName();
+        return false;
+    }
     return true;
 }
 
 //runs the instruction
 bool JmrStatement::run(){
+    Identifier *label = op1->getIdentifier();
+    if(env->getCmpFlag()==MORE){
+        qDebug() << "ready to jump to label " << label->getName() << " at index " << label->getValue();
+        env->setJmpIndex(label->getValue());
+    }
     return true;
 }
 

@@ -12,7 +12,7 @@ class ProgramEnviroment
 private:
     QHash<QString, Identifier*> hash;
     CmpFlag flag = NONE;
-    int currStmtIndex;
+    int jmpIndex;
 
 public:
     ProgramEnviroment();
@@ -25,8 +25,8 @@ public:
     CmpFlag getCmpFlag();
     void setCmpFlag(CmpFlag state);
     void clearCmpFlag();
-    void setCurrStmtIndex(int i);
-    int getCurrStmtIndex();
+    void setJmpIndex(int i);
+    int getJmpIndex();
 
 };
 

@@ -9,7 +9,7 @@ public:
     IntegerLiteral(QString str);
     ~IntegerLiteral();
     int getValue();
-    void dummy(){}
+    void setValue(int){}
 private:
     const int value;
     void serialize(QJsonObject &json);

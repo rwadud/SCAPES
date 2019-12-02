@@ -1,5 +1,6 @@
 #include "runcontrol.h"
 #include "statementcreator.h"
+//#include "cmpflag.h"
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QJsonDocument>
@@ -17,23 +18,33 @@ RunControl::~RunControl()
     delete slist;
 }
 
-bool RunControl::run(QString *inJsonTxt, QString *errMsg)
+bool RunControl::run(QString *inJsonTxt, QString *errMsg, StatementList *stmtList, ProgramEnviroment *env)
 {
     Statement *stmt = nullptr;
 
-    regenerate(inJsonTxt);
+    //regenerate(inJsonTxt);
 
-    for (int i=0;i<slist->size();i++) {
-        stmt = slist->get(i);
+    int i = 0;
+    while (i<stmtList->size()) {
+        stmt = stmtList->get(i);
         if(!stmt->run()){
             //handle error
             return false;
         }
+        //qDebug () << "flag state is " << env->getCmpFlag() << " at index " << i;
+        if(env->getCmpFlag()!=NONE && env->getJmpIndex() >= 0){
+            i = env->getJmpIndex();
+            qDebug() << "jumping to index" << i;
+            env->clearCmpFlag();
+            //qDebug() << "clearning flag... flag state is " << env->getCmpFlag();
+            continue;
+        }
+        i++;
     }
-
     return true;
 }
 
+//create statement objects from a json document
 void RunControl::regenerate(QString *inJsonTxt){
     qDebug() << *inJsonTxt;
     StatementCreator stmtCreator;

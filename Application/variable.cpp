@@ -10,6 +10,10 @@ void Variable::setValue(int v){
     value = v;
 }
 
+int Variable::getValue(){
+    return value;
+}
+
 void Variable::serialize(QJsonObject &json){
     json["identifierType"] = getIdentifierType();
     json["name"] = getName();

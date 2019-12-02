@@ -1,16 +1,16 @@
 #include "label.h"
 
 Label::Label(QString str, int i) : Identifier(str,"Label"){
-    setIndex(i);
+    setValue(i);
 }
 
 Label::~Label(){}
 
-int Label::getIndex(){
+int Label::getValue(){
     return index;
 }
 
-void Label::setIndex(int i){
+void Label::setValue(int i){
     if(i>-1){
         index = i;
         initialize();

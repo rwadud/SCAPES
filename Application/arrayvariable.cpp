@@ -1,5 +1,6 @@
 #include "arrayvariable.h"
 #include <stdexcept>
+#include <QDebug>
 
 ArrayVariable::ArrayVariable(QString str, int s) : Identifier(str, "ArrayVariable"), MAX_SIZE(s) {
     array = new int[MAX_SIZE];
@@ -7,6 +8,7 @@ ArrayVariable::ArrayVariable(QString str, int s) : Identifier(str, "ArrayVariabl
 
 ArrayVariable::~ArrayVariable()
 {
+    delete[] array;
 }
 
 void ArrayVariable::set(int i, int value){
@@ -21,8 +23,12 @@ int ArrayVariable::get(int i){
     return array[i];
 }
 
-int ArrayVariable::get(){
+int ArrayVariable::getValue(){
     return array[index];
+}
+
+void ArrayVariable::setValue(int value){
+    set(index,value);
 }
 
 void  ArrayVariable::setIndex(int i){
@@ -32,7 +38,7 @@ void  ArrayVariable::setIndex(int i){
 }
 
 int ArrayVariable::size(){
-    return (sizeof(*array)/sizeof(*array));
+    return MAX_SIZE;
 }
 
 void ArrayVariable::serialize(QJsonObject &json){

@@ -13,11 +13,12 @@ void  ProgramEnviroment::setCmpFlag(CmpFlag flag){
     this->flag = flag;
 }
 
-void ProgramEnviroment::setCurrStmtIndex(int i){
-    currStmtIndex = i;
+void ProgramEnviroment::setJmpIndex(int i){
+    jmpIndex = i;
 }
 
 void ProgramEnviroment::clearCmpFlag(){
+    jmpIndex = -1;
     flag = NONE;
 }
 
@@ -25,8 +26,8 @@ CmpFlag ProgramEnviroment::getCmpFlag(){
     return flag;
 }
 
-int ProgramEnviroment::getCurrStmtIndex(){
-    return currStmtIndex;
+int ProgramEnviroment::getJmpIndex(){
+    return jmpIndex;
 }
 
 void ProgramEnviroment::insert(QString &key, Identifier *id){

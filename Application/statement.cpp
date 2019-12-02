@@ -88,13 +88,13 @@ bool Statement::updateLabel(Token *tokens, QString *errMsg){
             }
             Label *label = dynamic_cast<Label*>(id);
             if(!label->isInitialized()){
-                label->setIndex(env->getCurrStmtIndex());
+                label->setValue(env->getJmpIndex());
             } else {
-                *errMsg = "label already declared at index " + QString::number(label->getIndex());
+                *errMsg = "label already declared at index " + QString::number(label->getValue());
                 return false;
             }
         } else {
-            env->insert(labelName, new Label(labelName,env->getCurrStmtIndex()));
+            env->insert(labelName, new Label(labelName,env->getJmpIndex()));
         }
     }
 

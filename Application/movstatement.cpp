@@ -19,11 +19,25 @@ bool MovStatement::compile(Token *tokens, QString *errMsg){
     if(!updateOperands(numArgs, tokens, errMsg))
         return false;
 
+    if( !(op1->getIdentifier()->isArray() || op1->getIdentifier()->isVariable() || op1->getIdentifier()->isIntegerLiteral()) ){
+        *errMsg = "invalid operand type";
+        return false;
+    }
+    if( !(op2->getIdentifier()->isArray() || op2->getIdentifier()->isVariable()) ){
+        *errMsg = "invalid operand type";
+        return false;
+    }
+
     return true;
 }
 
 //runs the instruction
 bool MovStatement::run(){
+    Identifier *id1 = op1->getIdentifier();
+    Identifier *id2 = op2->getIdentifier();
+
+    id2->setValue(id1->getValue());
+
     return true;
 }
 

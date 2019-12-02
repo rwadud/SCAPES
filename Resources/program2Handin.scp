@@ -4,9 +4,9 @@ rdi x
 #initiate as 0
 rdi i
 L1: add 1 i
+prt i
 cmp i x
-#jump L2 if i > x
-jmr L2
-jmp L1
-prt "program ends when i is greater then x"
+#jump L1 if i < x
+jls L1
+prt "program ends when i >= x"
 L2: end

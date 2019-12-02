@@ -18,11 +18,35 @@ bool CmpStatement::compile(Token *tokens, QString *errMsg){
     if(!updateOperands(numArgs, tokens, errMsg))
         return false;
 
+    if( !(op1->getIdentifier()->isArray() || op1->getIdentifier()->isVariable() || op1->getIdentifier()->isIntegerLiteral()) ){
+        *errMsg = "invalid operand 1 type: " + op1->getIdentifier()->getName();
+        return false;
+    }
+    if( !(op2->getIdentifier()->isArray() || op2->getIdentifier()->isVariable() || op2->getIdentifier()->isIntegerLiteral()) ){
+        *errMsg = "invalid operand 2 type: " + op2->getIdentifier()->getName();
+        return false;
+    }
+
     return true;
 }
 
 //runs the instruction
 bool CmpStatement::run(){
+
+    Identifier *x, *y;
+
+    x = op1->getIdentifier();
+    y = op2->getIdentifier();
+
+    env->clearCmpFlag();
+    if(x->getValue() > y->getValue()){
+        env->setCmpFlag(MORE);
+    }else if(x->getValue() < y->getValue()) {
+        env->setCmpFlag(LESS);
+    } else {
+        env->setCmpFlag(EQUAL);
+    }
+
     return true;
 }
 

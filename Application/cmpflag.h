@@ -1,6 +1,6 @@
 #ifndef CMPSTATE_H
 #define CMPSTATE_H
 
-enum CmpFlag{NONE, LESS, MORE, EQUAL};
+enum CmpFlag{NONE, LESS, MORE, EQUAL, UNCONDITIONAL};
 
 #endif // CMPSTATE_H

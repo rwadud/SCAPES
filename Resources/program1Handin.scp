@@ -6,6 +6,7 @@ cmp x y
 jmr L1
 jmp L3
 L1: dci z
+rdi z
 cmp x z
 jmr L2
 jmp L3

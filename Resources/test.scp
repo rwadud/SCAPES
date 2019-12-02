@@ -1,5 +1,2 @@
-dci t
-#dca arr 10
-prt "eeeeeeeee"
-jmp arr
-prt 1
+dci a
+

@@ -1,4 +1,5 @@
 #include "prtstatement.h"
+#include "stringliteral.h"
 
 //constructor
 PrtStatement::PrtStatement(){}
@@ -23,6 +24,16 @@ bool PrtStatement::compile(Token *tokens, QString *errMsg){
 
 //runs the instruction
 bool PrtStatement::run(){
+
+    Identifier *id = op1->getIdentifier();
+
+    if(id->isStringLiteral()){
+        StringLiteral *str = dynamic_cast<StringLiteral*>(id);
+        qDebug() << str->getStrValue();
+    } else {
+        qDebug() << id->getValue();
+    }
+
     return true;
 }
 

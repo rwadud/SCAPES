@@ -1,4 +1,5 @@
 #include "rdistatement.h"
+#include "inputhelper.h"
 
 //constructor
 RdiStatement::RdiStatement(){}
@@ -23,6 +24,16 @@ bool RdiStatement::compile(Token *tokens, QString *errMsg){
 
 //runs the instruction
 bool RdiStatement::run(){
+    Identifier *id = op1->getIdentifier();
+    int number = InputHelper::readInteger(id->getName());
+
+    if(number<0){
+        //handle error
+        qDebug() << "SCAPL language only supports positive integers";
+        return false;
+    }
+
+    id->setValue(number);
     return true;
 }
 

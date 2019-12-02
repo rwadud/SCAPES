@@ -3,10 +3,6 @@
 
 #include "identifier.h"
 
-/*
-    Author: Redwan Wadud
-*/
-
 class ArrayVariable : public Identifier 
 {
 private:
@@ -16,14 +12,15 @@ private:
     int index = 0;
 
 public:
-    ArrayVariable(QString str, int s);
+    ArrayVariable(QString, int);
     ~ArrayVariable();
-    int get();
-    int get(int i);
+    int getValue();
+    int get(int);
     int size();
     void dummy(){}
-    void set(int i, int value);
-    void setIndex(int i);
+    void set(int, int);
+    void setValue(int);
+    void setIndex(int);
     void serialize(QJsonObject &json);
     void unserialize(const QJsonObject &json) const;
 };

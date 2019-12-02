@@ -9,8 +9,9 @@ class StringLiteral : public Identifier
 public:
     StringLiteral(QString);
     ~StringLiteral();
-    QString getValue();
-    void dummy(){}
+    int getValue(){return 0;}
+    QString getStrValue();
+    void setValue(int){}
     void serialize(QJsonObject &json);
     void unserialize(const QJsonObject &json) const;
 };

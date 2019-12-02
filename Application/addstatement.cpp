@@ -1,4 +1,8 @@
 #include "addstatement.h"
+#include "variable.h"
+#include "arrayvariable.h"
+#include "integerliteral.h"
+
 //constructor
 AddStatement::AddStatement(){}
 
@@ -17,12 +21,12 @@ bool AddStatement::compile(Token *tokens, QString *errMsg){
     if(!updateOperands(numArgs, tokens, errMsg))
         return false;
 
-    if( !(op1->getIdentifier()->isArray() || op1->getIdentifier()->isVariable() || op1->getIdentifier()->isLiteral()) ){
-        *errMsg = "invalid operand type";
+    if( !(op1->getIdentifier()->isArray() || op1->getIdentifier()->isVariable() || op1->getIdentifier()->isIntegerLiteral()) ){
+        *errMsg = "invalid operand 1 type: " + op1->getIdentifier()->getName();
         return false;
     }
-    if( !(op2->getIdentifier()->isArray() || op1->getIdentifier()->isVariable()) ){
-        *errMsg = "invalid operand type";
+    if( !(op2->getIdentifier()->isArray() || op2->getIdentifier()->isVariable()) ){
+        *errMsg = "invalid operand 2 type: " + op2->getIdentifier()->getName();
         return false;
     }
     return true;
@@ -30,6 +34,12 @@ bool AddStatement::compile(Token *tokens, QString *errMsg){
 
 //runs the instruction
 bool AddStatement::run(){
+
+    Identifier *id1 = op1->getIdentifier();
+    Identifier *id2 = op2->getIdentifier();
+
+    id2->setValue( id1->getValue() + id2->getValue() );
+
     return true;
 }
 

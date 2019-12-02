@@ -2,6 +2,7 @@
 #define VARIABLE_H
 
 #include "identifier.h"
+#include <QDebug>
 
 class Variable : public Identifier 
 {
@@ -10,8 +11,8 @@ private:
 public:
     Variable(QString str);
     ~Variable();
-    void dummy(){}
     void setValue(int);
+    int getValue();
     void serialize(QJsonObject &json);
     void unserialize(const QJsonObject &json) const;
 };

@@ -21,8 +21,13 @@ void Identifier::initialize(){
 bool Identifier::isInitialized(){
     return initialized;
 }
-bool Identifier::isLiteral(){
-    if(identifierType.contains("Literal"))
+bool Identifier::isIntegerLiteral(){
+    if(identifierType=="IntegerLiteral")
+       return true;
+    return false;
+}
+bool Identifier::isStringLiteral(){
+    if(identifierType=="StringLiteral")
        return true;
     return false;
 }

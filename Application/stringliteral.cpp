@@ -3,7 +3,7 @@
 StringLiteral::StringLiteral(QString str) : Identifier(str,"StringLiteral"){}
 StringLiteral::~StringLiteral(){}
 
-QString StringLiteral::getValue(){
+QString StringLiteral::getStrValue(){
     return getName();
 }
 

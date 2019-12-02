@@ -52,7 +52,7 @@ bool CompileControl::compile(QString *inSrcTxt, QString *outCmplTxt, QString *er
 
             //inject program variable enviroment
             stmt->setEnviroment(env);
-            env->setCurrStmtIndex(stmtIndex);
+            env->setJmpIndex(stmtIndex);
 
             // check if label exist and updates references
             if(!stmt->updateLabel(tokens, errMsg)) {
@@ -83,13 +83,13 @@ bool CompileControl::compile(QString *inSrcTxt, QString *outCmplTxt, QString *er
     return true;
 }
 
-
 //json serialization
 void CompileControl::generateJson(StatementList* stmtList, QString* jsonOut){
     *jsonOut = "[";
     for (int i = 0;i<stmtList->size();i++) {
+        Statement *stmt = stmtList->get(i);
         QJsonObject jsonStmtObj;
-        stmtList->get(i)->serialize(jsonStmtObj);
+        stmt->serialize(jsonStmtObj);
         QJsonDocument doc(jsonStmtObj);
         QString jsonString = doc.toJson(QJsonDocument::Indented);
         *jsonOut += jsonString + ",";

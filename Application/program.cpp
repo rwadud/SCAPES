@@ -50,7 +50,7 @@ bool Program::run(QString *inJsonTxt, QString *errTxt)
     QString jsonFile = filename+".json";
     storage.getSourceData(jsonFile, inJsonTxt, errTxt);
 
-    if(!executor.run(inJsonTxt, errTxt))
+    if(!executor.run(inJsonTxt, errTxt, stmtList, env))
         return false;
 
     return true;

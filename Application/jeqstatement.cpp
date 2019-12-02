@@ -18,11 +18,22 @@ bool JeqStatement::compile(Token *tokens, QString *errMsg){
     if(!updateOperands(numArgs, tokens, errMsg))
         return false;
 
+    //check if operand type is correct
+    if( !op1->getIdentifier()->isLabel() ){
+        *errMsg = "invalid operand type: " + op2->getIdentifier()->getName();
+        return false;
+    }
+
     return true;
 }
 
 //runs the instruction
 bool JeqStatement::run(){
+    Identifier *label = op1->getIdentifier();
+    if(env->getCmpFlag()==EQUAL){
+        qDebug() << "ready to jump to label " << label->getName() << " at index " << label->getValue();
+        env->setJmpIndex(label->getValue());
+    }
     return true;
 }
 
