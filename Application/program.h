@@ -12,7 +12,7 @@ public:
     ~Program();
     QString getFileName();
     bool compile(QString *inSrcTxt, QString *outCmplTxt, QString *errTxt);
-    bool run(QString *inJsonTxt, QString *errTxt);
+    bool run(QString *compiledTxt, QString *errTxt);
 
 private:
     QString filename;

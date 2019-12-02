@@ -39,13 +39,12 @@ bool Program::compile(QString *inSrcTxt, QString *outCmplTxt, QString *errTxt)
 }
 
 
-bool Program::run(QString *inJsonTxt, QString *errTxt)
+bool Program::run(QString *compiledTxt, QString *errTxt)
 {
     *errTxt = "";
     RunControl executor;
 
-
-    if(!executor.run(inJsonTxt, errTxt, stmtList, env))
+    if(!executor.run(compiledTxt, errTxt, stmtList, env))
         return false;
 
     return true;
