@@ -3,7 +3,6 @@
 #include "runcontrol.h"
 #include <QStringList>
 #include <QDebug>
-#include "flatfileimp.h" //delete
 
 Program::Program(QString fileName)
 {
@@ -45,10 +44,6 @@ bool Program::run(QString *inJsonTxt, QString *errTxt)
     *errTxt = "";
     RunControl executor;
 
-    //TEMPORARILY LOADING JSON DIRECTLY
-    FlatFileImp storage;
-    QString jsonFile = filename+".json";
-    storage.getSourceData(jsonFile, inJsonTxt, errTxt);
 
     if(!executor.run(inJsonTxt, errTxt, stmtList, env))
         return false;

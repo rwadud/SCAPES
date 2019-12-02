@@ -19,6 +19,7 @@ MainWindow::MainWindow(QWidget *parent, MainController *ctlrRef) :
     //this->setCentralWidget(ui->textEdit);
 
     ctlr = ctlrRef; // cache it
+    ctlr->setResultConsole(ui->textBrowser);
 
 }
 
@@ -110,8 +111,8 @@ void MainWindow::run()
         NotifyMsg::show("Run OK!", ui->statusBar);
         // NotifyMsg::show(resultText);
 
-        // Send the result to the textBrowser Console
-        NotifyMsg::show(resultText, ui->textBrowser);
+        // Append the final result to the textBrowser Console
+        NotifyMsg::showAppend(resultText, ui->textBrowser);
     }
 
 }

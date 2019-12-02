@@ -1,4 +1,5 @@
 #include "maincontroller.h"
+#include "notifymsg.h"
 #include <QMessageBox>
 #include <QDebug>
 
@@ -24,6 +25,15 @@ QString MainController:: getCurrentFileName()
 void MainController::setCurrentFileName(QString name)
 {
     currentFileName = name;
+    currentFileCompiled = false;
+}
+void MainController::setResultConsole(QTextBrowser *console)
+{
+    resultConsole = console;
+}
+void MainController::sendRunResult(QString result)
+{
+     NotifyMsg::showAppend(result, resultConsole);
 }
 void MainController::addLineNumToErrText(int lineNum, QString *errText)
 {
@@ -63,6 +73,7 @@ bool MainController::compile(QString *inSrcTxt, QString *errTxt)
     QString fileName = currentFileName;
     QString compiledTxt; //  JSON or XML format
 
+    currentFileCompiled = false;
     // save the data
     saveFile(fileName, inSrcTxt, errTxt);
 
@@ -94,22 +105,55 @@ bool MainController::compile(QString *inSrcTxt, QString *errTxt)
    // save the compiled file (in xml format)
    saveFile(compiledFileName, &compiledTxt, errTxt);
 
+   currentFileCompiled = true;
    return true;
 }
 
-bool MainController::run(QString *inJsonTxt, QString *outResultTxt, QString *errTxt)
+bool MainController::run(QString *inSrcTxt, QString *outResultTxt, QString *errTxt)
 {
-    *errTxt = ""; // To Be Removed
-    *outResultTxt = "Result: Coming Soon ....."; // To Be Removed
+    QString compiledTxt;
+    QString compiledFileName = currentFileName +".json";
+    bool    needToCompile = true;
+
+    if (currentFileCompiled) {
+        QString programTxt = "";
+
+        // read the saved current program file from the persistent storage
+        openFile(currentFileName, &programTxt, errTxt);
+
+       // Check if the text-editor program is same as the saved program
+        if (QString::compare((*inSrcTxt), &programTxt,  Qt::CaseSensitive) == 0) {
+            needToCompile = false;
+        }
+    }
+
+    if (needToCompile) {
+        qDebug()  << "Compiling before Run... ";
+
+        // first compile the program in text-editor
+        if (compile(inSrcTxt, errTxt) == false) {
+            return false;
+        }
+    }
+
+    // Now read the compiled json file from the persistent storage
+    if (openFile(compiledFileName, &compiledTxt, errTxt) == false) {
+        return false;
+    }
+
+    //qDebug()  << "Run Program: " + compiledTxt;
 
     //Temporary, replace with correct implementation
     if(myPgm != nullptr){
-        myPgm->run(inJsonTxt, errTxt);
+        myPgm->run(&compiledTxt, errTxt);
     } else {
 
     }
+    sendRunResult("Result 1 ...."); // To Be Removed
+    sendRunResult("Result 2 ...."); // To Be Removed
+    sendRunResult("Result 3 ...."); // To Be Removed
+    sendRunResult("Result 4 ...."); // To Be Removed
 
-    //qDebug()  << "Run Program: " + *inJsonTxt;
-
+    *outResultTxt = "Run finished"; // To Be Removed
     return true;
 }
