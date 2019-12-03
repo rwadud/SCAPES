@@ -38,6 +38,15 @@ bool CompileControl::compile(QString *inSrcTxt, QString *outCmplTxt, QString *er
         line.replace(QRegExp("[^\\S\\r\\n]+"), " "); //replace multiple spaces and tabs with a single space
         line.replace(" :",":");
 
+        if(line.contains(":")){
+            if(line[line.length()-1]==":"){
+                *errMsg = "Label is empty";
+                MainController::addLineNumToErrText(i+1, errMsg);
+                return false;
+
+            }
+        }
+
         //ignore empty lines and comments
         if(line.trimmed().isEmpty() || line.startsWith("#"))
             continue;
@@ -69,7 +78,7 @@ bool CompileControl::compile(QString *inSrcTxt, QString *outCmplTxt, QString *er
             stmtList->add(stmt);
             stmtIndex++;
         } else {
-            *errMsg = "invalid statement detected: "+ tokens->getInstr();
+            *errMsg = "invalid statement detected "+ tokens->getInstr();
             MainController::addLineNumToErrText(i+1, errMsg);
             //qDebug() << "error at " << line;
             // some error
