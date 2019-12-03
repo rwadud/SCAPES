@@ -11,10 +11,9 @@ int InputHelper::readInteger(QString varName)
 {
     int  intValue = 0; // default
 
-    intValue = QInputDialog::getInt(nullptr, QString("Enter Integer Value"),
-                                    QString(varName + ":"), 0);
+    intValue = QInputDialog::getInt(nullptr, QString("Enter Integer "),
+                                    QString("Value for Variable " + varName + ": "), 0, 0);
 
-    //qDebug() << (QString("%1%").arg(intValue));
 
     return intValue;
 }
