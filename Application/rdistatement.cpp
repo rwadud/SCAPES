@@ -23,7 +23,7 @@ bool RdiStatement::compile(Token *tokens, QString *errMsg){
 }
 
 //runs the instruction
-bool RdiStatement::run(){
+bool RdiStatement::run(QString &result){
     Identifier *id = op1->getIdentifier();
     int number = InputHelper::readInteger(id->getName());
 

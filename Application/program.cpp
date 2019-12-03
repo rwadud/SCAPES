@@ -39,12 +39,12 @@ bool Program::compile(QString *inSrcTxt, QString *outCmplTxt, QString *errTxt)
 }
 
 
-bool Program::run(QString *compiledTxt, QString *errTxt)
+bool Program::run(QString *compiledTxt, QTextBrowser *resultConsole, QString *errTxt)
 {
     *errTxt = "";
     RunControl executor;
 
-    if(!executor.run(compiledTxt, errTxt, stmtList, env))
+    if(!executor.run(compiledTxt, resultConsole, errTxt, stmtList, env))
         return false;
 
     return true;

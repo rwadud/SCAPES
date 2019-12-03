@@ -28,10 +28,10 @@ bool JeqStatement::compile(Token *tokens, QString *errMsg){
 }
 
 //runs the instruction
-bool JeqStatement::run(){
+bool JeqStatement::run(QString &result){
     Identifier *label = op1->getIdentifier();
     if(env->getCmpFlag()==EQUAL){
-        qDebug() << "ready to jump to label " << label->getName() << " at index " << label->getValue();
+        result = "Jumping to label " + label->getName() + " at index " + QString::number(label->getValue());
         env->setJmpIndex(label->getValue());
     }
     return true;

@@ -31,7 +31,7 @@ bool CmpStatement::compile(Token *tokens, QString *errMsg){
 }
 
 //runs the instruction
-bool CmpStatement::run(){
+bool CmpStatement::run(QString &result){
 
     Identifier *x, *y;
 

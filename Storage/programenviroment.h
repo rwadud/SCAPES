@@ -13,6 +13,7 @@ private:
     QHash<QString, Identifier*> hash;
     CmpFlag flag = NONE;
     int jmpIndex;
+    bool terminated = false;
 
 public:
     ProgramEnviroment();

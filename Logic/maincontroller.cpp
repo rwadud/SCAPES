@@ -145,15 +145,11 @@ bool MainController::run(QString *inSrcTxt, QString *outResultTxt, QString *errT
 
     //Temporary, replace with correct implementation
     if(myPgm != nullptr){
-        myPgm->run(&compiledTxt, errTxt);
+        myPgm->run(&compiledTxt, resultConsole, errTxt);
     } else {
 
     }
-    sendRunResult("Result 1 ...."); // To Be Removed
-    sendRunResult("Result 2 ...."); // To Be Removed
-    sendRunResult("Result 3 ...."); // To Be Removed
-    sendRunResult("Result 4 ...."); // To Be Removed
 
-    *outResultTxt = "Run finished"; // To Be Removed
+    //*outResultTxt = "Run finished"; // To Be Removed
     return true;
 }

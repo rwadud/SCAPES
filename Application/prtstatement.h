@@ -9,7 +9,7 @@ public:
     PrtStatement();
     ~PrtStatement();
     bool compile(Token *tokens, QString *errMsg);
-    bool run();
+    bool run(QString &result);
     void serialize(QJsonObject &json);
     void unserialize(const QJsonObject &json) const;
 

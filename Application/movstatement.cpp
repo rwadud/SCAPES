@@ -32,7 +32,7 @@ bool MovStatement::compile(Token *tokens, QString *errMsg){
 }
 
 //runs the instruction
-bool MovStatement::run(){
+bool MovStatement::run(QString &result){
     Identifier *id1 = op1->getIdentifier();
     Identifier *id2 = op2->getIdentifier();
 

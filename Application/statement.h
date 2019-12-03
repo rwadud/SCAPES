@@ -16,11 +16,12 @@ public:
     Statement();
     virtual ~Statement();
     virtual bool compile(Token *tokens, QString *errMsg) = 0;
-    virtual bool run() = 0;
+    virtual bool run(QString &result) = 0;
     void setLabel(Identifier *label);
     void setEnviroment(ProgramEnviroment *env);
     bool updateLabel(Token *tokens, QString *errMsg);
     bool hasLabel();
+    //virtual QString getExecutionResult() = 0;
 
 protected:
     ProgramEnviroment *env = nullptr; //program variable enviroment
@@ -29,6 +30,7 @@ protected:
     Operand *op2 = nullptr; //Operand 2
     bool validate(int numArgs, Token *tokens, QString *errMsg); //Validate argument/labels
     bool updateOperands(int numArgs, Token *tokens, QString *errMsg); //update operands and label references
+    //QString result;
 };
 
 

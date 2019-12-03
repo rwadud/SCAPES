@@ -15,8 +15,8 @@ bool EndStatement::compile(Token *tokens, QString *errMsg){
 }
 
 //run the instruction
-bool EndStatement::run(){
-    qDebug() << "End of Program";
+bool EndStatement::run(QString &result){
+    result = "End of Program";
     return false;
 }
 

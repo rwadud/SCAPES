@@ -23,15 +23,15 @@ bool PrtStatement::compile(Token *tokens, QString *errMsg){
 }
 
 //runs the instruction
-bool PrtStatement::run(){
+bool PrtStatement::run(QString &result){
 
     Identifier *id = op1->getIdentifier();
 
     if(id->isStringLiteral()){
         StringLiteral *str = dynamic_cast<StringLiteral*>(id);
-        qDebug() << str->getStrValue();
+        result = "Print: " + str->getStrValue();
     } else {
-        qDebug() << id->getValue();
+        result = "Print: " + QString::number(id->getValue());
     }
 
     return true;

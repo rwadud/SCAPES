@@ -32,9 +32,9 @@ bool JmpStatement::compile(Token *tokens, QString *errMsg){
 }
 
 //runs the instruction
-bool JmpStatement::run(){
+bool JmpStatement::run(QString &result){
     Identifier *label = op1->getIdentifier();
-    qDebug() << "ready to jump to label " << label->getName() << " at index " << label->getValue();
+    result = "Jumping to label " + label->getName() + " at index " + QString::number(label->getValue());
     env->setJmpIndex(label->getValue());
     return true;
 }

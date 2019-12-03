@@ -33,7 +33,7 @@ bool DcaStatement::compile(Token *tokens, QString *errMsg){
 }
 
 //runs the instruction
-bool DcaStatement::run(){
+bool DcaStatement::run(QString &result){
     return true;
 }
 

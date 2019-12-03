@@ -2,6 +2,7 @@
 #define PROGRAM_H
 #include <QString>
 #include <QList>
+#include <QTextBrowser>
 #include "programenviroment.h"
 #include "statementlist.h"
 
@@ -12,7 +13,7 @@ public:
     ~Program();
     QString getFileName();
     bool compile(QString *inSrcTxt, QString *outCmplTxt, QString *errTxt);
-    bool run(QString *compiledTxt, QString *errTxt);
+    bool run(QString *compiledTxt, QTextBrowser *resultConsole, QString *errTxt);
 
 private:
     QString filename;

@@ -33,7 +33,7 @@ bool AddStatement::compile(Token *tokens, QString *errMsg){
 }
 
 //runs the instruction
-bool AddStatement::run(){
+bool AddStatement::run(QString &result){
 
     Identifier *id1 = op1->getIdentifier();
     Identifier *id2 = op2->getIdentifier();

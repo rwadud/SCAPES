@@ -29,10 +29,10 @@ bool JmrStatement::compile(Token *tokens, QString *errMsg){
 }
 
 //runs the instruction
-bool JmrStatement::run(){
+bool JmrStatement::run(QString &result){
     Identifier *label = op1->getIdentifier();
     if(env->getCmpFlag()==MORE){
-        qDebug() << "ready to jump to label " << label->getName() << " at index " << label->getValue();
+        result = "Jumping to label " + label->getName() + " at index " + QString::number(label->getValue());
         env->setJmpIndex(label->getValue());
     }
     return true;

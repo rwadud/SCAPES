@@ -31,7 +31,7 @@ bool DciStatement::compile(Token *tokens, QString *errMsg){
 }
 
 //runs the instruction
-bool DciStatement::run(){
+bool DciStatement::run(QString &result){
     return true;
 }
 

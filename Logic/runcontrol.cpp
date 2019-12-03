@@ -18,23 +18,29 @@ RunControl::~RunControl()
     delete slist;
 }
 
-bool RunControl::run(QString *inJsonTxt, QString *errMsg, StatementList *stmtList, ProgramEnviroment *env)
+bool RunControl::run(QString *inJsonTxt, QTextBrowser *resultConsole, QString *errMsg, StatementList *stmtList, ProgramEnviroment *env)
 {
     Statement *stmt = nullptr;
 
     //regenerate(inJsonTxt);
 
     int i = 0;
+    QString result;
     while (i<stmtList->size()) {
+        result = "";
         stmt = stmtList->get(i);
-        if(!stmt->run()){
+        if(stmt->run(result)){
+            if(!result.isEmpty()){
+                resultConsole->append(result);
+            }
+        } else {
             //handle error
             return false;
         }
+
         //qDebug () << "flag state is " << env->getCmpFlag() << " at index " << i;
         if(env->getCmpFlag()!=NONE && env->getJmpIndex() >= 0){
             i = env->getJmpIndex();
-            qDebug() << "jumping to index" << i;
             env->clearCmpFlag();
             //qDebug() << "clearning flag... flag state is " << env->getCmpFlag();
             continue;
