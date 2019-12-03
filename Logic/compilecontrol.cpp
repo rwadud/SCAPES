@@ -69,7 +69,7 @@ bool CompileControl::compile(QString *inSrcTxt, QString *outCmplTxt, QString *er
             stmtList->add(stmt);
             stmtIndex++;
         } else {
-            *errMsg = "invalid statement detected "+ tokens->getInstr();
+            *errMsg = "invalid statement detected: "+ tokens->getInstr();
             MainController::addLineNumToErrText(i+1, errMsg);
             //qDebug() << "error at " << line;
             // some error
