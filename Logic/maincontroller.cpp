@@ -114,6 +114,7 @@ bool MainController::run(QString *inSrcTxt, QString *outResultTxt, QString *errT
     QString compiledTxt;
     QString compiledFileName = currentFileName +".json";
     bool    needToCompile = true;
+    *outResultTxt = "";
 
     if (currentFileCompiled) {
         QString programTxt = "";
@@ -145,11 +146,8 @@ bool MainController::run(QString *inSrcTxt, QString *outResultTxt, QString *errT
 
     //Temporary, replace with correct implementation
     if(myPgm != nullptr){
-        myPgm->run(&compiledTxt, resultConsole, errTxt);
+        return myPgm->run(&compiledTxt, resultConsole, errTxt);
     } else {
-
+        return true; // TBD
     }
-
-    //*outResultTxt = "Run finished"; // To Be Removed
-    return true;
 }
