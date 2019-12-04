@@ -31,8 +31,14 @@ bool Identifier::isStringLiteral(){
        return true;
     return false;
 }
+
 bool Identifier::isArray(){
     if(identifierType=="ArrayVariable")
+       return true;
+    return false;
+}
+bool Identifier::isArrayElementIndex(){
+    if(identifierType=="ArrayElementIndex")
        return true;
     return false;
 }

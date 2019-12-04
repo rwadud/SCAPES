@@ -15,6 +15,7 @@ public:
     QString getName();
     QString getIdentifierType();
     bool isIntegerLiteral();
+    bool isArrayElementIndex();
     bool isStringLiteral();
     bool isVariable();
     bool isArray();
