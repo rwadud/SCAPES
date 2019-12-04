@@ -8,6 +8,7 @@ Variable::~Variable()
 
 void Variable::setValue(int v){
     value = v;
+    initialize();
 }
 
 int Variable::getValue(){

@@ -1,4 +1,6 @@
 #include "programenviroment.h"
+#include <QHashIterator>
+#include <QDebug>
 
 ProgramEnviroment::ProgramEnviroment(){}
 ProgramEnviroment::~ProgramEnviroment(){
@@ -37,7 +39,9 @@ bool ProgramEnviroment::isTerminated(){
 void ProgramEnviroment::terminate(){
     terminated = true;
 }
-
+void ProgramEnviroment::reset(){
+    terminated = false;
+}
 void ProgramEnviroment::insert(QString &key, Identifier *id){
     hash.insert(key, id);
 }
@@ -56,4 +60,13 @@ Identifier* ProgramEnviroment::get(QString &key){
 
 Identifier* ProgramEnviroment::find(QString &key){
     return get(key);
+}
+
+void ProgramEnviroment::print(){
+    QHashIterator<QString, Identifier *> i(hash);
+    qDebug() << "Env Vars";
+    while (i.hasNext()) {
+        i.next();
+        qDebug() << i.key() << ": " << i.value()->getValue();
+    }
 }

@@ -27,6 +27,7 @@ bool RunControl::run(QString *inJsonTxt, QTextBrowser *resultConsole, QString *e
 
     int i = 0;
     QString result;
+    env->reset();
     while (i<stmtList->size()) {
         if(env->isTerminated())
             break;

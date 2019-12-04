@@ -129,6 +129,17 @@ bool Statement::updateOperands(int numArgs, Token *tokens, QString *errMsg){
                     op1 = new Operand(var);
                 if(i==2)
                     op2 = new Operand(var);
+                QString accessor = tokens->getArg(i).split("+")[1]; //split + and get array index
+                if(!Token::isIntegerLiteral(accessor)){
+                    Identifier *tmp;
+                    if( (tmp = env->find(accessor)) ){
+                        ArrayElementIndex *ele = dynamic_cast<ArrayElementIndex*>(var); //casting needed to call array member function to set index
+                        ele->setVariable(tmp);
+                    } else {
+                        *errMsg = "undefined reference to identifier: " + accessor;
+                        return false;
+                    }
+                }
                 //ArrayVariable *arr = dynamic_cast<ArrayVariable*>(var); //casting needed to call array member function to set index
                 //arr->setIndex(arrayIndex);
             } else {

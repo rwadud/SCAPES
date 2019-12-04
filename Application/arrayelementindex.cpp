@@ -1,5 +1,6 @@
 #include "arrayelementindex.h"
 #include <QStringList>
+#include <QDebug>
 
 ArrayElementIndex::ArrayElementIndex(QString s) :  Identifier(s,"ArrayElementIndex")
 {
@@ -17,6 +18,20 @@ int ArrayElementIndex::getValue(){
 
 void ArrayElementIndex::setValue(int i){
     index = i;
+}
+
+bool ArrayElementIndex::isVariableIndex(){
+    return _isVariableIndex;
+}
+
+void ArrayElementIndex::setVariable(Identifier *var){
+    this->var = var;
+    _isVariableIndex = true;
+}
+
+void ArrayElementIndex::updateVariableIndex(){
+    index = var->getValue();
+    initialize();
 }
 
 void ArrayElementIndex::serialize(QJsonObject &json){

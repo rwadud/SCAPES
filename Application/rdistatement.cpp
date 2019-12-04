@@ -34,7 +34,10 @@ void RdiStatement::run(QString &result){
 
     if(id->isArrayElementIndex()){
         ArrayVariable *arr = dynamic_cast<ArrayVariable*>(env->get(id->getName().split("+")[0].remove("$")));
-        arr->set(id->getValue(), number);
+        ArrayElementIndex *ele = dynamic_cast<ArrayElementIndex*>(id);
+        if(ele->isVariableIndex())
+            ele->updateVariableIndex();
+        arr->set(ele->getValue(), number);
     } else {
         id->setValue(number);
     }

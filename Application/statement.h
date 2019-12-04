@@ -9,6 +9,7 @@
 #include <QDebug>
 #include "serializable.h"
 #include "arrayvariable.h"
+#include "arrayelementindex.h"
 
 //Abstract statement class
 class Statement : public Serializable

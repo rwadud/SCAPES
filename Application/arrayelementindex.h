@@ -12,8 +12,14 @@ public:
     void setValue(int);
     void serialize(QJsonObject &json);
     void unserialize(const QJsonObject &json) const;
+    bool isVariableIndex();
+    void updateVariableIndex();
+    void setVariable(Identifier*);
+
 private:
     int index;
+    Identifier *var = nullptr;
+    bool _isVariableIndex = false;
 };
 
 #endif // ARRAYELEMENTINDEX_H

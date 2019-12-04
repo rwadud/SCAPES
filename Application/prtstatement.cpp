@@ -32,7 +32,10 @@ void PrtStatement::run(QString &result){
         result = "Print: " + str->getStrValue();
     } else if(id->isArrayElementIndex()) {
         ArrayVariable *arr = dynamic_cast<ArrayVariable*>(env->get(id->getName().split("+")[0].remove("$")));
-        result = "Print: " + QString::number(arr->get(id->getValue()));
+        ArrayElementIndex *ele = dynamic_cast<ArrayElementIndex*>(id);
+        if(ele->isVariableIndex())
+            ele->updateVariableIndex();
+        result = "Print: " + QString::number(arr->get(ele->getValue()));
     } else {
         result = "Print: " + QString::number(id->getValue());
     }

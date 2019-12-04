@@ -41,18 +41,28 @@ void AddStatement::run(QString &result){
     if(id1->isArrayElementIndex() && id2->isArrayElementIndex()) {
         ArrayVariable *arr1 = dynamic_cast<ArrayVariable*>(env->get(id1->getName().split("+")[0].remove("$")));
         ArrayVariable *arr2 = dynamic_cast<ArrayVariable*>(env->get(id2->getName().split("+")[0].remove("$")));
+        ArrayElementIndex *ele1 = dynamic_cast<ArrayElementIndex*>(id1);
+        ArrayElementIndex *ele2 = dynamic_cast<ArrayElementIndex*>(id2);
+        if(ele1->isVariableIndex())
+            ele1->updateVariableIndex();
+        if(ele2->isVariableIndex())
+            ele2->updateVariableIndex();
         arr2->set(id2->getValue(), arr1->get(id1->getValue()) + arr2->get(id2->getValue()));
     } else if (id1->isArrayElementIndex() && !id2->isArrayElementIndex()) {
         ArrayVariable *arr = dynamic_cast<ArrayVariable*>(env->get(id1->getName().split("+")[0].remove("$")));
+        ArrayElementIndex *ele1 = dynamic_cast<ArrayElementIndex*>(id1);
+        if(ele1->isVariableIndex())
+            ele1->updateVariableIndex();
         id2->setValue( arr->get(id1->getValue()) + id2->getValue() );
     } else if (!id1->isArrayElementIndex() && id2->isArrayElementIndex()) {
         ArrayVariable *arr = dynamic_cast<ArrayVariable*>(env->get(id2->getName().split("+")[0].remove("$")));
+        ArrayElementIndex *ele2 = dynamic_cast<ArrayElementIndex*>(id2);
+        if(ele2->isVariableIndex())
+            ele2->updateVariableIndex();
         arr->set(id2->getValue(), arr->get(id2->getValue()) + id1->getValue());
     } else {
         id2->setValue( id1->getValue() + id2->getValue() );
     }
-
-
 }
 
 //serializes instruction for compilation as a json
