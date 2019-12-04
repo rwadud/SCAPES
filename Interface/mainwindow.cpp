@@ -112,7 +112,9 @@ void MainWindow::run()
         // NotifyMsg::show(resultText);
 
         // Append the final result to the textBrowser Console
-        NotifyMsg::showAppend(resultText, ui->textBrowser);
+        if (!resultText.isEmpty()) {
+            NotifyMsg::showAppend(resultText, ui->textBrowser);
+        }
     }
 
 }
