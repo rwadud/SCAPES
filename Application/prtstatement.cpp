@@ -19,6 +19,11 @@ bool PrtStatement::compile(Token *tokens, QString *errMsg){
     if(!updateOperands(numArgs, tokens, errMsg))
         return false;
 
+    if( op1->getIdentifier()->isArray() ){
+        *errMsg = "invalid operand type: " + op1->getIdentifier()->getName();
+        return false;
+    }
+
     return true;
 }
 
