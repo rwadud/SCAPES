@@ -43,7 +43,6 @@ bool CompileControl::compile(QString *inSrcTxt, QString *outCmplTxt, QString *er
                 *errMsg = "Label is empty";
                 MainController::addLineNumToErrText(i+1, errMsg);
                 return false;
-
             }
         }
 
@@ -69,10 +68,17 @@ bool CompileControl::compile(QString *inSrcTxt, QString *outCmplTxt, QString *er
                 return false;
              }
             // compile statements
-            if(stmt->compile(tokens, errMsg) == false) {
-                  MainController::addLineNumToErrText(i+1, errMsg);
-                  return false;
-             }
+            try {
+                if(stmt->compile(tokens, errMsg) == false) {
+                      MainController::addLineNumToErrText(i+1, errMsg);
+                      return false;
+                 }
+            } catch (const std::exception & e) {
+                *errMsg = e.what();
+                MainController::addLineNumToErrText(i+1, errMsg);
+                return false;
+            }
+
 
             //list of statements
             stmtList->add(stmt);

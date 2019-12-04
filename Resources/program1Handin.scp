@@ -4,6 +4,7 @@ rdi x
 rdi y
 cmp x y
 jmr L1
+prt "x is less than y"
 jmp L3
 L1: dci z
 rdi z

@@ -15,9 +15,9 @@ bool EndStatement::compile(Token *tokens, QString *errMsg){
 }
 
 //run the instruction
-bool EndStatement::run(QString &result){
+void EndStatement::run(QString &result){
     result = "End of Program";
-    return false;
+    env->terminate();
 }
 
 //serializes instruction for compilation as a json

@@ -1,2 +1,14 @@
-L1:
-
+dci x
+dci y
+rdi x
+rdi y
+cmp x y
+jmr L3
+end
+prt x
+prt "why is this printed?"
+jmp L3
+L1: prt y
+L2: prt y
+L3: end
+prt "over?"

@@ -23,7 +23,7 @@ bool PrtStatement::compile(Token *tokens, QString *errMsg){
 }
 
 //runs the instruction
-bool PrtStatement::run(QString &result){
+void PrtStatement::run(QString &result){
 
     Identifier *id = op1->getIdentifier();
 
@@ -34,7 +34,6 @@ bool PrtStatement::run(QString &result){
         result = "Print: " + QString::number(id->getValue());
     }
 
-    return true;
 }
 
 //serializes instruction for compilation as a json

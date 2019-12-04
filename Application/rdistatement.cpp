@@ -23,18 +23,15 @@ bool RdiStatement::compile(Token *tokens, QString *errMsg){
 }
 
 //runs the instruction
-bool RdiStatement::run(QString &result){
+void RdiStatement::run(QString &result){
     Identifier *id = op1->getIdentifier();
     int number = InputHelper::readInteger(id->getName());
 
     if(number<0){
-        //handle error
-        qDebug() << "SCAPL language only supports positive integers";
-        return false;
+        throw std::runtime_error("SCAPL language only supports positive integers");
     }
 
     id->setValue(number);
-    return true;
 }
 
 //serializes instruction for compilation as a json

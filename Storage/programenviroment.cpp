@@ -30,6 +30,14 @@ int ProgramEnviroment::getJmpIndex(){
     return jmpIndex;
 }
 
+bool ProgramEnviroment::isTerminated(){
+    return terminated;
+}
+
+void ProgramEnviroment::terminate(){
+    terminated = true;
+}
+
 void ProgramEnviroment::insert(QString &key, Identifier *id){
     hash.insert(key, id);
 }

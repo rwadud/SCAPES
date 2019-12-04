@@ -28,6 +28,8 @@ public:
     void clearCmpFlag();
     void setJmpIndex(int i);
     int getJmpIndex();
+    bool isTerminated();
+    void terminate();
 
 };
 

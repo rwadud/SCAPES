@@ -9,7 +9,7 @@ public:
     RdiStatement();
     ~RdiStatement();
     bool compile(Token *tokens, QString *errMsg);
-    bool run(QString &result);
+    void run(QString &result);
     void serialize(QJsonObject &json);
     void unserialize(const QJsonObject &json) const;
 

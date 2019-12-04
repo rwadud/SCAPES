@@ -31,8 +31,7 @@ bool DciStatement::compile(Token *tokens, QString *errMsg){
 }
 
 //runs the instruction
-bool DciStatement::run(QString &result){
-    return true;
+void DciStatement::run(QString &result){
 }
 
 //serializes instruction for compilation as a json

@@ -16,7 +16,7 @@ public:
     Statement();
     virtual ~Statement();
     virtual bool compile(Token *tokens, QString *errMsg) = 0;
-    virtual bool run(QString &result) = 0;
+    virtual void run(QString &result) = 0;
     void setLabel(Identifier *label);
     void setEnviroment(ProgramEnviroment *env);
     bool updateLabel(Token *tokens, QString *errMsg);

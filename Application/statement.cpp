@@ -94,7 +94,9 @@ bool Statement::updateLabel(Token *tokens, QString *errMsg){
                 return false;
             }
         } else {
-            env->insert(labelName, new Label(labelName,env->getJmpIndex()));
+            Label *label = new Label(labelName,env->getJmpIndex());
+            label->initialize();
+            env->insert(labelName, label);
         }
     }
 

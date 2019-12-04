@@ -31,7 +31,7 @@ bool CmpStatement::compile(Token *tokens, QString *errMsg){
 }
 
 //runs the instruction
-bool CmpStatement::run(QString &result){
+void CmpStatement::run(QString &result){
 
     Identifier *x, *y;
 
@@ -47,7 +47,6 @@ bool CmpStatement::run(QString &result){
         env->setCmpFlag(EQUAL);
     }
 
-    return true;
 }
 
 //serializes instruction for compilation as a json

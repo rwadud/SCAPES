@@ -26,13 +26,15 @@ bool JlsStatement::compile(Token *tokens, QString *errMsg){
 }
 
 //runs the instruction
-bool JlsStatement::run(QString &result){
+void JlsStatement::run(QString &result){
     Identifier *label = op1->getIdentifier();
+    if(!label->isInitialized()){
+        throw std::runtime_error("Label not initialized");
+    }
     if(env->getCmpFlag()==LESS){
         result = "Jumping to label " + label->getName() + " at index " + QString::number(label->getValue());
         env->setJmpIndex(label->getValue());
     }
-    return true;
 }
 
 //serializes instruction for compilation as a json

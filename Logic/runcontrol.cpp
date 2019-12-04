@@ -1,5 +1,6 @@
 #include "runcontrol.h"
 #include "statementcreator.h"
+#include "maincontroller.h"
 //#include "cmpflag.h"
 #include <QJsonArray>
 #include <QJsonObject>
@@ -27,14 +28,17 @@ bool RunControl::run(QString *inJsonTxt, QTextBrowser *resultConsole, QString *e
     int i = 0;
     QString result;
     while (i<stmtList->size()) {
+        if(env->isTerminated())
+            break;
         result = "";
         stmt = stmtList->get(i);
-        if(stmt->run(result)){
+        try {
+            stmt->run(result);
             if(!result.isEmpty()){
                 resultConsole->append(result);
             }
-        } else {
-            //handle error
+        } catch (const std::exception & e) {
+            *errMsg = e.what();
             return false;
         }
 
@@ -47,6 +51,7 @@ bool RunControl::run(QString *inJsonTxt, QTextBrowser *resultConsole, QString *e
         }
         i++;
     }
+
     return true;
 }
 
