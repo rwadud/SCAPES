@@ -29,7 +29,7 @@ bool CompileControl::compile(QString *inSrcTxt, QString *outCmplTxt, QString *er
 
 
     for(int i = 0; i < srcList.length(); i++){
-        QString line = srcList[i];
+        QString line = srcList[i].trimmed();
         if(line.count(":") > 1){
             *errMsg = "too many Labels";
             MainController::addLineNumToErrText(i+1, errMsg);
