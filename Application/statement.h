@@ -8,6 +8,7 @@
 #include "token.h"
 #include <QDebug>
 #include "serializable.h"
+#include "arrayvariable.h"
 
 //Abstract statement class
 class Statement : public Serializable

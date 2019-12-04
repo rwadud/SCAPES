@@ -1,1 +1,9 @@
-dci      z    
+dca arr 5
+dci z
+mov 0 z
+prt z
+rdi $arr+1
+add $arr+z $arr+1
+prt $arr+1
+
+

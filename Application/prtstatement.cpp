@@ -30,6 +30,9 @@ void PrtStatement::run(QString &result){
     if(id->isStringLiteral()){
         StringLiteral *str = dynamic_cast<StringLiteral*>(id);
         result = "Print: " + str->getStrValue();
+    } else if(id->isArrayElementIndex()) {
+        ArrayVariable *arr = dynamic_cast<ArrayVariable*>(env->get(id->getName().split("+")[0].remove("$")));
+        result = "Print: " + QString::number(arr->get(id->getValue()));
     } else {
         result = "Print: " + QString::number(id->getValue());
     }

@@ -21,11 +21,11 @@ bool AddStatement::compile(Token *tokens, QString *errMsg){
     if(!updateOperands(numArgs, tokens, errMsg))
         return false;
 
-    if( !(op1->getIdentifier()->isArray() || op1->getIdentifier()->isVariable() || op1->getIdentifier()->isIntegerLiteral()) ){
+    if( !(op1->getIdentifier()->isArray() || op1->getIdentifier()->isVariable() || op1->getIdentifier()->isIntegerLiteral()  || op1->getIdentifier()->isArrayElementIndex()) ){
         *errMsg = "invalid operand 1 type: " + op1->getIdentifier()->getName();
         return false;
     }
-    if( !(op2->getIdentifier()->isArray() || op2->getIdentifier()->isVariable()) ){
+    if( !(op2->getIdentifier()->isArray() || op2->getIdentifier()->isVariable() || op2->getIdentifier()->isArrayElementIndex()) ){
         *errMsg = "invalid operand 2 type: " + op2->getIdentifier()->getName();
         return false;
     }
@@ -38,7 +38,20 @@ void AddStatement::run(QString &result){
     Identifier *id1 = op1->getIdentifier();
     Identifier *id2 = op2->getIdentifier();
 
-    id2->setValue( id1->getValue() + id2->getValue() );
+    if(id1->isArrayElementIndex() && id2->isArrayElementIndex()) {
+        ArrayVariable *arr1 = dynamic_cast<ArrayVariable*>(env->get(id1->getName().split("+")[0].remove("$")));
+        ArrayVariable *arr2 = dynamic_cast<ArrayVariable*>(env->get(id2->getName().split("+")[0].remove("$")));
+        arr2->set(id2->getValue(), arr1->get(id1->getValue()) + arr2->get(id2->getValue()));
+    } else if (id1->isArrayElementIndex() && !id2->isArrayElementIndex()) {
+        ArrayVariable *arr = dynamic_cast<ArrayVariable*>(env->get(id1->getName().split("+")[0].remove("$")));
+        id2->setValue( arr->get(id1->getValue()) + id2->getValue() );
+    } else if (!id1->isArrayElementIndex() && id2->isArrayElementIndex()) {
+        ArrayVariable *arr = dynamic_cast<ArrayVariable*>(env->get(id2->getName().split("+")[0].remove("$")));
+        arr->set(id2->getValue(), arr->get(id2->getValue()) + id1->getValue());
+    } else {
+        id2->setValue( id1->getValue() + id2->getValue() );
+    }
+
 
 }
 

@@ -2,6 +2,7 @@
 #include "arrayvariable.h"
 #include "integerliteral.h"
 #include "stringliteral.h"
+#include "arrayelementindex.h"
 
 Statement::Statement(){}
 
@@ -110,25 +111,32 @@ bool Statement::updateOperands(int numArgs, Token *tokens, QString *errMsg){
         QString arg = tokens->getArg(i);
 
         //extra processing for $array accessors
-        int arrayIndex = 0;
+        //int arrayIndex = 0;
         bool arrayDetected = false;
         if(Token::isArrayElement(arg)){
             arrayDetected = true;
-            QString str = arg.split("+")[0].remove("$"); //strip $ to get array name
-            QString tmp = arg.split("+")[1]; //split + and get array index
-            arrayIndex = tmp.toInt();
-            arg = str;
+            arg = arg.split("+")[0].remove("$"); //strip $ to get array name
+            //QString tmp = arg.split("+")[1]; //split + and get array index
+            //arrayIndex = tmp.toInt();
+            //arg = str;
         }
 
         if(env->contains(arg)){  // Check if the identifier is real or not
-            Identifier *var = env->get(arg);
-            if(i==1)
-                op1 = new Operand(var);
-            if(i==2)
-                op2 = new Operand(var);
+            Identifier *var;
             if(arrayDetected){
-                ArrayVariable *arr = dynamic_cast<ArrayVariable*>(var); //casting needed to call array member function to set index
-                arr->setIndex(arrayIndex);
+                var = new ArrayElementIndex(tokens->getArg(i));
+                if(i==1)
+                    op1 = new Operand(var);
+                if(i==2)
+                    op2 = new Operand(var);
+                //ArrayVariable *arr = dynamic_cast<ArrayVariable*>(var); //casting needed to call array member function to set index
+                //arr->setIndex(arrayIndex);
+            } else {
+                var = env->get(arg);
+                if(i==1)
+                    op1 = new Operand(var);
+                if(i==2)
+                    op2 = new Operand(var);
             }
         } else{
             QString literalType;

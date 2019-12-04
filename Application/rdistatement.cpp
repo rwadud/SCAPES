@@ -1,5 +1,6 @@
 #include "rdistatement.h"
 #include "inputhelper.h"
+#include "arrayvariable.h"
 
 //constructor
 RdiStatement::RdiStatement(){}
@@ -31,7 +32,13 @@ void RdiStatement::run(QString &result){
         throw std::runtime_error("SCAPL language only supports positive integers");
     }
 
-    id->setValue(number);
+    if(id->isArrayElementIndex()){
+        ArrayVariable *arr = dynamic_cast<ArrayVariable*>(env->get(id->getName().split("+")[0].remove("$")));
+        arr->set(id->getValue(), number);
+    } else {
+        id->setValue(number);
+    }
+
 }
 
 //serializes instruction for compilation as a json

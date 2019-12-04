@@ -92,6 +92,6 @@ bool Token::isValidIdentifierName(QString &str){
 }
 
 bool Token::isArrayElement(QString &str){
-    QRegExp rgx("^(\\$)[a-zA-Z0-9_]+(\\+)(\\d*)");
+    QRegExp rgx("^(\\$)[a-zA-Z0-9_]+(\\+)[a-zA-Z0-9_]+");
     return rgx.exactMatch(str);
 }
