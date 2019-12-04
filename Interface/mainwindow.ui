@@ -22,7 +22,7 @@
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
           <horstretch>0</horstretch>
-          <verstretch>4</verstretch>
+          <verstretch>3</verstretch>
          </sizepolicy>
         </property>
        </widget>

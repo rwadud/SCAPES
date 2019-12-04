@@ -153,6 +153,7 @@ void MainWindow::on_actionNew_triggered()
 {
     ctlr->setCurrentFileName("");
     ui->textEdit->setText("");
+    ui->textBrowser->setText("");
     setWindowTitle("SCAPES");
 }
 
