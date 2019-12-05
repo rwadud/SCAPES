@@ -38,9 +38,9 @@
 #
 #
 #
-### NOTE: The Compilation output is in the Resources Folder
+#### NOTE: The Compilation output is in the Resources Folder
 
-﻿## FACTORY METHOD
+## FACTORY METHOD
 #### Factory Method is being used so we are able to create the objects on the fly without our program having to prepare anything that will not be needed. This prevents the need for the class to anticipate the type of objects that is needed.
 ### Benefits of Factory Method:
 ##### Factory method eliminates the need to bind application-specific classes into your code. The program only deals with product interfaces; therefore it can work with any user-defined ConcreteProduct classes.
