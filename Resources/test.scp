@@ -1,5 +1,40 @@
-dca x 5
-rdi $x+2
-L1: prt $x+2
+dci answer
+dci count
+dci current
+dci size
+dci sigma
+dci arrcount
 
 
+mov 0 answer
+mov 0 count
+mov 0 size
+mov 0 arrcount
+rdi sigma
+add 10 sigma
+dca num sigma
+
+#if input equals 0, end
+cmp current sigma
+jeq done
+
+main: add 1 count
+add count answer
+mov arrcount $num+arrcount
+add 1 arrcount
+cmp count sigma
+jeq finish
+jmp main
+
+
+finish: prt "The answer is"
+prt answer
+
+prt "These are all the numbers that were added together"
+loop: prt $num+size
+add 1 size
+cmp size sigma
+jmr end
+jmp loop
+
+done: end
