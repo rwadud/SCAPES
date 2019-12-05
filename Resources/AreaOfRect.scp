@@ -1,13 +1,17 @@
-dci 1answer
+dci answer
 dci length
 dci width
 dci count
-dci Restart
+dci Option
 dci flag
-
-
+dci index
+dci call
+dca history 10
+mov 0 index
 
 restart: mov 0 flag
+cmp index 10
+jeq error2
 rdi length
 rdi width
 
@@ -27,10 +31,15 @@ jeq start
 prt "value must be greater than 0"
 jmp restart
 
+#History is full
+error2: prt "History is full"
+jmp Menu
+
 
 
 #prep the loop
-start: mov 0 count
+start: add 1 index
+mov 0 count
 mov 0 answer
 
 #start the loop
@@ -44,13 +53,26 @@ jmp loop
 #answer
 done: prt "The area of the rectangle is"
 prt answer
+mov answer $history+index
+
 
 #option to restart
-prt "0 to end, 1 to restart"
-rdi Restart
-cmp Restart 1
-jeq restart
+Menu: prt "0 to end, 1 to restart, 2 to view history"
+rdi Option
+cmp Option 1
+jls quit
+cmp Option 2
+jeq History
+jmp restart
+
+
+History: prt "View Previous answers, input a value between 0 and"
+prt index
+rdi call
+prt "The value at this index is"
+prt $history+index
+jmp Menu
 
 
 
-end
+quit: end
