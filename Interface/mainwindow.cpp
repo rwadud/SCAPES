@@ -203,9 +203,9 @@ void MainWindow::on_actionRun_triggered()
 void MainWindow::on_actionAbout_triggered()
 {
     QString aboutText = "The SCAPES system is a development environment \n"
-                        "to write, compile and execute programs. \n";
-    aboutText += "Version: 1.0 \n";
-    aboutText += "Authors: Pallab Saha, Redwan, Salim, Robby\n";
+                        "to write, compile and execute programs in the SCAPL language. \n";
+    aboutText += "Version: 2.0 \n";
+    aboutText += "Authors: Pallab Saha, Redwan Wadud, Mohamad-Salim Merhi, Robby Zbib\n";
     aboutText += "Copyright:, SCAPES (C), 2019";
     QMessageBox::about(this,tr("About SCAPES"), aboutText);
 }
@@ -233,4 +233,3 @@ void MainWindow::on_textEdit_cursorPositionChanged()
     // highlight the selected line
     EditorHelper::highLightCurrentLine(ui->textEdit, QColor(Qt::blue).lighter(160));
 }
-

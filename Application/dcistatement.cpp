@@ -59,4 +59,5 @@ void DciStatement::unserialize(const QJsonObject &json) {
     Identifier *id = new Variable(arg);
     env->insert(arg, id);
     op1 = new Operand(id);
+    delete tokens;
 }

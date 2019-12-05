@@ -1,0 +1,40 @@
+dci answer
+dci count
+dci current
+dci factorial
+dci state
+
+#	for(int current=0, current<factorial, current++){
+#		answer = answer * current
+#	}
+
+mov 0 state
+mov 0 current
+mov 1 answer
+rdi factorial
+
+#Start the Main loop
+MainLoop: add 1 current
+
+
+#start the loop
+loop: add 1 count
+add state answer
+cmp count current
+jeq continue
+#iterate
+mov answer state
+mov 0 count
+jmp loop
+
+
+
+continue: cmp current factorial
+jeq done
+jmp MainLoop
+
+
+
+done: prt "The answer is"
+prt answer
+end
