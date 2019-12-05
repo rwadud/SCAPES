@@ -40,6 +40,6 @@ void ArrayElementIndex::serialize(QJsonObject &json){
     json["value"] = index;
 }
 
-void ArrayElementIndex::unserialize(const QJsonObject &json) const{
+void ArrayElementIndex::unserialize(const QJsonObject &json){
 
 }

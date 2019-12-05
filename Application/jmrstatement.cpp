@@ -10,15 +10,17 @@ JmrStatement::~JmrStatement(){
 
 //compile function for jmr statement
 bool JmrStatement::compile(Token *tokens, QString *errMsg){
-
+    // check if label exist and updates references
+    if(!updateLabel(tokens, errMsg)) {
+        return false;
+    }
     // validate argument/label names
     if(!validate(numArgs, tokens, errMsg))
         return false;
 
     //update operand references
-    if(!updateOperands(numArgs, tokens, errMsg)){
+    if(!updateOperands(numArgs, tokens, errMsg))
         return false;
-    }
 
     //check if operand type is correct
     if( !op1->getIdentifier()->isLabel() ){
@@ -32,7 +34,7 @@ bool JmrStatement::compile(Token *tokens, QString *errMsg){
 void JmrStatement::run(QString &result){
     Identifier *label = op1->getIdentifier();
     if(!label->isInitialized()){
-        throw std::runtime_error("Label not initialized");
+        throw std::runtime_error("Label not initialized: " + label->getName().toUtf8());
     }
     if(env->getCmpFlag()==MORE){
         result = "Jumping to label " + label->getName() + " at index " + QString::number(label->getValue());
@@ -58,6 +60,8 @@ void JmrStatement::serialize(QJsonObject &json){
 }
 
 //unserialization to run instructions
-void JmrStatement::unserialize(const QJsonObject &json) const{
-
+void JmrStatement::unserialize(const QJsonObject &json) {
+    Token *tokens = Statement::tokenize(json);
+    updateLabel(tokens, nullptr);
+    updateOperands(numArgs, tokens, nullptr);
 }

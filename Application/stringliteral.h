@@ -13,7 +13,7 @@ public:
     QString getStrValue();
     void setValue(int){}
     void serialize(QJsonObject &json);
-    void unserialize(const QJsonObject &json) const;
+    void unserialize(const QJsonObject &json);
 };
 
 #endif // STRINGLITERAL_H

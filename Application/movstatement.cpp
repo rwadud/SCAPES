@@ -10,7 +10,10 @@ MovStatement::~MovStatement(){
 
 //compile function for mov statement
 bool MovStatement::compile(Token *tokens, QString *errMsg){
-
+    // check if label exist and updates references
+    if(!updateLabel(tokens, errMsg)) {
+        return false;
+    }
     // validate argument/label names
     if(!validate(numArgs, tokens, errMsg))
         return false;
@@ -85,6 +88,8 @@ void MovStatement::serialize(QJsonObject &json){
 }
 
 //unserialization to run instructions
-void MovStatement::unserialize(const QJsonObject &json) const{
-
+void MovStatement::unserialize(const QJsonObject &json) {
+    Token *tokens = Statement::tokenize(json);
+    updateLabel(tokens, nullptr);
+    updateOperands(numArgs, tokens, nullptr);
 }

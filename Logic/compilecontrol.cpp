@@ -63,10 +63,10 @@ bool CompileControl::compile(QString *inSrcTxt, QString *outCmplTxt, QString *er
             env->setJmpIndex(stmtIndex);
 
             // check if label exist and updates references
-            if(!stmt->updateLabel(tokens, errMsg)) {
-                MainController::addLineNumToErrText(i+1, errMsg);
-                return false;
-             }
+            //if(!stmt->updateLabel(tokens, errMsg)) {
+            //    MainController::addLineNumToErrText(i+1, errMsg);
+            //    return false;
+            //}
             // compile statements
             try {
                 if(stmt->compile(tokens, errMsg) == false) {

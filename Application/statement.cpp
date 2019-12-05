@@ -79,9 +79,9 @@ bool Statement::validate(int numArgs, Token *tokens, QString *errMsg){
 
 //create label if a statement has one or update the reference if label was already created
 bool Statement::updateLabel(Token *tokens, QString *errMsg){
-    QString labelName = tokens->getLabel();
     Identifier *id = nullptr;
-    if(tokens->hasLabel() && Token::isValidIdentifierName(labelName)){
+    if(tokens->hasLabel()){
+        QString labelName = tokens->getLabel();
         if( (id = env->get(labelName)) ){
             if(!id->isLabel()){
                 *errMsg = "not a label";
@@ -124,6 +124,10 @@ bool Statement::updateOperands(int numArgs, Token *tokens, QString *errMsg){
         if(env->contains(arg)){  // Check if the identifier is real or not
             Identifier *var;
             if(arrayDetected){
+                if(!env->get(arg)->isArray()){
+                    *errMsg = "identifier is not an array: "+ arg;
+                    return false;
+                }
                 var = new ArrayElementIndex(tokens->getArg(i));
                 if(i==1)
                     op1 = new Operand(var);
@@ -152,7 +156,7 @@ bool Statement::updateOperands(int numArgs, Token *tokens, QString *errMsg){
         } else{
             QString literalType;
             if(Token::isLiteral(arg, literalType)){
-                Identifier *literal = Identifier::createLiteral(literalType, arg);
+                Identifier *literal = IdentifierCreator::create(literalType, arg);
                 env->insert(arg, literal);
                 if(i==1)
                     op1 = new Operand(literal);
@@ -177,6 +181,26 @@ bool Statement::updateOperands(int numArgs, Token *tokens, QString *errMsg){
     }
 
     return true;
+}
+
+//
+Token* Statement::tokenize(const QJsonObject &json){
+    QString label = json["label"].toString();
+    QString instr = json["statement"].toString();
+    QString arg1 = json["op1"]["name"].toString();
+    QString arg2 = json["op2"]["name"].toString();
+    QString arg1Type = json["op1"]["identifierType"].toString();
+    if(!label.isEmpty()){
+        label = label+":";
+    }
+
+    if( arg1Type == "StringLiteral"){
+        arg1 = "\""+arg1+"\"";
+        qDebug() << arg1;
+    }
+    QString line = (label + " " + instr + " " + arg1 + " " + arg2).trimmed();
+    line.replace(QRegExp("[^\\S\\r\\n]+"), " ");
+    return new Token(line);
 }
 
 //injects program enviroment

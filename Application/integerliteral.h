@@ -13,7 +13,7 @@ public:
 private:
     const int value;
     void serialize(QJsonObject &json);
-    void unserialize(const QJsonObject &json) const;
+    void unserialize(const QJsonObject &json);
 };
 
 #endif // INTEGERLITERAL_H

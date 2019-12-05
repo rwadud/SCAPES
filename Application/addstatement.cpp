@@ -13,6 +13,10 @@ AddStatement::~AddStatement(){
 
 //compile function for add statement
 bool AddStatement::compile(Token *tokens, QString *errMsg){
+    // check if label exist and updates references
+    if(!updateLabel(tokens, errMsg)) {
+        return false;
+    }
     // validate argument/label names
     if(!validate(numArgs, tokens, errMsg))
         return false;
@@ -85,6 +89,8 @@ void AddStatement::serialize(QJsonObject &json){
     json["op2"] = jsonIdentifier2;
 }
 //unserialization to run instructions
-void AddStatement::unserialize(const QJsonObject &json) const{
-
+void AddStatement::unserialize(const QJsonObject &json){
+    Token *tokens = Statement::tokenize(json);
+    updateLabel(tokens, nullptr);
+    updateOperands(numArgs, tokens, nullptr);
 }

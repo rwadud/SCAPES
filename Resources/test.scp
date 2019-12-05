@@ -1,11 +1,5 @@
-dca arr 5
-dci z
-rdi z
-prt z
-rdi $arr+z
-prt $arr+z
-prt $arr+2
-mov 7 $arr+z
-prt $arr+z
+dca x 5
+rdi $x+2
+L1: prt $x+2
 
 

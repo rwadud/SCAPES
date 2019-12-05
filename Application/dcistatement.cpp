@@ -11,7 +11,10 @@ DciStatement::~DciStatement(){
 
 //compile function for dci statement
 bool DciStatement::compile(Token *tokens, QString *errMsg){
-
+    // check if label exist and updates references
+    if(!updateLabel(tokens, errMsg)) {
+        return false;
+    }
     // validate argument/label names
     if(!validate(numArgs, tokens, errMsg))
         return false;
@@ -52,6 +55,12 @@ void DciStatement::serialize(QJsonObject &json){
 }
 
 //unserialization to run instructionss
-void DciStatement::unserialize(const QJsonObject &json) const{
-
+void DciStatement::unserialize(const QJsonObject &json) {
+    Token *tokens = Statement::tokenize(json);
+    updateLabel(tokens, nullptr);
+    QString label = json["label"].toString();
+    QString arg = json["op1"]["name"].toString();
+    Identifier *id = new Variable(arg);
+    env->insert(arg, id);
+    op1 = new Operand(id);
 }

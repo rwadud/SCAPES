@@ -12,6 +12,6 @@ void StringLiteral::serialize(QJsonObject &json){
     json["name"] = getName();
 }
 
-void StringLiteral::unserialize(const QJsonObject &json) const{
+void StringLiteral::unserialize(const QJsonObject &json) {
 
 }

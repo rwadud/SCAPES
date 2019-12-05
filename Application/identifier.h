@@ -22,7 +22,7 @@ public:
     bool isLabel();
     void initialize();
     bool isInitialized();
-    static Identifier* createLiteral(QString &literalType, QString data);
+    static Identifier* createIdentifier(QString &, QString &);
 
 private:
     const QString name;

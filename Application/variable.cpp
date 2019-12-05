@@ -20,6 +20,6 @@ void Variable::serialize(QJsonObject &json){
     json["name"] = getName();
 }
 
-void Variable::unserialize(const QJsonObject &json) const{
+void Variable::unserialize(const QJsonObject &json) {
 
 }

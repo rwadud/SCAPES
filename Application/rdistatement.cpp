@@ -12,13 +12,21 @@ RdiStatement::~RdiStatement(){
 
 //compile function for jeq statement
 bool RdiStatement::compile(Token *tokens, QString *errMsg){
+    // check if label exist and updates references
+    if(!updateLabel(tokens, errMsg)) {
+        return false;
+    }
     // validate argument/label names
     if(!validate(numArgs, tokens, errMsg))
         return false;
-
     //update operand references
     if(!updateOperands(numArgs, tokens, errMsg))
         return false;
+
+    if( !(op1->getIdentifier()->isVariable() || op1->getIdentifier()->isArrayElementIndex()) ){
+        *errMsg = "invalid operand type: " + op1->getIdentifier()->getName();
+        return false;
+    }
 
     return true;
 }
@@ -62,9 +70,11 @@ void RdiStatement::serialize(QJsonObject &json){
 
 }
 
-//unserialization to run instructions
-void RdiStatement::unserialize(const QJsonObject &json) const{
-
+//unserialize and update label/operand references
+void RdiStatement::unserialize(const QJsonObject &json) {
+    Token *tokens = Statement::tokenize(json);
+    updateLabel(tokens, nullptr);
+    updateOperands(numArgs, tokens, nullptr);
 }
 
 

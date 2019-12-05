@@ -11,7 +11,7 @@ public:
     bool compile(Token *tokens, QString *errMsg);
     void run(QString &result);
     void serialize(QJsonObject &json);
-    void unserialize(const QJsonObject &json) const;
+    void unserialize(const QJsonObject &json);
 
 private:
     const static int numArgs = 2;

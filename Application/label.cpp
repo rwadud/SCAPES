@@ -22,6 +22,6 @@ void Label::serialize(QJsonObject &json){
     json["name"] = getName();
 }
 
-void Label::unserialize(const QJsonObject &json) const{
+void Label::unserialize(const QJsonObject &json){
 
 }

@@ -11,7 +11,10 @@ JmpStatement::~JmpStatement(){
 
 //compile function for jmp statement
 bool JmpStatement::compile(Token *tokens, QString *errMsg){
-
+    // check if label exist and updates references
+    if(!updateLabel(tokens, errMsg)) {
+        return false;
+    }
     // validate argument/label names
     if(!validate(numArgs, tokens, errMsg))
         return false;
@@ -20,10 +23,6 @@ bool JmpStatement::compile(Token *tokens, QString *errMsg){
     if(!updateOperands(numArgs, tokens, errMsg))
         return false;
 
-    if(!op1->getIdentifier()->isLabel()){
-        *errMsg = "not a label";
-        return false;
-    }
     //check if operand type is correct
     if( !op1->getIdentifier()->isLabel() ){
         *errMsg = "invalid operand type: " + op2->getIdentifier()->getName();
@@ -36,7 +35,7 @@ bool JmpStatement::compile(Token *tokens, QString *errMsg){
 void JmpStatement::run(QString &result){
     Identifier *label = op1->getIdentifier();
     if(!label->isInitialized()){
-        throw std::runtime_error("Label not initialized");
+        throw std::runtime_error("Label not initialized: " + label->getName().toUtf8());
     }
     result = "Jumping to label " + label->getName() + " at index " + QString::number(label->getValue());
     env->setCmpFlag(UNCONDITIONAL);
@@ -61,6 +60,8 @@ void JmpStatement::serialize(QJsonObject &json){
 }
 
 //unserialization to run instructions
-void JmpStatement::unserialize(const QJsonObject &json) const{
-
+void JmpStatement::unserialize(const QJsonObject &json){
+    Token *tokens = Statement::tokenize(json);
+    updateLabel(tokens, nullptr);
+    updateOperands(numArgs, tokens, nullptr);
 }

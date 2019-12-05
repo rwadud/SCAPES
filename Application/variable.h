@@ -14,7 +14,7 @@ public:
     void setValue(int);
     int getValue();
     void serialize(QJsonObject &json);
-    void unserialize(const QJsonObject &json) const;
+    void unserialize(const QJsonObject &json);
 };
 
 #endif

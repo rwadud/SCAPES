@@ -1,15 +1,18 @@
 #ifndef STATEMENT_H
 #define STATEMENT_H
 
-#include <QString>
 #include "operand.h"
 #include "label.h"
 #include "programenviroment.h"
 #include "token.h"
-#include <QDebug>
 #include "serializable.h"
 #include "arrayvariable.h"
 #include "arrayelementindex.h"
+#include "identifiercreator.h"
+#include <QString>
+#include <QJsonObject>
+#include <QJsonValue>
+#include <QDebug>
 
 //Abstract statement class
 class Statement : public Serializable
@@ -23,7 +26,7 @@ public:
     void setEnviroment(ProgramEnviroment *env);
     bool updateLabel(Token *tokens, QString *errMsg);
     bool hasLabel();
-    //virtual QString getExecutionResult() = 0;
+    Token* tokenize(const QJsonObject &json);
 
 protected:
     ProgramEnviroment *env = nullptr; //program variable enviroment

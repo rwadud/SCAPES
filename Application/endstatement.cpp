@@ -10,8 +10,20 @@ EndStatement::~EndStatement(){
 
 //compile function for end statement
 bool EndStatement::compile(Token *tokens, QString *errMsg){
-    //store statement type in json
-    return validate(numArgs, tokens, errMsg);
+    // check if label exist and updates references
+    if(!updateLabel(tokens, errMsg)) {
+        return false;
+    }
+
+    // validate argument/label names
+    if(!validate(numArgs, tokens, errMsg))
+        return false;
+
+    //update operand references
+    if(!updateOperands(numArgs, tokens, errMsg))
+        return false;
+
+    return true;
 }
 
 //run the instruction
@@ -30,6 +42,8 @@ void EndStatement::serialize(QJsonObject &json){
 }
 
 //unserialization to run instructions
-void EndStatement::unserialize(const QJsonObject &json) const{
-
+void EndStatement::unserialize(const QJsonObject &json){
+    Token *tokens = Statement::tokenize(json);
+    updateLabel(tokens, nullptr);
+    updateOperands(numArgs, tokens, nullptr);
 }

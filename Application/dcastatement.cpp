@@ -12,7 +12,10 @@ DcaStatement::~DcaStatement(){
 
 //compile function for dca statement
 bool DcaStatement::compile(Token *tokens, QString *errMsg){
-
+    // check if label exist and updates references
+    if(!updateLabel(tokens, errMsg)) {
+        return false;
+    }
     // validate argument/label names
     if(!validate(numArgs, tokens, errMsg))
         return false;
@@ -56,6 +59,14 @@ void DcaStatement::serialize(QJsonObject &json){
 }
 
 //unserialization to run instructions
-void DcaStatement::unserialize(const QJsonObject &json) const{
-
+void DcaStatement::unserialize(const QJsonObject &json){
+    Token *tokens = Statement::tokenize(json);
+    updateLabel(tokens, nullptr);
+    QString label = json["label"].toString();
+    QString arg1 = json["op1"]["name"].toString();
+    QString arg2 = json["op2"]["name"].toString();
+    Identifier *id = new ArrayVariable(arg1, arg2.toInt());
+    env->insert(arg1, id);
+    op1 = new Operand(id);
+    op2 = new Operand(new IntegerLiteral(arg2));
 }

@@ -9,6 +9,10 @@ JlsStatement::~JlsStatement(){
 }
 //compile function for jls statement
 bool JlsStatement::compile(Token *tokens, QString *errMsg){
+    // check if label exist and updates references
+    if(!updateLabel(tokens, errMsg)) {
+        return false;
+    }
     // validate argument/label names
     if(!validate(numArgs, tokens, errMsg))
         return false;
@@ -29,7 +33,7 @@ bool JlsStatement::compile(Token *tokens, QString *errMsg){
 void JlsStatement::run(QString &result){
     Identifier *label = op1->getIdentifier();
     if(!label->isInitialized()){
-        throw std::runtime_error("Label not initialized");
+        throw std::runtime_error("Label not initialized: " + label->getName().toUtf8());
     }
     if(env->getCmpFlag()==LESS){
         result = "Jumping to label " + label->getName() + " at index " + QString::number(label->getValue());
@@ -54,6 +58,8 @@ void JlsStatement::serialize(QJsonObject &json){
 }
 
 //unserialization to run instructions
-void JlsStatement::unserialize(const QJsonObject &json) const{
-
+void JlsStatement::unserialize(const QJsonObject &json) {
+    Token *tokens = Statement::tokenize(json);
+    updateLabel(tokens, nullptr);
+    updateOperands(numArgs, tokens, nullptr);
 }

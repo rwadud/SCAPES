@@ -3,8 +3,9 @@
 #include "maincontroller.h"
 //#include "cmpflag.h"
 #include <QJsonArray>
-#include <QJsonObject>
 #include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonValue>
 
 
 RunControl::RunControl()
@@ -19,20 +20,20 @@ RunControl::~RunControl()
     delete slist;
 }
 
-bool RunControl::run(QString *inJsonTxt, QTextBrowser *resultConsole, QString *errMsg, StatementList *stmtList, ProgramEnviroment *env)
+bool RunControl::run(QString *inJsonTxt, QTextBrowser *resultConsole, QString *errMsg, StatementList *stmtList, ProgramEnviroment *envi)
 {
     Statement *stmt = nullptr;
 
-    //regenerate(inJsonTxt);
+    regenerate(inJsonTxt);
 
     int i = 0;
     QString result;
     env->reset();
-    while (i<stmtList->size()) {
+    while (i<slist->size()) {
         if(env->isTerminated())
             break;
         result = "";
-        stmt = stmtList->get(i);
+        stmt = slist->get(i);
         try {
             stmt->run(result);
             if(!result.isEmpty()){
@@ -58,7 +59,7 @@ bool RunControl::run(QString *inJsonTxt, QTextBrowser *resultConsole, QString *e
 
 //create statement objects from a json document
 void RunControl::regenerate(QString *inJsonTxt){
-    qDebug() << *inJsonTxt;
+    //qDebug() << *inJsonTxt;
     StatementCreator stmtCreator;
     QJsonDocument jsonResponse = QJsonDocument::fromJson((*inJsonTxt).toUtf8());
     QJsonArray jsonArray = jsonResponse.array();
@@ -67,9 +68,9 @@ void RunControl::regenerate(QString *inJsonTxt){
         QJsonObject obj = jsonArray.at(i).toObject();
         QString instr = obj["statement"].toString();
         qDebug() << "unserializing "+instr;
-
         Statement *stmt = stmtCreator.Create(instr);
         stmt->setEnviroment(env);
+        env->setJmpIndex(i);
         stmt->unserialize(obj); //needs to be implemented for each statement
         slist->add(stmt);
     }

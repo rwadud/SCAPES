@@ -11,6 +11,10 @@ PrtStatement::~PrtStatement(){
 
 //compile function for prt statement
 bool PrtStatement::compile(Token *tokens, QString *errMsg){
+    // check if label exist and updates references
+    if(!updateLabel(tokens, errMsg)) {
+        return false;
+    }
     // validate argument/label names
     if(!validate(numArgs, tokens, errMsg))
         return false;
@@ -65,6 +69,8 @@ void PrtStatement::serialize(QJsonObject &json){
 }
 
 //unserialization to run instructions
-void PrtStatement::unserialize(const QJsonObject &json) const{
-
+void PrtStatement::unserialize(const QJsonObject &json) {
+    Token *tokens = Statement::tokenize(json);
+    updateLabel(tokens, nullptr);
+    updateOperands(numArgs, tokens, nullptr);
 }

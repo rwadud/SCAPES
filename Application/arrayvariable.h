@@ -22,7 +22,7 @@ public:
     void setValue(int);
     void setIndex(int);
     void serialize(QJsonObject &json);
-    void unserialize(const QJsonObject &json) const;
+    void unserialize(const QJsonObject &json);
 };
 
 #endif

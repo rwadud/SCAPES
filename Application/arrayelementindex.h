@@ -11,7 +11,7 @@ public:
     int getValue();
     void setValue(int);
     void serialize(QJsonObject &json);
-    void unserialize(const QJsonObject &json) const;
+    void unserialize(const QJsonObject &json);
     bool isVariableIndex();
     void updateVariableIndex();
     void setVariable(Identifier*);
