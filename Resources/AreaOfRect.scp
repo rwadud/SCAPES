@@ -1,0 +1,47 @@
+dci answer
+dci length
+dci width
+dci count
+dci Restart
+
+#check if input is valid
+restart: rdi length
+cmp length 1
+jls error
+
+
+#check if input is valid
+rdi width
+cmp width 1
+jls error
+
+
+#prep the loop
+mov 0 count
+mov 0 answer
+
+#start the loop
+loop: add 1 count
+add width answer
+cmp count length
+jeq done
+#iterate
+jmp loop
+
+#answer
+done: prt "The area of the rectangle is"
+prt answer
+
+#option to restart
+prt "0 to end, 1 to restart"
+rdi Restart
+cmp Restart 1
+jeq restart
+
+
+
+end
+
+#error
+error: prt "value must be greater than 0"
+jmp restart
