@@ -21,6 +21,9 @@
 ####        make distclean
 #
 #        
+###      SAMPLE PROGRAMS FOR D2
+####        AreaOfRect.scp
+####        Sigma.scp
 #
 ###               HOW TO
 ## -----------------------------------------
