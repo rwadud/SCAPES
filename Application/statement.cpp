@@ -188,28 +188,24 @@ Token* Statement::tokenize(const QJsonObject &json){
     QString arg1 = "";
     QString arg2 = "";
     QString instr = json["statement"].toString();
-<<<<<<< HEAD
-    QJsonObject jsonOp1 = json["op1"].toObject();
-    QJsonObject jsonOp2 = json["op2"].toObject();
-    QString arg1 = jsonOp1["name"].toString();
-    QString arg2 = jsonOp2["name"].toString();
-    QString arg1Type = jsonOp1["identifierType"].toString();
-=======
+
     if(json.contains("label")){
         label = json["label"].toString();
     }
     if(json.contains("op1")){
-        arg1 = json["op1"]["name"].toString();
-        QString arg1Type = json["op1"]["identifierType"].toString();
+        QJsonObject jsonOp1 = json["op1"].toObject();
+        arg1 = jsonOp1["name"].toString();
+        QString arg1Type = jsonOp1["identifierType"].toString();
         if( arg1Type == "StringLiteral"){
             arg1 = "\""+arg1+"\"";
             qDebug() << arg1;
         }
     }
     if(json.contains("op2")){
-        arg2 = json["op2"]["name"].toString();
+        QJsonObject jsonOp2 = json["op2"].toObject();
+        arg2 = jsonOp2["name"].toString();
     }
->>>>>>> 613d1323c7e5660ee146e9a4948ee4e60f4fe11c
+
     if(!label.isEmpty()){
         label = label+":";
     }
