@@ -183,18 +183,27 @@ void Statement::updateOperands(int numArgs, Token *tokens){
 
 //
 Token* Statement::tokenize(const QJsonObject &json){
-    QString label = json["label"].toString();
+
+    QString label = "";
+    QString arg1 = "";
+    QString arg2 = "";
     QString instr = json["statement"].toString();
-    QString arg1 = json["op1"]["name"].toString();
-    QString arg2 = json["op2"]["name"].toString();
-    QString arg1Type = json["op1"]["identifierType"].toString();
+    if(json.contains("label")){
+        label = json["label"].toString();
+    }
+    if(json.contains("op1")){
+        arg1 = json["op1"]["name"].toString();
+        QString arg1Type = json["op1"]["identifierType"].toString();
+        if( arg1Type == "StringLiteral"){
+            arg1 = "\""+arg1+"\"";
+            qDebug() << arg1;
+        }
+    }
+    if(json.contains("op2")){
+        arg2 = json["op2"]["name"].toString();
+    }
     if(!label.isEmpty()){
         label = label+":";
-    }
-
-    if( arg1Type == "StringLiteral"){
-        arg1 = "\""+arg1+"\"";
-        qDebug() << arg1;
     }
     QString line = (label + " " + instr + " " + arg1 + " " + arg2).trimmed();
     line.replace(QRegExp("[^\\S\\r\\n]+"), " ");
