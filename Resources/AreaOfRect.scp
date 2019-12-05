@@ -7,7 +7,8 @@ dci flag
 dci index
 dci call
 dca history 10
-mov -1 index
+mov 0 index
+
 
 restart: mov 0 flag
 cmp index 10
@@ -66,7 +67,7 @@ jeq History
 jmp restart
 
 
-History: prt "View Previous answers, input an index between 0 and"
+History: prt "View Previous answers, input an index between 1 and"
 prt index
 rdi call
 prt "The value at this index is"
