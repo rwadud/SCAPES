@@ -7,7 +7,7 @@ dci flag
 dci index
 dci call
 dca history 10
-mov 0 index
+mov -1 index
 
 restart: mov 0 flag
 cmp index 10
