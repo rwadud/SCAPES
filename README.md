@@ -35,7 +35,8 @@
 ####    Close SCAPES:             File  > Exit
 ####     
 ####    Compile current program:  Build > Compile
-#
+####    
+####    Run the program:          Build > Run
 #
 #
 #### NOTE: The Compilation output is in the Resources Folder
