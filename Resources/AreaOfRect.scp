@@ -3,21 +3,34 @@ dci length
 dci width
 dci count
 dci Restart
-
-#check if input is valid
-restart: rdi length
-cmp length 1
-jls error
+dci flag
 
 
-#check if input is valid
+
+restart: mov 0 flag
+rdi length
 rdi width
-cmp width 1
-jls error
+
+#compound condition, if length AND width is bigger than 0, you may continue
+
+cmp length 0
+jmr continue
+add 1 flag
+continue: cmp width 0
+jmr check
+add 1 flag
+
+check: cmp flag 0
+jeq start
+
+#error
+prt "value must be greater than 0"
+jmp restart
+
 
 
 #prep the loop
-mov 0 count
+start: mov 0 count
 mov 0 answer
 
 #start the loop
@@ -41,7 +54,3 @@ jeq restart
 
 
 end
-
-#error
-error: prt "value must be greater than 0"
-jmp restart
