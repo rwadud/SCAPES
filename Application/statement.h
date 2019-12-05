@@ -33,6 +33,9 @@ protected:
     Operand *op1 = nullptr; //Operand 1
     Operand *op2 = nullptr; //Operand 2
     QString error;
+    int lineNumber;
+    int getLineNumber();
+    void setLineNumber(int);
     void validate(int numArgs, Token *tokens); //Validate argument/labels
     void updateOperands(int numArgs, Token *tokens); //update operands and label references
     void updateLabel(Token *tokens);

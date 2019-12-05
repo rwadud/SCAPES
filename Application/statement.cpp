@@ -218,3 +218,11 @@ Token* Statement::tokenize(const QJsonObject &json){
 void Statement::setEnviroment(ProgramEnviroment *env){
     this->env = env;
 }
+
+int Statement::getLineNumber(){
+    return lineNumber;
+}
+
+void Statement::setLineNumber(int n){
+    lineNumber = n;
+}

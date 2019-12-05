@@ -6,7 +6,7 @@ dci Option
 dci flag
 dci index
 dci call
-dca history 10
+dca history 11
 mov 0 index
 
 
@@ -59,25 +59,47 @@ mov answer $history+index
 
 #option to restart
 Menu: prt "0 to end, 1 to restart, 2 to view history"
+
+#check if user put value greater than 2
 rdi Option
-cmp Option 1
-jls quit
+cmp Option 2
+jmr invalidMenu
+
+#check if user wants to quit
+cmp Option 0
+jeq quit
+
+#check if user wants to view history
 cmp Option 2
 jeq History
+
+#else, restart
 jmp restart
 
 
+#error for invalid Menu Option
+invalidMenu: prt "You have selected an invalid option"
+jmp Menu
+
+#error for invalid History Option
+invalidHistory: prt "You have selected an invalid option"
+jmp History
+
+#History Menu
 History: prt "View Previous answers, input an index between 1 and"
 prt index
 rdi call
 
+#checks if user inputs a valid option
 cmp call index
-jmr History
+jmr invalidHistory
+cmp call 0
+jeq invalidHistory
 
 cmp call 1
 jls History
 
-prt "The value at this index is"
+prt "The area at this index is"
 prt $history+index
 jmp Menu
 
