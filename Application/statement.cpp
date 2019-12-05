@@ -185,9 +185,11 @@ void Statement::updateOperands(int numArgs, Token *tokens){
 Token* Statement::tokenize(const QJsonObject &json){
     QString label = json["label"].toString();
     QString instr = json["statement"].toString();
-    QString arg1 = json["op1"]["name"].toString();
-    QString arg2 = json["op2"]["name"].toString();
-    QString arg1Type = json["op1"]["identifierType"].toString();
+    QJsonObject jsonOp1 = json["op1"].toObject();
+    QJsonObject jsonOp2 = json["op2"].toObject();
+    QString arg1 = jsonOp1["name"].toString();
+    QString arg2 = jsonOp2["name"].toString();
+    QString arg1Type = jsonOp1["identifierType"].toString();
     if(!label.isEmpty()){
         label = label+":";
     }
