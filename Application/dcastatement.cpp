@@ -59,11 +59,16 @@ void DcaStatement::serialize(QJsonObject &json){
 void DcaStatement::unserialize(const QJsonObject &json){
     Token *tokens = Statement::tokenize(json);
     updateLabel(tokens);
+<<<<<<< HEAD
     QString label = json["label"].toString();
     QJsonObject jsonOp1 = json["op1"].toObject();
     QJsonObject jsonOp2 = json["op2"].toObject();
     QString arg1 = jsonOp1["name"].toString();
     QString arg2 = jsonOp2["name"].toString();
+=======
+    QString arg1 = json["op1"]["name"].toString();
+    QString arg2 = json["op2"]["name"].toString();
+>>>>>>> 613d1323c7e5660ee146e9a4948ee4e60f4fe11c
     Identifier *id = new ArrayVariable(arg1, arg2.toInt());
     env->insert(arg1, id);
     op1 = new Operand(id);
