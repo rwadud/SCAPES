@@ -70,6 +70,13 @@ jmp restart
 History: prt "View Previous answers, input an index between 1 and"
 prt index
 rdi call
+
+cmp call index
+jmr History
+
+cmp call 1
+jls History
+
 prt "The value at this index is"
 prt $history+index
 jmp Menu
