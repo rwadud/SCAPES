@@ -10,25 +10,21 @@ PrtStatement::~PrtStatement(){
 }
 
 //compile function for prt statement
-bool PrtStatement::compile(Token *tokens, QString *errMsg){
+void PrtStatement::compile(Token *tokens){
     // check if label exist and updates references
-    if(!updateLabel(tokens, errMsg)) {
-        return false;
-    }
+    updateLabel(tokens);
+
     // validate argument/label names
-    if(!validate(numArgs, tokens, errMsg))
-        return false;
+    validate(numArgs, tokens);
 
     //update operand references
-    if(!updateOperands(numArgs, tokens, errMsg))
-        return false;
+    updateOperands(numArgs, tokens);
 
     if( op1->getIdentifier()->isArray() ){
-        *errMsg = "invalid operand type: " + op1->getIdentifier()->getName();
-        return false;
+        error = "invalid operand type: " + op1->getIdentifier()->getName();
+        throw std::logic_error(error.toUtf8());
     }
 
-    return true;
 }
 
 //runs the instruction
@@ -71,6 +67,6 @@ void PrtStatement::serialize(QJsonObject &json){
 //unserialization to run instructions
 void PrtStatement::unserialize(const QJsonObject &json) {
     Token *tokens = Statement::tokenize(json);
-    updateLabel(tokens, nullptr);
-    updateOperands(numArgs, tokens, nullptr);
+    updateLabel(tokens);
+    updateOperands(numArgs, tokens);
 }

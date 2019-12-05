@@ -10,27 +10,24 @@ DciStatement::~DciStatement(){
 }
 
 //compile function for dci statement
-bool DciStatement::compile(Token *tokens, QString *errMsg){
+void DciStatement::compile(Token *tokens){
     // check if label exist and updates references
-    if(!updateLabel(tokens, errMsg)) {
-        return false;
-    }
+    updateLabel(tokens);
+
     // validate argument/label names
-    if(!validate(numArgs, tokens, errMsg))
-        return false;
+    validate(numArgs, tokens);
 
     QString arg = tokens->getArg1();
     //create variables or check if they exist in prgmVars
     if(env->contains(arg)){
-        *errMsg = arg+ " already defined";
-        return false;
+        error = arg+ " already defined";
+        throw std::logic_error(error.toUtf8());
     } else {
          Identifier *var = new Variable(arg);
          env->insert(arg,var);
          op1 = new Operand(var);
     }
 
-    return true;
 }
 
 //runs the instruction
@@ -57,7 +54,7 @@ void DciStatement::serialize(QJsonObject &json){
 //unserialization to run instructionss
 void DciStatement::unserialize(const QJsonObject &json) {
     Token *tokens = Statement::tokenize(json);
-    updateLabel(tokens, nullptr);
+    updateLabel(tokens);
     QString label = json["label"].toString();
     QString arg = json["op1"]["name"].toString();
     Identifier *id = new Variable(arg);

@@ -12,28 +12,26 @@ AddStatement::~AddStatement(){
 }
 
 //compile function for add statement
-bool AddStatement::compile(Token *tokens, QString *errMsg){
+void AddStatement::compile(Token *tokens){
     // check if label exist and updates references
-    if(!updateLabel(tokens, errMsg)) {
-        return false;
-    }
+    updateLabel(tokens);
+
     // validate argument/label names
-    if(!validate(numArgs, tokens, errMsg))
-        return false;
+    validate(numArgs, tokens);
 
     //update operand references
-    if(!updateOperands(numArgs, tokens, errMsg))
-        return false;
+    updateOperands(numArgs, tokens);
 
     if( !(op1->getIdentifier()->isArray() || op1->getIdentifier()->isVariable() || op1->getIdentifier()->isIntegerLiteral()  || op1->getIdentifier()->isArrayElementIndex()) ){
-        *errMsg = "invalid operand 1 type: " + op1->getIdentifier()->getName();
-        return false;
+        error = "invalid operand 1 type: " + op1->getIdentifier()->getName();
+        throw std::logic_error(error.toUtf8());
     }
+
     if( !(op2->getIdentifier()->isArray() || op2->getIdentifier()->isVariable() || op2->getIdentifier()->isArrayElementIndex()) ){
-        *errMsg = "invalid operand 2 type: " + op2->getIdentifier()->getName();
-        return false;
+        error = "invalid operand 2 type: " + op2->getIdentifier()->getName();
+        throw std::logic_error(error.toUtf8());
     }
-    return true;
+
 }
 
 //runs the instruction
@@ -91,6 +89,6 @@ void AddStatement::serialize(QJsonObject &json){
 //unserialization to run instructions
 void AddStatement::unserialize(const QJsonObject &json){
     Token *tokens = Statement::tokenize(json);
-    updateLabel(tokens, nullptr);
-    updateOperands(numArgs, tokens, nullptr);
+    updateLabel(tokens);
+    updateOperands(numArgs, tokens);
 }

@@ -8,7 +8,7 @@ class AddStatement : public Statement
 public:
     AddStatement();
     ~AddStatement();
-    bool compile(Token *tokens, QString *errMsg);
+    void compile(Token *tokens);
     void run(QString &result);
     void serialize(QJsonObject &json);
     void unserialize(const QJsonObject &json);

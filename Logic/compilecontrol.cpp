@@ -64,16 +64,12 @@ bool CompileControl::compile(QString *inSrcTxt, QString *outCmplTxt, QString *er
 
             // compile statements
             try {
-                if(stmt->compile(tokens, errMsg) == false) {
-                      MainController::addLineNumToErrText(i+1, errMsg);
-                      return false;
-                 }
+                stmt->compile(tokens);
             } catch (const std::exception & e) {
                 *errMsg = e.what();
                 MainController::addLineNumToErrText(i+1, errMsg);
                 return false;
             }
-
 
             //list of statements
             stmtList->add(stmt);

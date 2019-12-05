@@ -20,7 +20,7 @@ class Statement : public Serializable
 public:
     Statement();
     virtual ~Statement();
-    virtual bool compile(Token *tokens, QString *errMsg) = 0;
+    virtual void compile(Token *tokens) = 0;
     virtual void run(QString &result) = 0;
     void setLabel(Identifier *label);
     void setEnviroment(ProgramEnviroment *env);
@@ -32,9 +32,10 @@ protected:
     Identifier* label = nullptr;
     Operand *op1 = nullptr; //Operand 1
     Operand *op2 = nullptr; //Operand 2
-    bool validate(int numArgs, Token *tokens, QString *errMsg); //Validate argument/labels
-    bool updateLabel(Token *tokens, QString *errMsg);
-    bool updateOperands(int numArgs, Token *tokens, QString *errMsg); //update operands and label references
+    QString error;
+    void validate(int numArgs, Token *tokens); //Validate argument/labels
+    void updateOperands(int numArgs, Token *tokens); //update operands and label references
+    void updateLabel(Token *tokens);
     //QString result;
 };
 

@@ -9,26 +9,21 @@ JeqStatement::~JeqStatement(){
 }
 
 //compile function for jeq statement
-bool JeqStatement::compile(Token *tokens, QString *errMsg){
+void JeqStatement::compile(Token *tokens){
     // check if label exist and updates references
-    if(!updateLabel(tokens, errMsg)) {
-        return false;
-    }
+    updateLabel(tokens);
+
     // validate argument/label names
-    if(!validate(numArgs, tokens, errMsg))
-        return false;
+    validate(numArgs, tokens);
 
     //update operand references
-    if(!updateOperands(numArgs, tokens, errMsg))
-        return false;
+    updateOperands(numArgs, tokens);
 
     //check if operand type is correct
     if( !op1->getIdentifier()->isLabel() ){
-        *errMsg = "invalid operand type: " + op2->getIdentifier()->getName();
-        return false;
+        error = "invalid operand type: " + op2->getIdentifier()->getName();
+        throw std::logic_error(error.toUtf8());
     }
-
-    return true;
 }
 
 //runs the instruction
@@ -63,6 +58,6 @@ void JeqStatement::serialize(QJsonObject &json){
 //unserialization to run instructions
 void JeqStatement::unserialize(const QJsonObject &json) {
     Token *tokens = Statement::tokenize(json);
-    updateLabel(tokens, nullptr);
-    updateOperands(numArgs, tokens, nullptr);
+    updateLabel(tokens);
+    updateOperands(numArgs, tokens);
 }

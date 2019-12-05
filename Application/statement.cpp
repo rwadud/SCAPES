@@ -22,16 +22,16 @@ bool Statement::hasLabel(){
 }
 
 //do some additional validation on arguments & label names
-bool Statement::validate(int numArgs, Token *tokens, QString *errMsg){
+void Statement::validate(int numArgs, Token *tokens){
 
     if(tokens->length() > numArgs+1){
-        *errMsg = "too many arguments";
-        return false;
+        error = "too many arguments";
+        throw std::logic_error(error.toUtf8());
     }
 
     if(tokens->length() <= numArgs){
-        *errMsg = "missing arguments";
-        return false;
+        error = "missing arguments";
+        throw std::logic_error(error.toUtf8());
     }
 
     // Check the identifier for invalid characters
@@ -39,12 +39,12 @@ bool Statement::validate(int numArgs, Token *tokens, QString *errMsg){
         QString arg = tokens->getArg(i);
         if(Token::isStringLiteral(arg)){
             if(tokens->getInstr() != "prt"){
-                *errMsg = "strings are not supported with " + tokens->getInstr();
-                return false;
+                error = "strings are not supported with " + tokens->getInstr();
+                throw std::logic_error(error.toUtf8());
             }
         }else if(!Token::isValidIdentifierName(arg)){ // Check the label for invalid characters
-            *errMsg = "invalid characters detected";
-            return false;
+            error = "invalid characters detected";
+            throw std::logic_error(error.toUtf8());
         }
     }
 
@@ -53,46 +53,45 @@ bool Statement::validate(int numArgs, Token *tokens, QString *errMsg){
         QString labelName = tokens->getLabel();
 
         if(!Token::isValidIdentifierName(labelName)){
-            *errMsg = "invalid characters detected";
-            return false;
+            error = "invalid characters detected";
+            throw std::logic_error(error.toUtf8());
         }
 
         if(numArgs >= 1 && labelName == tokens->getArg1()){
-            *errMsg = "label already defined: " +labelName;
-            return false;
+            error = "label already defined: " +labelName;
+            throw std::logic_error(error.toUtf8());
         }
 
         if(numArgs == 2 && labelName == tokens->getArg2()){
-            *errMsg = "label already defined: " +labelName;
-            return false;
+            error = "label already defined: " +labelName;
+            throw std::logic_error(error.toUtf8());
         }
 
         if( !(label = env->get(labelName)) ){
-            *errMsg = "undefined reference to identifier/label: " +labelName;
-            return false;
+            error = "undefined reference to identifier/label: " +labelName;
+            throw std::logic_error(error.toUtf8());
         }
 
     }
 
-    return true;
 }
 
 //create label if a statement has one or update the reference if label was already created
-bool Statement::updateLabel(Token *tokens, QString *errMsg){
+void Statement::updateLabel(Token *tokens){
     Identifier *id = nullptr;
     if(tokens->hasLabel()){
         QString labelName = tokens->getLabel();
         if( (id = env->get(labelName)) ){
             if(!id->isLabel()){
-                *errMsg = "not a label";
-                return false;
+                error = "not a label";
+                throw std::logic_error(error.toUtf8());
             }
             Label *label = dynamic_cast<Label*>(id);
             if(!label->isInitialized()){
                 label->setValue(env->getJmpIndex());
             } else {
-                *errMsg = "label already declared at index " + QString::number(label->getValue());
-                return false;
+                error = "label already declared at index " + QString::number(label->getValue());
+                throw std::logic_error(error.toUtf8());
             }
         } else {
             Label *label = new Label(labelName,env->getJmpIndex());
@@ -100,12 +99,10 @@ bool Statement::updateLabel(Token *tokens, QString *errMsg){
             env->insert(labelName, label);
         }
     }
-
-    return true;
 }
 
 //update operand references
-bool Statement::updateOperands(int numArgs, Token *tokens, QString *errMsg){
+void Statement::updateOperands(int numArgs, Token *tokens){
     int literalsDetected = 0;
     for(int i = 1; i <= numArgs; i++){
         QString arg = tokens->getArg(i);
@@ -124,28 +121,31 @@ bool Statement::updateOperands(int numArgs, Token *tokens, QString *errMsg){
         if(env->contains(arg)){  // Check if the identifier is real or not
             Identifier *var;
             if(arrayDetected){
+
                 if(!env->get(arg)->isArray()){
-                    *errMsg = "identifier is not an array: "+ arg;
-                    return false;
+                    error = "identifier is not an array: "+ arg;
+                    throw std::logic_error(error.toUtf8());
                 }
+
                 var = new ArrayElementIndex(tokens->getArg(i));
                 if(i==1)
                     op1 = new Operand(var);
                 if(i==2)
                     op2 = new Operand(var);
+
                 QString accessor = tokens->getArg(i).split("+")[1]; //split + and get array index
+
                 if(!Token::isIntegerLiteral(accessor)){
                     Identifier *tmp;
                     if( (tmp = env->find(accessor)) ){
                         ArrayElementIndex *ele = dynamic_cast<ArrayElementIndex*>(var); //casting needed to call array member function to set index
                         ele->setVariable(tmp);
                     } else {
-                        *errMsg = "undefined reference to identifier: " + accessor;
-                        return false;
+                        error = "undefined reference to identifier: " + accessor;
+                        throw std::logic_error(error.toUtf8());
                     }
                 }
-                //ArrayVariable *arr = dynamic_cast<ArrayVariable*>(var); //casting needed to call array member function to set index
-                //arr->setIndex(arrayIndex);
+
             } else {
                 var = env->get(arg);
                 if(i==1)
@@ -169,18 +169,16 @@ bool Statement::updateOperands(int numArgs, Token *tokens, QString *errMsg){
                 op1 = new Operand(id);
                 env->insert(arg,id);
             } else {
-                *errMsg = "undefined reference to identifier: " + arg;
-                return false;
+                error = "undefined reference to identifier: " + arg;
+                throw std::logic_error(error.toUtf8());
             }
         }
     }
 
     if(literalsDetected > 1){ // only 1 literal allowed
-        *errMsg = "too many literals detected";
-        return false;
+        error = "too many literals detected";
+        throw std::logic_error(error.toUtf8());
     }
-
-    return true;
 }
 
 //

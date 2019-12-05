@@ -9,7 +9,7 @@ class CmpStatement : public Statement
 public:
     CmpStatement();
     ~CmpStatement();
-    bool compile(Token *tokens, QString *errMsg);
+    void compile(Token *tokens);
     void run(QString &result);
     void serialize(QJsonObject &json);
     void unserialize(const QJsonObject &json);

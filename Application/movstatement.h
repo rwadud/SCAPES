@@ -8,7 +8,7 @@ class MovStatement : public Statement
 public:
     MovStatement();
     ~MovStatement();
-    bool compile(Token *tokens, QString *errMsg);
+    void compile(Token *tokens);
     void run(QString &result);
     void serialize(QJsonObject &json);
     void unserialize(const QJsonObject &json);
