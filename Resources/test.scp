@@ -1,5 +1,16 @@
-dca x 5
-rdi $x+2
-L1: prt $x+2
+dci size
+mov 5 size
+dca arr size
+dci i
+mov 0 i
+L1: prt "loop"
+mov i $arr+i
+add 1 i
+cmp i size
+#jump L1 if i < size
+jls L1
+prt "program ends when i >= size"
+L2: end
+
 
 

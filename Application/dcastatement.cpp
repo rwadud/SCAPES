@@ -25,10 +25,17 @@ void DcaStatement::compile(Token *tokens){
         error = arg1+ " already defined";
         throw std::logic_error(error.toUtf8());
     } else {
-         Identifier *arr = new ArrayVariable(arg1, arg2.toInt());
-         env->insert(arg1,arr);
+        Identifier *arr;
+        if(env->contains(arg2)){
+            Identifier *var = env->get(arg2);
+            arr = new ArrayVariable(arg1, var->getValue());
+            op2 = new Operand(var);
+        } else {
+            arr = new ArrayVariable(arg1, arg2.toInt());
+            op2 = new Operand(new IntegerLiteral(arg2));
+        }
          op1 = new Operand(arr);
-         op2 = new Operand(new IntegerLiteral(arg2));
+         env->insert(arg1,arr);
     }
 }
 
@@ -63,8 +70,16 @@ void DcaStatement::unserialize(const QJsonObject &json){
     QString arg1 = tokens->getArg1();
     QString arg2 = tokens->getArg2();
     
-    Identifier *id = new ArrayVariable(arg1, arg2.toInt());
-    env->insert(arg1, id);
-    op1 = new Operand(id);
-    op2 = new Operand(new IntegerLiteral(arg2));
+    Identifier *arr;
+    if(env->contains(arg2)){
+        Identifier *var = env->get(arg2);
+        arr = new ArrayVariable(arg1, var->getValue());
+        op2 = new Operand(var);
+    } else {
+        arr = new ArrayVariable(arg1, arg2.toInt());
+        op2 = new Operand(new IntegerLiteral(arg2));
+    }
+
+    op1 = new Operand(arr);
+    env->insert(arg1,arr);
 }
