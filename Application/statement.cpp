@@ -183,18 +183,31 @@ void Statement::updateOperands(int numArgs, Token *tokens){
 
 //
 Token* Statement::tokenize(const QJsonObject &json){
-    QString label = json["label"].toString();
+
+    QString label = "";
+    QString arg1 = "";
+    QString arg2 = "";
     QString instr = json["statement"].toString();
-    QString arg1 = json["op1"]["name"].toString();
-    QString arg2 = json["op2"]["name"].toString();
-    QString arg1Type = json["op1"]["identifierType"].toString();
-    if(!label.isEmpty()){
-        label = label+":";
+
+    if(json.contains("label")){
+        label = json["label"].toString();
+    }
+    if(json.contains("op1")){
+        QJsonObject jsonOp1 = json["op1"].toObject();
+        arg1 = jsonOp1["name"].toString();
+        QString arg1Type = jsonOp1["identifierType"].toString();
+        if( arg1Type == "StringLiteral"){
+            arg1 = "\""+arg1+"\"";
+            qDebug() << arg1;
+        }
+    }
+    if(json.contains("op2")){
+        QJsonObject jsonOp2 = json["op2"].toObject();
+        arg2 = jsonOp2["name"].toString();
     }
 
-    if( arg1Type == "StringLiteral"){
-        arg1 = "\""+arg1+"\"";
-        qDebug() << arg1;
+    if(!label.isEmpty()){
+        label = label+":";
     }
     QString line = (label + " " + instr + " " + arg1 + " " + arg2).trimmed();
     line.replace(QRegExp("[^\\S\\r\\n]+"), " ");
