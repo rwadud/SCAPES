@@ -102,11 +102,14 @@ void MainWindow::run()
 
     if (option.run(ctlr, &srcText, &resultText, &errText) == false) {
         NotifyMsg::show("Run Failed", ui->statusBar);
-
+        int line = errText.section(" ", 1, 1).toInt();
+        //qDebug() << QString("Ln %1").arg(line);
         // Send the error text to the textBrowser Console
         NotifyMsg::show( "Run Failed: " + errText, ui->textBrowser);
-        EditorHelper::moveCursorToLine(ui->textEdit, errText.section(" ", 1, 1).toInt());
-        EditorHelper::highLightCurrentLine(ui->textEdit, QColor(Qt::red).lighter(160));
+        if (line) {
+            EditorHelper::moveCursorToLine(ui->textEdit, line);
+            EditorHelper::highLightCurrentLine(ui->textEdit, QColor(Qt::red).lighter(160));
+        }
     } else {
         NotifyMsg::show("Run OK!", ui->statusBar);
         // NotifyMsg::show(resultText);
