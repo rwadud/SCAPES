@@ -60,4 +60,5 @@ void JeqStatement::unserialize(const QJsonObject &json) {
     Token *tokens = Statement::tokenize(json);
     updateLabel(tokens);
     updateOperands(numArgs, tokens);
+    delete tokens;
 }

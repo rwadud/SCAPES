@@ -67,4 +67,5 @@ void DcaStatement::unserialize(const QJsonObject &json){
     env->insert(arg1, id);
     op1 = new Operand(id);
     op2 = new Operand(new IntegerLiteral(arg2));
+    delete tokens;
 }
