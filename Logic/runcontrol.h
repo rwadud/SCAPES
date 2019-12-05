@@ -12,7 +12,7 @@ class RunControl
 public:
     RunControl();
     ~RunControl();
-    bool run(QString *inJsonTxt, QTextBrowser *resultConsole, QString *errMsg, StatementList *stmtList, ProgramEnviroment *env);
+    bool run(QString *inJsonTxt, QTextBrowser *resultConsole, QString *errMsg);
     void regenerate(QString *inJsonTxt);
 
 private:

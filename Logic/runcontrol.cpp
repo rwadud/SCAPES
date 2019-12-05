@@ -20,15 +20,15 @@ RunControl::~RunControl()
     delete slist;
 }
 
-bool RunControl::run(QString *inJsonTxt, QTextBrowser *resultConsole, QString *errMsg, StatementList *stmtList, ProgramEnviroment *envi)
+bool RunControl::run(QString *inJsonTxt, QTextBrowser *resultConsole, QString *errMsg)
 {
     Statement *stmt = nullptr;
+    QString result;
 
+    //regenerate statement objects from json.
     regenerate(inJsonTxt);
 
     int i = 0;
-    QString result;
-    env->reset();
     while (i<slist->size()) {
         if(env->isTerminated())
             break;
@@ -44,11 +44,10 @@ bool RunControl::run(QString *inJsonTxt, QTextBrowser *resultConsole, QString *e
             return false;
         }
 
-        //qDebug () << "flag state is " << env->getCmpFlag() << " at index " << i;
+        //check flags and execute jumps
         if(env->getCmpFlag()!=NONE && env->getJmpIndex() >= 0){
             i = env->getJmpIndex();
             env->clearCmpFlag();
-            //qDebug() << "clearning flag... flag state is " << env->getCmpFlag();
             continue;
         }
         i++;
@@ -59,7 +58,6 @@ bool RunControl::run(QString *inJsonTxt, QTextBrowser *resultConsole, QString *e
 
 //create statement objects from a json document
 void RunControl::regenerate(QString *inJsonTxt){
-    //qDebug() << *inJsonTxt;
     StatementCreator stmtCreator;
     QJsonDocument jsonResponse = QJsonDocument::fromJson((*inJsonTxt).toUtf8());
     QJsonArray jsonArray = jsonResponse.array();
@@ -67,7 +65,6 @@ void RunControl::regenerate(QString *inJsonTxt){
     for(int i=0; i<jsonArray.size();i++){
         QJsonObject obj = jsonArray.at(i).toObject();
         QString instr = obj["statement"].toString();
-        qDebug() << "unserializing "+instr;
         Statement *stmt = stmtCreator.Create(instr);
         stmt->setEnviroment(env);
         env->setJmpIndex(i);

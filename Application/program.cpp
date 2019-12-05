@@ -44,7 +44,7 @@ bool Program::run(QString *compiledTxt, QTextBrowser *resultConsole, QString *er
     *errTxt = "";
     RunControl executor;
 
-    if(!executor.run(compiledTxt, resultConsole, errTxt, stmtList, env))
+    if(!executor.run(compiledTxt, resultConsole, errTxt))
         return false;
 
     return true;

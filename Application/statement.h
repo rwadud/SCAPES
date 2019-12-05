@@ -24,7 +24,6 @@ public:
     virtual void run(QString &result) = 0;
     void setLabel(Identifier *label);
     void setEnviroment(ProgramEnviroment *env);
-    bool updateLabel(Token *tokens, QString *errMsg);
     bool hasLabel();
     Token* tokenize(const QJsonObject &json);
 
@@ -34,6 +33,7 @@ protected:
     Operand *op1 = nullptr; //Operand 1
     Operand *op2 = nullptr; //Operand 2
     bool validate(int numArgs, Token *tokens, QString *errMsg); //Validate argument/labels
+    bool updateLabel(Token *tokens, QString *errMsg);
     bool updateOperands(int numArgs, Token *tokens, QString *errMsg); //update operands and label references
     //QString result;
 };

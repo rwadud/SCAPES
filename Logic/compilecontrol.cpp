@@ -62,11 +62,6 @@ bool CompileControl::compile(QString *inSrcTxt, QString *outCmplTxt, QString *er
             stmt->setEnviroment(env);
             env->setJmpIndex(stmtIndex);
 
-            // check if label exist and updates references
-            //if(!stmt->updateLabel(tokens, errMsg)) {
-            //    MainController::addLineNumToErrText(i+1, errMsg);
-            //    return false;
-            //}
             // compile statements
             try {
                 if(stmt->compile(tokens, errMsg) == false) {
@@ -86,8 +81,6 @@ bool CompileControl::compile(QString *inSrcTxt, QString *outCmplTxt, QString *er
         } else {
             *errMsg = "invalid statement detected "+ tokens->getInstr();
             MainController::addLineNumToErrText(i+1, errMsg);
-            //qDebug() << "error at " << line;
-            // some error
             return false;
         }
         delete tokens;

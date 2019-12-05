@@ -20,6 +20,7 @@ void Label::setValue(int i){
 void Label::serialize(QJsonObject &json){
     json["identifierType"] = getIdentifierType();
     json["name"] = getName();
+    json["value"] = getValue();
 }
 
 void Label::unserialize(const QJsonObject &json){
