@@ -1,0 +1,25 @@
+dci answer
+dci count
+dci current
+dci sigma
+
+mov 0 answer
+mov 0 count
+mov 0 current
+rdi sigma
+
+
+#if input equals 0, end
+cmp current sigma
+jeq done
+
+main: add 1 count
+add count answer
+cmp count sigma
+jeq done
+jmp main
+
+
+done: prt "The answer is"
+prt answer
+end
