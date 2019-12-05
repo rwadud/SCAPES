@@ -35,7 +35,7 @@ prt "These are all the numbers that were added together"
 loop: prt $num+size
 add 1 size
 cmp size sigma
-jmr end
+jmr done
 jmp loop
 
 done: end
