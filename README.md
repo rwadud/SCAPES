@@ -1,9 +1,5 @@
-#   DELIVERABLE 2
+#   SCAPES
 #
-##      Redwan Wadud
-##      Mohamad-Salim Merhi
-##      Robby Zbib
-##      Pallab Saha
 #     
 ###      UNZIP SCAPES:
 ####        unzip SCAPES.zip
