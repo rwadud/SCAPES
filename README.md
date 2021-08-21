@@ -1,6 +1,4 @@
 #   SCAPES
-#
-#     
 ###      UNZIP SCAPES:
 ####        unzip SCAPES.zip
 ####        cd SCAPES/
